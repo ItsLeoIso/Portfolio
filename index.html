@@ -175,7 +175,7 @@
             <div id="content-area">
                 <div class="flex flex-col items-center">
                     <div class="text-[12rem] font-black leading-none opacity-10 select-none">Hi!</div>
-                    <div class="text-2xl font-light tracking-widest opacity-30 mt-4 uppercase italic">Welcome to my portfolio! Hope you enjoy!</div>
+                    <div class="text-2xl font-light tracking-widest opacity-30 mt-4 uppercase italic">Welcome to my portfolio</div>
                 </div>
             </div>
         </div>
@@ -249,7 +249,6 @@
                         <!-- Right Column: Picture + Icon -->
                         <div class="flex flex-col gap-[20px]">
                             <div class="about-block h-[240px] items-center justify-center overflow-hidden relative">
-                                <!-- Updated this part to show your portrait -->
                                 <img src="portrait.jpg" class="absolute inset-0 w-full h-full object-cover opacity-90" onerror="this.style.display='none'">
                                 <div class="w-20 h-20 rounded-full bg-black/20 flex items-center justify-center border border-black/10 relative z-10">
                                      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="opacity-30"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
@@ -332,7 +331,8 @@
                 <div class="px-6 py-4 bg-white/5 rounded-lg text-left mb-6">
                     <p class="text-[11px] leading-relaxed opacity-60">${item.intent}</p>
                 </div>
-                <button class="px-5 py-2 border border-white/10 rounded text-[10px] hover:bg-white hover:text-black transition-all">VIEW FULL RESOLUTION</button>
+                <!-- Updated Button Logic -->
+                <button onclick="window.open('${item.src}', '_blank')" class="px-5 py-2 border border-white/10 rounded text-[10px] hover:bg-white hover:text-black transition-all">VIEW FULL RESOLUTION</button>
             `;
         }
 
