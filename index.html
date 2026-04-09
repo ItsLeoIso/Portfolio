@@ -131,6 +131,39 @@
             padding: 40px;
         }
 
+        /* Modal Overlay Styling */
+        #image-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            cursor: zoom-out;
+        }
+
+        #image-overlay.active {
+            display: flex;
+            opacity: 1;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .overlay-img {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-contain: fit;
+            box-shadow: 0 0 50px rgba(0,0,0,1);
+            transform: scale(0.95);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        #image-overlay.active .overlay-img {
+            transform: scale(1);
+        }
+
         /* About Layout Styling */
         .about-container {
             display: grid;
@@ -213,11 +246,19 @@
 
     </div>
 
+    <!-- NATIVE OVERLAY SYSTEM -->
+    <div id="image-overlay" onclick="closeOverlay()">
+        <img src="" id="overlay-img" class="overlay-img">
+        <div class="absolute top-10 right-10 text-white text-xs tracking-widest opacity-40 uppercase">Click anywhere to close</div>
+    </div>
+
     <script>
         const viewport = document.getElementById('viewport');
         const contentArea = document.getElementById('content-area');
         const fileList = document.getElementById('file-list');
         const filePreview = document.getElementById('file-preview');
+        const imageOverlay = document.getElementById('image-overlay');
+        const overlayImg = document.getElementById('overlay-img');
 
         const gallery = [
             { id: 1, cat: "Wildlife", src: "Gatto_Nero.JPG", title: "Feline Shadows", intent: "The silence of a hunter. Captured in the low Swiss sun to emphasize the depth of the blacks." },
@@ -329,14 +370,29 @@
                 <div class="px-6 py-4 bg-white/5 rounded-lg text-left mb-6">
                     <p class="text-[11px] leading-relaxed opacity-60">${item.intent}</p>
                 </div>
-                <!-- Using a standard anchor tag styled as a button to bypass window.open restrictions -->
-                <a href="${item.src}" target="_blank" rel="noopener noreferrer" class="inline-block px-5 py-2 border border-white/10 rounded text-[10px] hover:bg-white hover:text-black transition-all">VIEW FULL RESOLUTION</a>
+                <button onclick="openOverlay('${item.src}')" class="px-5 py-2 border border-white/10 rounded text-[10px] hover:bg-white hover:text-black transition-all">VIEW FULL RESOLUTION</button>
             `;
+        }
+
+        // Overlay Logic
+        function openOverlay(src) {
+            overlayImg.src = src;
+            imageOverlay.classList.add('active');
+        }
+
+        function closeOverlay() {
+            imageOverlay.classList.remove('active');
+            setTimeout(() => { overlayImg.src = ''; }, 300);
         }
 
         window.onload = () => {
              loadProjectDir('Landscape', document.querySelector('#folder-list .finder-item'));
         };
+
+        // Accessibility: Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Escape") closeOverlay();
+        });
     </script>
 </body>
 </html>
