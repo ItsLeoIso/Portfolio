@@ -3,340 +3,342 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ITSLEO.ISO | Cinematic Photography</title>
-    
-    <!-- React & Tailwind -->
-    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Photography Portfolio - Concept</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Inter:wght@300;400&display=swap');
-        
+        :root {
+            --bg-color: #0c0c0c;
+            --text-color: #999999;
+            --highlight-bg: #d34a24;
+            --highlight-text: #ffffff;
+            --card-bg: #1a1a1a;
+            --finder-bg: #161616;
+            --finder-accent: #007aff;
+        }
+
         body {
-            background-color: #050505;
-            color: #ffffff;
-            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             margin: 0;
-            -webkit-font-smoothing: antialiased;
-            /* Simple deterrent for image theft */
+            font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            background-image: radial-gradient(#1a1a1a 1px, transparent 1px);
+            background-size: 30px 30px;
             -webkit-user-select: none;
-            -ms-user-select: none;
             user-select: none;
         }
 
-        h1, h2, h3, .font-serif {
-            font-family: 'Cormorant Garamond', serif;
-        }
-
-        .img-container {
-            cursor: zoom-in;
-            transition: opacity 0.6s ease;
+        /* View Switching Logic */
+        .app-viewport {
             position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
         }
 
-        /* Prevent dragging images */
-        img {
-            pointer-events: none;
-            -webkit-user-drag: none;
+        .view-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+            display: flex;
+            align-items: center;
         }
 
-        .img-container:hover img {
-            transform: scale(1.03);
+        .main-view { transform: translateX(0); opacity: 1; z-index: 10; }
+        .projects-view { transform: translateX(100%); opacity: 0; z-index: 5; }
+
+        .is-projects-active .main-view { transform: translateX(-100%); opacity: 0; }
+        .is-projects-active .projects-view { transform: translateX(0); opacity: 1; z-index: 10; }
+
+        .list-container {
+            padding-left: 60px;
+            width: 450px;
+            flex-shrink: 0;
         }
 
-        .lightbox-overlay {
-            background: rgba(0, 0, 0, 0.98);
-            backdrop-filter: blur(15px);
+        .nav-item {
+            display: block;
+            width: fit-content;
+            font-size: 3.5rem;
+            font-weight: 800;
+            padding: 0.2rem 1.5rem;
+            margin: 0.2rem 0;
+            cursor: pointer;
+            transition: all 0.2s ease-out;
+            border-radius: 4px;
         }
 
-        /* Hide scrollbar but keep functionality */
-        ::-webkit-scrollbar { display: none; }
-        html { scroll-behavior: smooth; }
+        .nav-item:hover {
+            background-color: var(--highlight-bg);
+            color: var(--highlight-text);
+            transform: scale(1.05) translateX(10px);
+        }
+
+        .finder-window {
+            margin-left: 60px;
+            width: 80%;
+            height: 70vh;
+            background: var(--finder-bg);
+            border: 1px solid #333;
+            border-radius: 12px;
+            display: flex;
+            overflow: hidden;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.7);
+        }
+
+        .finder-col {
+            flex: 1;
+            border-right: 1px solid #222;
+            padding: 10px 0;
+            overflow-y: auto;
+        }
+
+        .finder-item {
+            padding: 10px 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: #bbb;
+        }
+
+        .finder-item:hover { background: rgba(255,255,255,0.05); }
+        .finder-item.active { background: var(--finder-accent); color: white; }
+
+        .back-nav {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: opacity 0.2s;
+            z-index: 100;
+        }
+        .back-nav:hover { opacity: 1; }
+
+        #content-area {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        /* About Layout Styling */
+        .about-container {
+            display: grid;
+            grid-template-columns: 350px 250px;
+            gap: 20px;
+            padding: 30px;
+            border-radius: 4px;
+        }
+
+        .about-block {
+            background-color: #d34a24;
+            color: black;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            border-radius: 2px;
+        }
 
         .fade-in {
-            animation: fadeIn 1.5s ease forwards;
+            animation: fadeIn 0.8s ease forwards;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Custom Select Styling */
-        select {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
         }
     </style>
 </head>
 <body oncontextmenu="return false;">
-    <div id="root"></div>
 
-    <script type="text/babel">
-        const { useState, useEffect } = React;
+    <div class="app-viewport" id="viewport">
+        
+        <!-- MAIN NAVIGATION LAYER -->
+        <div class="view-layer main-view">
+            <div class="list-container">
+                <div class="nav-item" onclick="switchMainTab('home')">#Home</div>
+                <div class="nav-item" onclick="switchMainTab('about')">#About</div>
+                <div class="nav-item" onclick="openProjects()">#Projects</div>
+                <div class="nav-item" onclick="switchMainTab('contact')">#Contact</div>
+            </div>
 
-        const IconClose = () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2"><path d="M18 6L6 18M6 6l12 12"/></svg>;
-        const IconInstagram = () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>;
+            <div id="content-area">
+                <div class="flex flex-col items-center">
+                    <div class="text-[12rem] font-black leading-none opacity-10 select-none">Hi!</div>
+                    <div class="text-2xl font-light tracking-widest opacity-30 mt-4 uppercase italic">Welcome to my portfolio! Hope you enjoy!</div>
+                </div>
+            </div>
+        </div>
 
-        const App = () => {
-            const [lang, setLang] = useState("en");
-            const [selectedId, setSelectedId] = useState(null);
-            const [filter, setFilter] = useState("All");
-            const [scrolled, setScrolled] = useState(false);
+        <!-- PROJECTS FINDER LAYER -->
+        <div class="view-layer projects-view">
+            <div class="back-nav" onclick="closeProjects()"># <=</div>
+            
+            <div class="finder-window">
+                <div class="finder-column finder-col" id="folder-list">
+                    <div class="finder-item active" onclick="loadProjectDir('Landscape', this)">
+                        <svg width="18" height="14" viewBox="0 0 24 24" fill="currentColor" class="text-blue-500"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                        Landscape
+                    </div>
+                    <div class="finder-item" onclick="loadProjectDir('Portrait', this)">
+                        <svg width="18" height="14" viewBox="0 0 24 24" fill="currentColor" class="text-blue-500"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                        Portrait
+                    </div>
+                    <div class="finder-item" onclick="loadProjectDir('Wildlife', this)">
+                        <svg width="18" height="14" viewBox="0 0 24 24" fill="currentColor" class="text-blue-500"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                        Wildlife
+                    </div>
+                </div>
 
-            useEffect(() => {
-                const handleScroll = () => setScrolled(window.scrollY > 50);
-                window.addEventListener('scroll', handleScroll);
-                return () => window.removeEventListener('scroll', handleScroll);
-            }, []);
+                <div class="finder-column finder-col bg-black/10" id="file-list"></div>
 
-            // YOUR ORIGINAL ARRAY (Untouched)
-            const gallery = [
-                { id: 1, cat: "Wildlife", src: "Gatto_Nero.JPG", title: "Feline Shadows", intent: "The silence of a hunter. Captured in the low Swiss sun to emphasize the depth of the blacks." },
-                { id: 2, cat: "Landscape", src: "Quella_Suprema.jpg", title: "Alpine Motion", intent: "A meditation on the permanence of mountains versus the transience of clouds." },
-                { id: 3, cat: "Portrait", src: "Gnocha_Ginger_Su_Moto.jpg", title: "Vagabond", intent: "Natural light study. Looking for the raw narrative between subject and machine." },
-                { id: 4, cat: "Wildlife", src: "Uccelin.JPG", title: "Isolation", intent: "One small life against the vastness of the Swiss winter." },
-                { id: 5, cat: "Landscape", src: "Fiume.jpg", title: "Blue Hour", intent: "The river as a mirror. Long exposure used to turn water into silk." },
-                { id: 6, cat: "Landscape", src: "Acqua_nuvola.jpg", title: "Mist", intent: "High-key landscape exploring the boundary where water becomes sky." },
-                { id: 7, cat: "Landscape", src: "Blessed_ahh.jpg", title: "Light Rays", intent: "Chasing the 'God Rays' through a forest canopy near Zurich." },
-                { id: 8, cat: "Landscape", src: "Piccolo_farm_Spotv.2.jpg", title: "Pastoral", intent: "Geometric patterns in agriculture, showcasing the organized beauty of our hills." },
-                { id: 9, cat: "Portrait", src: "Moto_cicco.jpg", title: "Mechanic", intent: "Close-up textural study. Chrome, oil, and the stories they tell." },
-            ];
+                <div class="finder-column finder-col bg-black/20 flex flex-col items-center justify-center p-8 text-center" id="file-preview">
+                    <div class="w-24 h-24 bg-white/5 rounded-xl mb-4 flex items-center justify-center">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" class="opacity-20"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                    </div>
+                    <p class="text-xs opacity-30">Selection Preview</p>
+                </div>
+            </div>
+        </div>
 
-            // Translation Dictionary (Maps to English strings and Array IDs)
-            const i18n = {
-                en: {
-                    nav: { gallery: "Gallery", eye: "The Eye", follow: "Follow" },
-                    hero: { title: "Cinematic", titleSpan: "Aura", subtitle: "Isolated moments in the Swiss landscape.", scroll: "Scroll to enter" },
-                    cat: { "All": "All", "Landscape": "Landscape", "Portrait": "Portrait", "Wildlife": "Wildlife" },
-                    about: { title: "The Eye", quote: "\"I am drawn to the stillness between the peaks of the Swiss Alps. My work isn't about the spectacle of nature, but the quiet, often overlooked shadows that give light its meaning.\"", desc: "Based in the heart of Switzerland, I focus on cinematic atmosphere and visual storytelling. Each piece is an attempt to capture the 'ISO' of the moment—the specific grain and feeling of a memory.", work: "Work with me" },
-                    footer: { connections: "Connections", established: "Switzerland  //  Established MMXXV" }
-                },
-                de: {
-                    nav: { gallery: "Galerie", eye: "Das Auge", follow: "Folgen" },
-                    hero: { title: "Zinematische", titleSpan: "Aura", subtitle: "Isolierte Momente in der Schweizer Landschaft.", scroll: "Scrollen zum Eintreten" },
-                    cat: { "All": "Alle", "Landscape": "Landschaft", "Portrait": "Porträt", "Wildlife": "Natur" },
-                    about: { title: "Das Auge", quote: "\"Mich zieht die Stille zwischen den Gipfeln der Schweizer Alpen an. Bei meiner Arbeit geht es nicht um das Spektakel der Natur, sondern um die leisen, oft übersehenen Schatten, die dem Licht seine Bedeutung verleihen.\"", desc: "Im Herzen der Schweiz beheimatet, konzentriere ich mich auf filmische Atmosphäre und visuelles Storytelling. Jedes Bild ist ein Versuch, das 'ISO' des Augenblicks einzufangen – die spezifische Körnung und das Gefühl einer Erinnerung.", work: "Zusammenarbeiten" },
-                    footer: { connections: "Verbindungen", established: "Schweiz  //  Gegründet MMXXV" },
-                    gallery: {
-                        1: { title: "Feline Schatten", intent: "Die Stille eines Jägers. Eingefangen in der tief stehenden Schweizer Sonne, um die Tiefe des Schwarz zu betonen." },
-                        2: { title: "Alpine Bewegung", intent: "Eine Meditation über die Beständigkeit der Berge gegenüber der Vergänglichkeit der Wolken." },
-                        3: { title: "Vagabund", intent: "Studie mit natürlichem Licht. Auf der Suche nach der rohen Erzählung zwischen Subjekt und Maschine." },
-                        4: { title: "Isolation", intent: "Ein kleines Leben gegen die Weite des Schweizer Winters." },
-                        5: { title: "Blaue Stunde", intent: "Der Fluss als Spiegel. Langzeitbelichtung, um Wasser in Seide zu verwandeln." },
-                        6: { title: "Nebel", intent: "High-Key-Landschaft, die die Grenze erkundet, an der Wasser zu Himmel wird." },
-                        7: { title: "Lichtstrahlen", intent: "Auf der Jagd nach den 'God Rays' durch ein Blätterdach in der Nähe von Zürich." },
-                        8: { title: "Pastoral", intent: "Geometrische Muster in der Landwirtschaft, die die organisierte Schönheit unserer Hügel zeigen." },
-                        9: { title: "Mechaniker", intent: "Strukturelle Nahaufnahme. Chrom, Öl und die Geschichten, die sie erzählen." }
-                    }
-                },
-                it: {
-                    nav: { gallery: "Galleria", eye: "L'Occhio", follow: "Segui" },
-                    hero: { title: "Aura", titleSpan: "Cinematografica", subtitle: "Momenti isolati nel paesaggio svizzero.", scroll: "Scorri per entrare" },
-                    cat: { "All": "Tutti", "Landscape": "Paesaggio", "Portrait": "Ritratto", "Wildlife": "Natura" },
-                    about: { title: "L'Occhio", quote: "\"Sono attratto dalla quiete tra le vette delle Alpi svizzere. Il mio lavoro non riguarda lo spettacolo della natura, ma le ombre silenziose e spesso trascurate che danno senso alla luce.\"", desc: "Con base nel cuore della Svizzera, mi concentro sull'atmosfera cinematografica e sulla narrazione visiva. Ogni opera è un tentativo di catturare l' 'ISO' del momento—la grana specifica e il sentimento di un ricordo.", work: "Lavora con me" },
-                    footer: { connections: "Connessioni", established: "Svizzera  //  Fondata MMXXV" },
-                    gallery: {
-                        1: { title: "Ombre Feline", intent: "Il silenzio di un cacciatore. Catturato sotto il basso sole svizzero per enfatizzare la profondità dei neri." },
-                        2: { title: "Movimento Alpino", intent: "Una meditazione sulla permanenza delle montagne contro la caducità delle nuvole." },
-                        3: { title: "Vagabondo", intent: "Studio di luce naturale. Alla ricerca della narrazione cruda tra soggetto e macchina." },
-                        4: { title: "Isolamento", intent: "Una piccola vita contro la vastità dell'inverno svizzero." },
-                        5: { title: "Ora Blu", intent: "Il fiume come specchio. Lunga esposizione usata per trasformare l'acqua in seta." },
-                        6: { title: "Nebbia", intent: "Paesaggio high-key che esplora il confine in cui l'acqua diventa cielo." },
-                        7: { title: "Raggi di Luce", intent: "A caccia dei 'Raggi di Dio' attraverso la chioma di una foresta vicino a Zurigo." },
-                        8: { title: "Pastorale", intent: "Motivi geometrici nell'agricoltura, che mostrano la bellezza organizzata delle nostre colline." },
-                        9: { title: "Meccanico", intent: "Studio testurale ravvicinato. Cromo, olio e le storie che raccontano." }
-                    }
-                }
-            };
+    </div>
 
-            const categories = ["All", "Landscape", "Portrait", "Wildlife"];
-            const filteredGallery = filter === "All" ? gallery : gallery.filter(img => img.cat === filter);
-            const selectedImg = gallery.find(img => img.id === selectedId);
+    <script>
+        const viewport = document.getElementById('viewport');
+        const contentArea = document.getElementById('content-area');
+        const fileList = document.getElementById('file-list');
+        const filePreview = document.getElementById('file-preview');
 
-            const t = i18n[lang]; // Active translations
+        const gallery = [
+            { id: 1, cat: "Wildlife", src: "Gatto_Nero.JPG", title: "Feline Shadows", intent: "The silence of a hunter. Captured in the low Swiss sun to emphasize the depth of the blacks." },
+            { id: 2, cat: "Landscape", src: "Quella_Suprema.jpg", title: "Alpine Motion", intent: "A meditation on the permanence of mountains versus the transience of clouds." },
+            { id: 3, cat: "Portrait", src: "Gnocha_Ginger_Su_Moto.jpg", title: "Vagabond", intent: "Natural light study. Looking for the raw narrative between subject and machine." },
+            { id: 4, cat: "Wildlife", src: "Uccelin.JPG", title: "Isolation", intent: "One small life against the vastness of the Swiss winter." },
+            { id: 5, cat: "Landscape", src: "Fiume.jpg", title: "Blue Hour", intent: "The river as a mirror. Long exposure used to turn water into silk." },
+            { id: 6, cat: "Landscape", src: "Acqua_nuvola.jpg", title: "Mist", intent: "High-key landscape exploring the boundary where water becomes sky." },
+            { id: 7, cat: "Landscape", src: "Blessed_ahh.jpg", title: "Light Rays", intent: "Chasing the 'God Rays' through a forest canopy near Zurich." },
+            { id: 8, cat: "Landscape", src: "Piccolo_farm_Spotv.2.jpg", title: "Pastoral", intent: "Geometric patterns in agriculture, showcasing the organized beauty of our hills." },
+            { id: 9, cat: "Portrait", src: "Moto_cicco.jpg", title: "Mechanic", intent: "Close-up textural study. Chrome, oil, and the stories they tell." }
+        ];
 
-            // Helper function to get translated gallery text
-            const getGalleryText = (id, key, fallback) => {
-                if (lang === "en") return fallback;
-                return t.gallery[id][key];
-            };
-
-            return (
-                <div className="min-h-screen selection:bg-white selection:text-black">
-                    {/* Navigation - Ultra Minimalist */}
-                    <nav className={`fixed top-0 w-full z-50 p-6 md:p-10 flex justify-between items-center transition-all duration-500 ${scrolled ? 'bg-black/80 backdrop-blur-md py-4' : 'bg-transparent'}`}>
-                        <div className="text-xl tracking-[0.4em] font-light">ITSLEO.ISO</div>
-                        <div className="flex gap-6 md:gap-8 items-center text-[10px] tracking-widest uppercase">
-                            
-                            {/* Language Selector */}
-                            <select 
-                                value={lang} 
-                                onChange={(e) => setLang(e.target.value)}
-                                className="bg-transparent text-white outline-none cursor-pointer opacity-60 hover:opacity-100 transition-opacity font-bold uppercase"
-                            >
-                                <option value="en" className="bg-black text-white">EN</option>
-                                <option value="de" className="bg-black text-white">DE</option>
-                                <option value="it" className="bg-black text-white">IT</option>
-                            </select>
-
-                            <a href="#work" className="opacity-60 hover:opacity-100 transition-opacity hidden md:block">{t.nav.gallery}</a>
-                            <a href="#about" className="opacity-60 hover:opacity-100 transition-opacity hidden md:block">{t.nav.eye}</a>
-                            <a href="https://www.instagram.com/itsleo.iso/" target="_blank" className="opacity-60 hover:opacity-100 transition-opacity flex items-center gap-2">
-                                <IconInstagram /> <span className="hidden sm:inline">{t.nav.follow}</span>
-                            </a>
-                        </div>
-                    </nav>
-
-                    {/* Hero Section */}
-                    <header className="h-screen w-full relative overflow-hidden flex items-center justify-center bg-black">
-                        <img 
-                            src="https://images.unsplash.com/photo-1452587925148-ce544e77e70d?q=80&w=2400&auto=format&fit=crop" 
-                            className="absolute inset-0 w-full h-full object-cover opacity-50 scale-105"
-                            alt="Background"
-                        />
-                        <div className="relative z-10 text-center px-6">
-                            <h1 className="text-5xl md:text-[10rem] font-light tracking-tighter mb-4 fade-in leading-none">
-                                {t.hero.title} <span className="italic font-serif">{t.hero.titleSpan}</span>
-                            </h1>
-                            <p className="font-serif text-xl md:text-3xl italic opacity-70 fade-in" style={{animationDelay: '0.4s'}}>
-                                {t.hero.subtitle}
+        function switchMainTab(tab) {
+            if(tab === 'about') {
+                contentArea.innerHTML = `
+                    <div class="about-container fade-in">
+                        <!-- Left Block: About text -->
+                        <div class="about-block h-[500px]">
+                            <h2 class="text-3xl font-black mb-4 uppercase tracking-tighter italic">About Text</h2>
+                            <p class="text-sm font-medium leading-relaxed">
+                                I am a 16-year-old photographer based in Switzerland. My work focuses on capturing the raw beauty of the Swiss landscape, the character of its wildlife, and the unique stories found in portraits.
+                            </p>
+                            <p class="text-sm font-medium leading-relaxed mt-4 opacity-80">
+                                Using the interplay of light and shadow, I strive to create "ISO moments"—stills that feel isolated from time and filled with narrative intent.
                             </p>
                         </div>
-                        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 text-[10px] tracking-[0.4em] opacity-30 uppercase whitespace-nowrap">
-                            {t.hero.scroll}
-                        </div>
-                    </header>
-
-                    {/* Filter Navigation */}
-                    <section id="work" className="pt-40 pb-16 px-8 text-center">
-                        <div className="flex flex-wrap justify-center gap-8 md:gap-16 text-[11px] tracking-[0.3em] uppercase opacity-50">
-                            {categories.map(c => (
-                                <button 
-                                    key={c} 
-                                    onClick={() => setFilter(c)}
-                                    className={`hover:text-white transition-all relative pb-2 ${filter === c ? 'text-white opacity-100' : ''}`}
-                                >
-                                    {t.cat[c]}
-                                    {filter === c && <div className="absolute bottom-0 left-0 w-full h-px bg-white animate-in slide-in-from-left duration-500"></div>}
-                                </button>
-                            ))}
-                        </div>
-                    </section>
-
-                    {/* Gallery Grid */}
-                    <main className="px-6 md:px-20 pb-40">
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-20">
-                            {filteredGallery.map(img => (
-                                <div 
-                                    key={img.id} 
-                                    className="img-container group"
-                                    onClick={() => setSelectedId(img.id)}
-                                >
-                                    <div className="aspect-[3/4] overflow-hidden bg-zinc-900/50 relative">
-                                        <img 
-                                            src={img.src} 
-                                            alt={getGalleryText(img.id, 'title', img.title)}
-                                            className="w-full h-full object-cover transition-transform duration-1000 grayscale-[0.2] group-hover:grayscale-0" 
-                                            loading="lazy"
-                                        />
-                                        <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500"></div>
-                                    </div>
-                                    <div className="mt-6 flex justify-between items-baseline">
-                                        <h3 className="text-sm font-light tracking-widest uppercase opacity-90">
-                                            {getGalleryText(img.id, 'title', img.title)}
-                                        </h3>
-                                        <span className="text-[9px] tracking-widest opacity-30 uppercase italic">
-                                            {t.cat[img.cat]}
-                                        </span>
-                                    </div>
-                                    <p className="mt-2 font-serif italic text-sm text-white/40 leading-relaxed max-w-[90%]">
-                                        {getGalleryText(img.id, 'intent', img.intent)}
-                                    </p>
+                        
+                        <!-- Right Column: Picture + Icon -->
+                        <div class="flex flex-col gap-[20px]">
+                            <div class="about-block h-[240px] items-center justify-center overflow-hidden relative">
+                                <!-- Updated this part to show your portrait -->
+                                <img src="portrait.jpg" class="absolute inset-0 w-full h-full object-cover opacity-90" onerror="this.style.display='none'">
+                                <div class="w-20 h-20 rounded-full bg-black/20 flex items-center justify-center border border-black/10 relative z-10">
+                                     <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="opacity-30"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                                 </div>
-                            ))}
-                        </div>
-                    </main>
-
-                    {/* About Section */}
-                    <section id="about" className="py-60 bg-[#f9f9f9] text-black px-8">
-                        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
-                            <div className="aspect-[4/5] bg-zinc-200 overflow-hidden grayscale">
-                                <img 
-                                    src="Aura_Portrait.jpg" 
-                                    className="w-full h-full object-cover"
-                                    alt="Leo"
-                                />
+                                <span class="text-[10px] uppercase font-bold tracking-widest opacity-40 mt-2 z-10">Self Portrait</span>
                             </div>
-                            <div className="text-left">
-                                <h2 className="text-5xl md:text-7xl font-light mb-8 tracking-tighter">{t.about.title}</h2>
-                                <p className="font-serif text-xl italic mb-6 leading-relaxed opacity-80">
-                                    {t.about.quote}
-                                </p>
-                                <p className="text-sm tracking-wide leading-relaxed opacity-60">
-                                    {t.about.desc}
-                                </p>
-                                <div className="mt-12">
-                                    <a href="mailto:itsleo.iso.contact@gmail.com" className="text-xs tracking-[0.3em] uppercase border-b border-black pb-2 hover:opacity-50 transition-opacity font-bold">{t.about.work}</a>
-                                </div>
+                            <div class="about-block h-[240px] items-center justify-center text-center">
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" class="mb-3 opacity-60"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                                <span class="text-[10px] uppercase font-bold tracking-widest opacity-40">Main Setup</span>
                             </div>
                         </div>
-                    </section>
+                    </div>
+                `;
+            } else if (tab === 'home') {
+                contentArea.innerHTML = `
+                    <div class="flex flex-col items-center">
+                        <div class="text-[12rem] font-black leading-none opacity-10 select-none">Hi!</div>
+                        <div class="text-2xl font-light tracking-widest opacity-30 mt-4 uppercase italic">Welcome to my portfolio</div>
+                    </div>
+                `;
+            } else if (tab === 'contact') {
+                contentArea.innerHTML = `
+                    <div class="flex flex-col items-center text-center">
+                        <div class="text-[8rem] font-black leading-none opacity-10 select-none mb-8">Contact Me!</div>
+                        <div class="flex items-center gap-4 mb-2">
+                            <span class="text-4xl font-bold tracking-tighter text-white/60 italic">ItsLeo.ISO</span>
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="opacity-40"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                        </div>
+                        <div class="text-lg font-light tracking-widest opacity-30 lowercase">example@gmail.com</div>
+                    </div>
+                `;
+            } else {
+                contentArea.innerHTML = `<div class="text-9xl font-black opacity-10 uppercase select-none">${tab}</div>`;
+            }
+        }
 
-                    {/* Footer / Contact */}
-                    <footer className="py-32 px-8 text-center">
-                        <div className="mb-20">
-                            <h4 className="text-[10px] tracking-[0.5em] uppercase opacity-40 mb-10 font-bold">{t.footer.connections}</h4>
-                            <div className="flex justify-center gap-12 text-sm tracking-widest">
-                                <a href="https://www.instagram.com/itsleo.iso/" target="_blank" className="hover:opacity-50 transition-opacity">Instagram</a>
-                                <a href="mailto:itsleo.iso.contact@gmail.com" className="hover:opacity-50 transition-opacity">Email</a>
-                            </div>
-                        </div>
-                        <div className="h-px w-20 bg-white/10 mx-auto mb-20"></div>
-                        <div className="text-[10px] tracking-[0.4em] opacity-30 uppercase">
-                            {t.footer.established}
-                        </div>
-                    </footer>
+        function openProjects() {
+            viewport.classList.add('is-projects-active');
+        }
 
-                    {/* Lightbox */}
-                    {selectedId && (
-                        <div className="fixed inset-0 z-[100] lightbox-overlay flex items-center justify-center p-4 md:p-16 animate-in fade-in duration-500">
-                            <button 
-                                onClick={() => setSelectedId(null)}
-                                className="absolute top-10 right-10 text-white/50 hover:text-white transition-colors"
-                            >
-                                <IconClose />
-                            </button>
-                            
-                            <div className="max-w-7xl w-full h-full flex flex-col items-center justify-center">
-                                <div className="relative group max-h-[80vh]">
-                                    <img 
-                                        src={selectedImg.src} 
-                                        className="max-w-full max-h-[80vh] object-contain shadow-2xl"
-                                    />
-                                    {/* Right-click message or invisible overlay */}
-                                    <div className="absolute inset-0" onContextMenu={(e) => e.preventDefault()}></div>
-                                </div>
-                                <div className="mt-12 text-center max-w-xl">
-                                    <h4 className="text-3xl font-light mb-4 tracking-tight">
-                                        {getGalleryText(selectedImg.id, 'title', selectedImg.title)}
-                                    </h4>
-                                    <p className="font-serif italic text-lg text-white/60">
-                                        {getGalleryText(selectedImg.id, 'intent', selectedImg.intent)}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    )}
+        function closeProjects() {
+            viewport.classList.remove('is-projects-active');
+        }
+
+        function loadProjectDir(category, el) {
+            document.querySelectorAll('#folder-list .finder-item').forEach(i => i.classList.remove('active'));
+            el.classList.add('active');
+
+            const filtered = gallery.filter(item => item.cat === category);
+            fileList.innerHTML = filtered.map(item => `
+                <div class="finder-item" onclick="previewFile(${item.id})">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="opacity-40"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+                    ${item.src}
                 </div>
-            );
-        };
+            `).join('');
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
+            filePreview.innerHTML = `
+                <div class="w-24 h-24 bg-white/5 rounded-xl mb-4 flex items-center justify-center">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" class="opacity-20"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                </div>
+                <p class="text-xs opacity-30">Category: ${category}</p>
+            `;
+        }
+
+        function previewFile(id) {
+            const item = gallery.find(g => g.id === id);
+            if(!item) return;
+
+            document.querySelectorAll('#file-list .finder-item').forEach(i => {
+                if(i.innerText.trim() === item.src) i.classList.add('active');
+                else i.classList.remove('active');
+            });
+
+            filePreview.innerHTML = `
+                <div class="w-full h-48 bg-white/5 rounded-lg mb-6 flex items-center justify-center overflow-hidden">
+                    <img src="${item.src}" class="max-w-full max-h-full object-contain opacity-70" onerror="this.parentElement.innerHTML='<span class=opacity-20>File: ${item.src}</span>'">
+                </div>
+                <h4 class="text-white text-sm font-bold mb-1">${item.title}</h4>
+                <p class="text-[10px] opacity-40 uppercase tracking-widest mb-4 italic">${item.cat} Session</p>
+                <div class="px-6 py-4 bg-white/5 rounded-lg text-left mb-6">
+                    <p class="text-[11px] leading-relaxed opacity-60">${item.intent}</p>
+                </div>
+                <button class="px-5 py-2 border border-white/10 rounded text-[10px] hover:bg-white hover:text-black transition-all">VIEW FULL RESOLUTION</button>
+            `;
+        }
+
+        window.onload = () => {
+             loadProjectDir('Landscape', document.querySelector('#folder-list .finder-item'));
+        };
     </script>
 </body>
 </html>
