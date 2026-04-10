@@ -1,13 +1,21 @@
 lucide.createIcons();
 
-// PATHS BASED ON YOUR REPOSITORY
+// 1. GALLERY DATA
+// Add your new photos here. Ensure the 'cat' matches the folder names below.
 const gallery = [
     { id: 1, cat: "Landscape", src: "Categories/Landscape/Gatto_Nero.JPG", title: "Gatto Nero" },
     { id: 2, cat: "Landscape", src: "Categories/Landscape/Blessed_ahh.jpg", title: "Blessed" },
     { id: 3, cat: "Landscape", src: "Categories/Landscape/Acqua_nuvola.jpg", title: "Mist" },
     { id: 4, cat: "Landscape", src: "Categories/Landscape/Fiume.jpg", title: "River" },
     { id: 5, cat: "Landscape", src: "Categories/Landscape/Casa.jpg", title: "Structure" },
-    { id: 6, cat: "Landscape", src: "Categories/Landscape/Aura_Portrait.jpg", title: "Aura" }
+    { id: 6, cat: "Landscape", src: "Categories/Landscape/Aura_Portrait.jpg", title: "Aura" },
+    
+    // Portraits Category
+    { id: 7, cat: "Portraits", src: "Categories/Portraits/Swiss_Soul.jpg", title: "Swiss Soul" },
+    { id: 8, cat: "Portraits", src: "Categories/Portraits/ISO_Study_01.jpg", title: "Technical Portrait" },
+
+    // Wildlife Category
+    { id: 9, cat: "Wildlife", src: "Categories/Wildlife/Alpine_Nature.jpg", title: "Alpine Life" }
 ];
 
 function selectDevice(mode, el) {
@@ -20,7 +28,6 @@ function selectDevice(mode, el) {
             chooser.style.display = 'none';
             if(mode === 'desktop') {
                 document.getElementById('desktop-layout').style.display = 'block';
-                // Force the layout to take full height
                 document.getElementById('desktop-layout').classList.add('h-screen', 'flex', 'items-center');
                 switchMainTab('home');
             } else {
@@ -36,8 +43,6 @@ function switchMainTab(tab) {
     document.getElementById('nav-' + tab)?.classList.add('active-tab');
     const area = document.getElementById('content-area');
     
-    // We force the content area to be exactly the height of the viewport 
-    // This is 'ts' for making centering work every time.
     area.className = "flex-grow flex flex-col justify-center items-center min-h-screen p-10 overflow-hidden";
 
     if(tab === 'about') {
@@ -94,6 +99,14 @@ function openProjects() {
     document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active-tab'));
     document.getElementById('nav-projects').classList.add('active-tab');
     document.getElementById('viewport').classList.add('is-projects-active');
+    
+    // Updated folder list with Portraits and Wildlife
+    document.getElementById('folder-list').innerHTML = `
+        <div class="finder-item px-6 py-3 cursor-pointer text-sm hover:bg-white/5 active" onclick="loadProjectDir('Landscape', this)">Landscape</div>
+        <div class="finder-item px-6 py-3 cursor-pointer text-sm hover:bg-white/5" onclick="loadProjectDir('Portraits', this)">Portraits</div>
+        <div class="finder-item px-6 py-3 cursor-pointer text-sm hover:bg-white/5" onclick="loadProjectDir('Wildlife', this)">Wildlife</div>
+    `;
+
     loadProjectDir('Landscape', document.querySelector('#folder-list .finder-item'));
 }
 
@@ -106,16 +119,28 @@ function loadProjectDir(cat, el) {
     document.querySelectorAll('#folder-list .finder-item').forEach(i => i.classList.remove('active'));
     el.classList.add('active');
     const filtered = gallery.filter(i => i.cat === cat);
-    document.getElementById('file-list').innerHTML = filtered.map(i => `<div class="finder-item" onclick="previewFile(${i.id})"><i data-lucide="file-text" class="w-4 h-4 opacity-40"></i>${i.src.split('/').pop()}</div>`).join('');
+    
+    if (filtered.length === 0) {
+        document.getElementById('file-list').innerHTML = `<div class="p-6 text-[10px] opacity-20 uppercase tracking-widest">No captures yet</div>`;
+    } else {
+        document.getElementById('file-list').innerHTML = filtered.map(i => `
+            <div class="finder-item px-6 py-3 flex items-center gap-3 cursor-pointer text-sm hover:bg-white/5" onclick="previewFile(${i.id})">
+                <i data-lucide="image" class="w-4 h-4 opacity-40"></i>
+                ${i.src.split('/').pop()}
+            </div>
+        `).join('');
+    }
     lucide.createIcons();
 }
 
 function previewFile(id) {
     const item = gallery.find(g => g.id === id);
     document.getElementById('file-preview').innerHTML = `
-        <div class="w-full h-48 bg-white/5 rounded-lg mb-4 flex items-center justify-center overflow-hidden"><img src="${item.src}" class="max-h-full object-contain opacity-70"></div>
+        <div class="w-full h-48 bg-white/5 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
+            <img src="${item.src}" class="max-h-full object-contain opacity-70" onerror="this.src='https://via.placeholder.com/300x200?text=Image+Not+Found'">
+        </div>
         <h4 class="text-white text-sm font-bold mb-1">${item.title}</h4>
-        <p class="text-[10px] opacity-40 italic mb-4">ISO Lifestyle Study</p>
+        <p class="text-[10px] opacity-40 italic mb-4">${item.cat} Study</p>
         <button onclick="openOverlay('${item.src}')" class="w-full px-4 py-2 border border-white/20 text-[10px] font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all">View Full Res</button>
     `;
 }
