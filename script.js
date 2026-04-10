@@ -20,6 +20,8 @@ function selectDevice(mode, el) {
             chooser.style.display = 'none';
             if(mode === 'desktop') {
                 document.getElementById('desktop-layout').style.display = 'block';
+                // Force the layout to take full height
+                document.getElementById('desktop-layout').classList.add('h-screen', 'flex', 'items-center');
                 switchMainTab('home');
             } else {
                 document.getElementById('mobile-layout').style.display = 'block';
@@ -34,8 +36,9 @@ function switchMainTab(tab) {
     document.getElementById('nav-' + tab)?.classList.add('active-tab');
     const area = document.getElementById('content-area');
     
-    // Using h-full and flex-col to ensure it stretches and centers vertically
-    area.className = "flex-grow flex flex-col justify-center items-center h-full p-10";
+    // We force the content area to be exactly the height of the viewport 
+    // This is 'ts' for making centering work every time.
+    area.className = "flex-grow flex flex-col justify-center items-center min-h-screen p-10 overflow-hidden";
 
     if(tab === 'about') {
         area.innerHTML = `
