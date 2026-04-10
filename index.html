@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photography Portfolio - Leo.ISO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="device-chooser">
+        <div class="flex flex-col md:flex-row gap-6">
+            <div class="chooser-card" onclick="selectDevice('desktop', this)">
+                <i data-lucide="monitor" class="w-8 h-8 text-white/20"></i>
+                <span class="text-[10px] uppercase tracking-widest mt-4">Desktop</span>
+            </div>
+            <div class="chooser-card" onclick="selectDevice('mobile', this)">
+                <i data-lucide="smartphone" class="w-8 h-8 text-white/20"></i>
+                <span class="text-[10px] uppercase tracking-widest mt-4">Mobile</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="desktop-layout" style="display:none;">
+        <div class="app-viewport" id="viewport">
+            <div class="view-layer main-view">
+                <div class="list-container">
+                    <div class="nav-item active-tab" id="nav-home" onclick="switchMainTab('home')">#Home</div>
+                    <div class="nav-item" id="nav-about" onclick="switchMainTab('about')">#About</div>
+                    <div class="nav-item" id="nav-projects" onclick="openProjects()">#Projects</div>
+                    <div class="nav-item" id="nav-contact" onclick="switchMainTab('contact')">#Contact</div>
+                </div>
+                <div id="content-area" class="flex-grow flex justify-center items-center">
+                    <div class="text-center fade-in">
+                        <div class="text-[12rem] font-black opacity-10">Hi!</div>
+                    </div>
+                </div>
+            </div>
+            <div class="view-layer projects-view">
+                <div class="absolute top-10 left-10 text-xl font-black cursor-pointer text-white" onclick="closeProjects()"># <=</div>
+                <div class="finder-window">
+                    <div class="finder-col" id="folder-list">
+                        <div class="finder-item active" onclick="loadProjectDir('Landscape', this)">Landscape</div>
+                    </div>
+                    <div class="finder-col bg-black/10" id="file-list"></div>
+                    <div class="finder-col bg-black/20 flex flex-col items-center justify-center p-8 text-center" id="file-preview">
+                        <p class="text-xs opacity-30 uppercase tracking-widest">Select a file</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="mobile-layout">
+        <div class="grid grid-cols-2 gap-3 mb-10">
+            <button onclick="mobileSwitchTab('home')" class="mobile-nav-btn">Home</button>
+            <button onclick="mobileSwitchTab('about')" class="mobile-nav-btn">About</button>
+            <button onclick="mobileSwitchTab('projects')" class="mobile-nav-btn">Projects</button>
+            <button onclick="mobileSwitchTab('contact')" class="mobile-nav-btn">Contact</button>
+        </div>
+        <div id="mobile-content-area" class="fade-in"></div>
+    </div>
+
+    <div id="image-overlay" onclick="closeOverlay()">
+        <img src="" id="overlay-img" class="overlay-img">
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
