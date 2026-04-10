@@ -7,7 +7,7 @@ const gallery = [
     { id: 2, cat: "Landscape", src: "Categories/Landscape/Blessed_ahh.jpg", title: "Blessed" },
     { id: 3, cat: "Landscape", src: "Categories/Landscape/Casa.jpg", title: "House" },
     { id: 4, cat: "Landscape", src: "Categories/Landscape/Fiume.jpg", title: "River" },
-    { id: 5, cat: "Landscape", src: "Categories/Landscape/Piccolo_farm_Spotv.2.jpg", title: "The Cooler Aura" },
+    { id: 5, cat: "Landscape", src: "Categories/Landscape/Piccolo_farm_Spotv2.jpg", title: "The Cooler Aura" },
     { id: 6, cat: "Landscape", src: "Categories/Landscape/Picolo_farm_Spot.jpg", title: "Aura" },
     { id: 7, cat: "Landscape", src: "Categories/Landscape/Pietre.jpg", title: "Made in Stone" },
     { id: 8, cat: "Landscape", src: "Categories/Landscape/Quella_Suprema.jpg", title: "Misty River" },
