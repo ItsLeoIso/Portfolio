@@ -96,16 +96,23 @@ function switchMainTab(tab) {
 
 function openProjects() {
     document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active-tab'));
-    document.getElementById('nav-projects').classList.add('active-tab');
+    const navProjects = document.getElementById('nav-projects');
+    if (navProjects) navProjects.classList.add('active-tab');
+    
     document.getElementById('viewport').classList.add('is-projects-active');
     
-    document.getElementById('folder-list').innerHTML = `
-        <div class="finder-item px-6 py-3 cursor-pointer text-sm hover:bg-white/5 active" onclick="loadProjectDir('Landscape', this)">Landscape</div>
-        <div class="finder-item px-6 py-3 cursor-pointer text-sm hover:bg-white/5" onclick="loadProjectDir('Portraits', this)">Portraits</div>
-        <div class="finder-item px-6 py-3 cursor-pointer text-sm hover:bg-white/5" onclick="loadProjectDir('Wildlife', this)">Wildlife</div>
-    `;
+    // Explicitly update the folder list content
+    const folderList = document.getElementById('folder-list');
+    if (folderList) {
+        folderList.innerHTML = `
+            <div class="finder-item px-6 py-3 cursor-pointer text-sm hover:bg-white/5 active" onclick="loadProjectDir('Landscape', this)">Landscape</div>
+            <div class="finder-item px-6 py-3 cursor-pointer text-sm hover:bg-white/5" onclick="loadProjectDir('Portraits', this)">Portraits</div>
+            <div class="finder-item px-6 py-3 cursor-pointer text-sm hover:bg-white/5" onclick="loadProjectDir('Wildlife', this)">Wildlife</div>
+        `;
+    }
 
-    loadProjectDir('Landscape', document.querySelector('#folder-list .finder-item'));
+    const firstFolder = document.querySelector('#folder-list .finder-item');
+    if (firstFolder) loadProjectDir('Landscape', firstFolder);
 }
 
 function closeProjects() {
@@ -114,15 +121,18 @@ function closeProjects() {
 }
 
 function loadProjectDir(cat, el) {
-    document.querySelectorAll('#folder-list .finder-item').forEach(i => i.classList.remove('active'));
-    el.classList.add('active');
+    // UI folder highlighting
+    document.querySelectorAll('#folder-list .finder-item').forEach(i => i.classList.remove('active', 'bg-white/10'));
+    el.classList.add('active', 'bg-white/10');
+    
     const filtered = gallery.filter(i => i.cat === cat);
+    const fileList = document.getElementById('file-list');
     
     if (filtered.length === 0) {
-        document.getElementById('file-list').innerHTML = `<div class="p-6 text-[10px] opacity-20 uppercase tracking-widest">No captures yet</div>`;
+        fileList.innerHTML = `<div class="p-6 text-[10px] opacity-20 uppercase tracking-widest">No captures yet</div>`;
     } else {
-        document.getElementById('file-list').innerHTML = filtered.map(i => `
-            <div class="file-item px-6 py-3 flex items-center gap-3 cursor-pointer text-sm hover:bg-white/10" onclick="previewFile(${i.id}, this)">
+        fileList.innerHTML = filtered.map(i => `
+            <div class="file-item px-6 py-3 flex items-center gap-3 cursor-pointer text-sm text-white/60 hover:text-white hover:bg-white/5 transition-all" onclick="previewFile(${i.id}, this)">
                 <i data-lucide="image" class="w-4 h-4 opacity-40"></i>
                 ${i.src.split('/').pop()}
             </div>
@@ -132,37 +142,47 @@ function loadProjectDir(cat, el) {
 }
 
 function previewFile(id, el) {
-    // Highlighting Logic: Remove from others, add to this one
+    // Highlighting Logic for File List
     document.querySelectorAll('.file-item').forEach(item => {
-        item.classList.remove('bg-white/20', 'text-white');
+        item.classList.remove('bg-[#d34a24]', 'text-black', 'font-bold');
         item.classList.add('text-white/60');
     });
-    el.classList.add('bg-white/20', 'text-white');
+    
+    // Highlight the selected one with your brand color for better visibility
+    el.classList.add('bg-[#d34a24]', 'text-black', 'font-bold');
     el.classList.remove('text-white/60');
 
     const item = gallery.find(g => g.id === id);
-    document.getElementById('file-preview').innerHTML = `
-        <div class="w-full h-48 bg-white/5 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
-            <img src="${item.src}" class="max-h-full object-contain" onerror="this.src='https://via.placeholder.com/300x200?text=Check+File+Extension'">
-        </div>
-        <h4 class="text-white text-sm font-bold mb-1">${item.title}</h4>
-        <p class="text-[10px] opacity-40 italic mb-4">${item.cat} Study</p>
-        <button onclick="openOverlay('${item.src}')" class="w-full px-4 py-2 border border-white/20 text-[10px] font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all">View Full Res</button>
-    `;
+    const previewArea = document.getElementById('file-preview');
+    
+    if (previewArea) {
+        previewArea.innerHTML = `
+            <div class="w-full h-48 bg-white/5 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
+                <img src="${item.src}" class="max-h-full object-contain" onerror="this.src='https://via.placeholder.com/300x200?text=Check+Extension'">
+            </div>
+            <h4 class="text-white text-sm font-bold mb-1">${item.title}</h4>
+            <p class="text-[10px] opacity-40 italic mb-4">${item.cat} Study</p>
+            <button onclick="openOverlay('${item.src}')" class="w-full px-4 py-2 border border-white/20 text-[10px] font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all">View Full Res</button>
+        `;
+    }
 }
 
 function openOverlay(src) {
     const over = document.getElementById('image-overlay');
-    document.getElementById('overlay-img').src = src;
-    over.classList.add('active');
+    const img = document.getElementById('overlay-img');
+    if (img) img.src = src;
+    if (over) over.classList.add('active');
 }
 
 function closeOverlay() {
-    document.getElementById('image-overlay').classList.remove('active');
+    const over = document.getElementById('image-overlay');
+    if (over) over.classList.remove('active');
 }
 
 function mobileSwitchTab(tab) {
     const area = document.getElementById('mobile-content-area');
+    if (!area) return;
+    
     if(tab === 'projects') {
         area.innerHTML = gallery.map(i => `<div class="bg-[#111] border border-[#222] p-4 rounded mb-4" onclick="openOverlay('${i.src}')"><img src="${i.src}" class="w-full h-32 object-cover opacity-50 mb-2"><div>${i.title}</div></div>`).join('');
     } else if (tab === 'about') {
