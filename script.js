@@ -1,6 +1,8 @@
 lucide.createIcons();
 
-// 1. GALLERY DATA - UPDATED TO MATCH YOUR EXACT GITHUB FILENAMES
+// 1. GALLERY DATA - EXACT GITHUB STRUCTURE
+// Note: If your site is hosted at username.github.io/repo/, 
+// sometimes paths need to be relative to the root.
 const gallery = [
     { id: 1, cat: "Landscape", src: "Categories/Landscape/Acqua_nuvola.jpg", title: "Cloudy Ocean" },
     { id: 2, cat: "Landscape", src: "Categories/Landscape/Blessed_ahh.jpg", title: "Blessed" },
@@ -11,14 +13,12 @@ const gallery = [
     { id: 7, cat: "Landscape", src: "Categories/Landscape/Pietre.jpg", title: "Made in Stone" },
     { id: 8, cat: "Landscape", src: "Categories/Landscape/Quella_Suprema.jpg", title: "Misty River" },
     
-    // Portraits Category
     { id: 9, cat: "Portraits", src: "Categories/Portraits/Gnocha_Ginger_Su_Moto.jpg", title: "Zaim" },
     { id: 10, cat: "Portraits", src: "Categories/Portraits/Gnocha_bionda_Su_Moto.jpg", title: "Zaim2" },
     { id: 11, cat: "Portraits", src: "Categories/Portraits/Moto_cicco.jpg", title: "Siebäsiech" },
 
-    // Wildlife Category
     { id: 12, cat: "Wildlife", src: "Categories/Wildlife/Gatto_Nero.jpg", title: "Feline Eyes" },
-    { id: 13, cat: "Wildlife", src: "Categories/Wildlife/Uccelin.jpg", title: "The Biggest Bird" },
+    { id: 13, cat: "Wildlife", src: "Categories/Wildlife/Uccelin.jpg", title: "The Biggest Bird" }
 ];
 
 function selectDevice(mode, el) {
@@ -61,10 +61,13 @@ function switchMainTab(tab) {
                 </p>
                 <div class="mt-auto text-[10px] font-black uppercase tracking-[0.3em] opacity-40">Swiss Engineering x Art</div>
             </div>
-
             <div class="flex flex-col gap-5 w-[250px]">
                 <div class="about-square flex-1 bg-[#d34a24] text-black rounded-sm flex flex-col items-center justify-center p-0 text-center overflow-hidden relative shadow-2xl" style="animation-delay: 0.1s">
                     <img src="Categories/Portraits/Aura_Portrait.jpg" class="w-full h-full object-cover">
+                </div>
+                <div class="about-square flex-1 bg-[#d34a24] text-black rounded-sm flex flex-col items-center justify-center p-5 text-center overflow-hidden relative shadow-2xl" style="animation-delay: 0.2s">
+                    <i data-lucide="camera" class="w-16 h-16 opacity-30 mb-2"></i>
+                    <span class="text-[10px] font-black uppercase tracking-widest">Leo.ISO</span>
                 </div>
             </div>
         </div>`;
@@ -98,10 +101,8 @@ function openProjects() {
     document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active-tab'));
     const navProjects = document.getElementById('nav-projects');
     if (navProjects) navProjects.classList.add('active-tab');
-    
     document.getElementById('viewport').classList.add('is-projects-active');
     
-    // Explicitly update the folder list content
     const folderList = document.getElementById('folder-list');
     if (folderList) {
         folderList.innerHTML = `
@@ -110,7 +111,6 @@ function openProjects() {
             <div class="finder-item px-6 py-3 cursor-pointer text-sm hover:bg-white/5" onclick="loadProjectDir('Wildlife', this)">Wildlife</div>
         `;
     }
-
     const firstFolder = document.querySelector('#folder-list .finder-item');
     if (firstFolder) loadProjectDir('Landscape', firstFolder);
 }
@@ -121,7 +121,6 @@ function closeProjects() {
 }
 
 function loadProjectDir(cat, el) {
-    // UI folder highlighting
     document.querySelectorAll('#folder-list .finder-item').forEach(i => i.classList.remove('active', 'bg-white/10'));
     el.classList.add('active', 'bg-white/10');
     
@@ -142,13 +141,10 @@ function loadProjectDir(cat, el) {
 }
 
 function previewFile(id, el) {
-    // Highlighting Logic for File List
     document.querySelectorAll('.file-item').forEach(item => {
         item.classList.remove('bg-[#d34a24]', 'text-black', 'font-bold');
         item.classList.add('text-white/60');
     });
-    
-    // Highlight the selected one with your brand color for better visibility
     el.classList.add('bg-[#d34a24]', 'text-black', 'font-bold');
     el.classList.remove('text-white/60');
 
@@ -158,7 +154,7 @@ function previewFile(id, el) {
     if (previewArea) {
         previewArea.innerHTML = `
             <div class="w-full h-48 bg-white/5 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
-                <img src="${item.src}" class="max-h-full object-contain" onerror="this.src='https://via.placeholder.com/300x200?text=Check+Extension'">
+                <img src="${item.src}" class="max-h-full object-contain">
             </div>
             <h4 class="text-white text-sm font-bold mb-1">${item.title}</h4>
             <p class="text-[10px] opacity-40 italic mb-4">${item.cat} Study</p>
@@ -182,7 +178,6 @@ function closeOverlay() {
 function mobileSwitchTab(tab) {
     const area = document.getElementById('mobile-content-area');
     if (!area) return;
-    
     if(tab === 'projects') {
         area.innerHTML = gallery.map(i => `<div class="bg-[#111] border border-[#222] p-4 rounded mb-4" onclick="openOverlay('${i.src}')"><img src="${i.src}" class="w-full h-32 object-cover opacity-50 mb-2"><div>${i.title}</div></div>`).join('');
     } else if (tab === 'about') {
@@ -193,9 +188,8 @@ function mobileSwitchTab(tab) {
                 <p class="text-xs font-bold leading-relaxed">16 years old. ISO based. Capturing Switzerland. Finding beauty in technical precision.</p>
             </div>
             <div class="grid grid-cols-2 gap-4">
-                <div class="bg-[#d34a24] text-black h-40 flex flex-col items-center justify-center rounded">
-                     <i data-lucide="user" class="w-8 h-8 mb-2 opacity-50"></i>
-                     <span class="text-[8px] font-black uppercase tracking-widest">Me</span>
+                <div class="bg-[#d34a24] text-black h-40 flex flex-col items-center justify-center rounded overflow-hidden">
+                     <img src="Categories/Portraits/Aura_Portrait.jpg" class="w-full h-full object-cover">
                 </div>
                 <div class="bg-[#d34a24] text-black h-40 flex flex-col items-center justify-center rounded">
                      <i data-lucide="camera" class="w-10 h-10 opacity-40"></i>
