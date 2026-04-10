@@ -14,11 +14,11 @@ const gallery = [
     // Portraits Category
     { id: 9, cat: "Portraits", src: "Categories/Portraits/Gnocha_Ginger_Su_Moto.jpg", title: "Zaim" },
     { id: 10, cat: "Portraits", src: "Categories/Portraits/Gnocha_bionda_Su_Moto.jpg", title: "Zaim2" },
-    { id: 10, cat: "Portraits", src: "Categories/Portraits/Moto_cicco.jpg", title: "Siebäsiech" },
+    { id: 11, cat: "Portraits", src: "Categories/Portraits/Moto_cicco.jpg", title: "Siebäsiech" },
 
     // Wildlife Category
-    { id: 11, cat: "Wildlife", src: "Categories/Wildlife/Gatto_Nero.jpg", title: "Feline Eyes" }
-    { id: 11, cat: "Wildlife", src: "Categories/Wildlife/Uccelin.jpg", title: "The Biggest Bird" }
+    { id: 12, cat: "Wildlife", src: "Categories/Wildlife/Gatto_Nero.jpg", title: "Feline Eyes" }
+    { id: 13, cat: "Wildlife", src: "Categories/Wildlife/Uccelin.jpg", title: "The Biggest Bird" }
 ];
 
 function selectDevice(mode, el) {
