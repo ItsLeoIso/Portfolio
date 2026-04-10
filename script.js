@@ -34,29 +34,52 @@ function switchMainTab(tab) {
     document.getElementById('nav-' + tab)?.classList.add('active-tab');
     const area = document.getElementById('content-area');
     
+    // Ensure area is visible and centered
+    area.className = "flex-grow flex justify-center items-center p-10";
+
     if(tab === 'about') {
         area.innerHTML = `
-        <div class="about-layout">
-            <div class="about-text-col">
+        <div class="about-layout flex gap-5 h-[500px] items-stretch">
+            <div class="about-text-col w-[320px] bg-[#d34a24] text-black p-8 rounded-sm flex flex-col justify-start">
                 <h2 class="text-4xl font-black italic mb-6">ABOUT</h2>
-                <p class="text-sm font-bold leading-relaxed">16-year-old photographer from Switzerland. Focus on technical ISO precision and geometric Swiss soul.</p>
+                <p class="text-sm font-bold leading-relaxed mb-4">
+                    My name is Leo, a 16-year-old photographer living in Switzerland.
+                </p>
+                <p class="text-sm font-bold leading-relaxed">
+                    I focus on the "ISO Lifestyle"—finding beauty in technical precision and raw lighting. Switzerland offers a landscape like no other, and my goal is to capture its geometry and soul.
+                </p>
+                <div class="mt-auto text-[10px] font-black uppercase tracking-[0.3em] opacity-40">Swiss Engineering x Art</div>
             </div>
             <div class="flex flex-col gap-5 w-[250px]">
-                <div class="about-square" style="animation-delay: 0.1s">
-                    <i data-lucide="user" class="w-12 h-12 opacity-30"></i>
-                    <span class="text-[10px] font-black uppercase tracking-widest mt-2">Leo</span>
+                <div class="about-square flex-1 bg-[#d34a24] text-black rounded-sm flex flex-col items-center justify-center p-5 text-center overflow-hidden relative" style="animation-delay: 0.1s">
+                    <i data-lucide="user" class="w-12 h-12 opacity-30 mb-2"></i>
+                    <span class="text-[10px] font-black uppercase tracking-widest">Picture of me</span>
                 </div>
-                <div class="about-square" style="animation-delay: 0.2s">
-                    <i data-lucide="camera" class="w-12 h-12 opacity-30"></i>
-                    <span class="text-[10px] font-black uppercase tracking-widest mt-2">Leo.ISO</span>
+                <div class="about-square flex-1 bg-[#d34a24] text-black rounded-sm flex flex-col items-center justify-center p-5 text-center overflow-hidden relative" style="animation-delay: 0.2s">
+                    <i data-lucide="camera" class="w-16 h-16 opacity-30 mb-2"></i>
+                    <span class="text-[10px] font-black uppercase tracking-widest">Leo.ISO</span>
                 </div>
             </div>
         </div>`;
         lucide.createIcons();
     } else if (tab === 'home') {
-        area.innerHTML = '<div class="text-center fade-in"><div class="text-[12rem] font-black opacity-10">Hi!</div></div>';
+        area.innerHTML = '<div class="text-center fade-in"><div class="text-[12rem] font-black opacity-10 select-none">Hi!</div><div class="text-2xl font-light tracking-widest opacity-30 mt-4 uppercase italic">Welcome to my portfolio</div></div>';
     } else if (tab === 'contact') {
-        area.innerHTML = '<div class="text-center fade-in"><div class="text-4xl font-black italic">ItsLeo.ISO</div><p class="mt-4 opacity-40">Instagram / Mail</p></div>';
+        area.innerHTML = `
+        <div class="text-center fade-in">
+            <div class="text-[8rem] font-black opacity-10 leading-none">Contact</div>
+            <div class="flex flex-col items-center gap-6 mt-12">
+                <a href="https://instagram.com/leo.iso" target="_blank" class="flex items-center gap-4 text-white hover:text-[#d34a24] transition-colors group">
+                    <i data-lucide="instagram" class="w-8 h-8 group-hover:scale-110 transition-transform"></i>
+                    <span class="text-2xl font-black italic">ItsLeo.ISO</span>
+                </a>
+                <a href="mailto:hello@leo.iso" class="flex items-center gap-4 text-white hover:text-[#d34a24] transition-colors group">
+                    <i data-lucide="mail" class="w-8 h-8 group-hover:scale-110 transition-transform"></i>
+                    <span class="text-2xl font-black italic">hello@leo.iso</span>
+                </a>
+            </div>
+        </div>`;
+        lucide.createIcons();
     }
 }
 
@@ -76,15 +99,17 @@ function loadProjectDir(cat, el) {
     document.querySelectorAll('#folder-list .finder-item').forEach(i => i.classList.remove('active'));
     el.classList.add('active');
     const filtered = gallery.filter(i => i.cat === cat);
-    document.getElementById('file-list').innerHTML = filtered.map(i => `<div class="finder-item" onclick="previewFile(${i.id})">${i.src.split('/').pop()}</div>`).join('');
+    document.getElementById('file-list').innerHTML = filtered.map(i => `<div class="finder-item" onclick="previewFile(${i.id})"><i data-lucide="file-text" class="w-4 h-4 opacity-40"></i>${i.src.split('/').pop()}</div>`).join('');
+    lucide.createIcons();
 }
 
 function previewFile(id) {
     const item = gallery.find(g => g.id === id);
     document.getElementById('file-preview').innerHTML = `
         <div class="w-full h-48 bg-white/5 rounded-lg mb-4 flex items-center justify-center overflow-hidden"><img src="${item.src}" class="max-h-full object-contain opacity-70"></div>
-        <h4 class="text-white text-sm font-bold">${item.title}</h4>
-        <button onclick="openOverlay('${item.src}')" class="mt-4 px-4 py-2 border border-white/20 text-[10px] font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all">View Full</button>
+        <h4 class="text-white text-sm font-bold mb-1">${item.title}</h4>
+        <p class="text-[10px] opacity-40 italic mb-4">ISO Lifestyle Study</p>
+        <button onclick="openOverlay('${item.src}')" class="w-full px-4 py-2 border border-white/20 text-[10px] font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all">View Full Res</button>
     `;
 }
 
@@ -101,8 +126,27 @@ function closeOverlay() {
 function mobileSwitchTab(tab) {
     const area = document.getElementById('mobile-content-area');
     if(tab === 'projects') {
-        area.innerHTML = gallery.map(i => `<div class="bg-white/5 p-4 rounded mb-4" onclick="openOverlay('${i.src}')"><img src="${i.src}" class="w-full h-32 object-cover opacity-50 mb-2"><div>${i.title}</div></div>`).join('');
+        area.innerHTML = gallery.map(i => `<div class="bg-[#111] border border-[#222] p-4 rounded mb-4" onclick="openOverlay('${i.src}')"><img src="${i.src}" class="w-full h-32 object-cover opacity-50 mb-2"><div>${i.title}</div></div>`).join('');
+    } else if (tab === 'about') {
+        area.innerHTML = `
+        <div class="flex flex-col gap-4">
+            <div class="bg-[#d34a24] text-black p-6 rounded min-h-[300px]">
+                <h3 class="font-black italic text-2xl mb-4 uppercase">About</h3>
+                <p class="text-xs font-bold leading-relaxed">16 years old. ISO based. Capturing Switzerland. Finding beauty in technical precision.</p>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="bg-[#d34a24] text-black h-40 flex flex-col items-center justify-center rounded">
+                     <i data-lucide="user" class="w-8 h-8 mb-2 opacity-50"></i>
+                     <span class="text-[8px] font-black uppercase tracking-widest">Me</span>
+                </div>
+                <div class="bg-[#d34a24] text-black h-40 flex flex-col items-center justify-center rounded">
+                     <i data-lucide="camera" class="w-10 h-10 opacity-40"></i>
+                     <span class="text-[8px] font-black uppercase tracking-widest mt-2">Leo.ISO</span>
+                </div>
+            </div>
+        </div>`;
+        lucide.createIcons();
     } else {
-        area.innerHTML = `<div class="text-center py-20 font-black uppercase opacity-20">${tab}</div>`;
+        area.innerHTML = `<div class="bg-[#111] border border-[#222] py-20 text-center font-black uppercase opacity-20">${tab}</div>`;
     }
 }
