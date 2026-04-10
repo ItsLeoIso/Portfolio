@@ -2,19 +2,23 @@ lucide.createIcons();
 
 // 1. GALLERY DATA - UPDATED TO MATCH YOUR EXACT GITHUB FILENAMES
 const gallery = [
-    { id: 1, cat: "Landscape", src: "Categories/Landscape/Gatto_Nero.JPG", title: "Gatto Nero" },
+    { id: 1, cat: "Landscape", src: "Categories/Landscape/Acqua_nuvola.jpg", title: "Cloudy Ocean" },
     { id: 2, cat: "Landscape", src: "Categories/Landscape/Blessed_ahh.jpg", title: "Blessed" },
-    { id: 3, cat: "Landscape", src: "Categories/Landscape/Acqua_nuvola.jpg", title: "Mist" },
+    { id: 3, cat: "Landscape", src: "Categories/Landscape/Casa.jpg", title: "House" },
     { id: 4, cat: "Landscape", src: "Categories/Landscape/Fiume.jpg", title: "River" },
-    { id: 5, cat: "Landscape", src: "Categories/Landscape/Casa.jpg", title: "Structure" },
-    { id: 6, cat: "Landscape", src: "Categories/Landscape/Aura_Portrait.jpg", title: "Aura" },
+    { id: 5, cat: "Landscape", src: "Categories/Landscape/Piccolo_farm_Spotv.2.jpg", title: "The Cooler Aura" },
+    { id: 6, cat: "Landscape", src: "Categories/Landscape/Picolo_farm_Spot.jpg", title: "Aura" },
+    { id: 7, cat: "Landscape", src: "Categories/Landscape/Pietre.jpg", title: "Made in Stone" },
+    { id: 8, cat: "Landscape", src: "Categories/Landscape/Quella_Suprema.jpg", title: "Misty River" },
     
     // Portraits Category
-    { id: 7, cat: "Portraits", src: "Categories/Portraits/Swiss_Soul.jpg", title: "Swiss Soul" },
-    { id: 8, cat: "Portraits", src: "Categories/Portraits/ISO_Study_01.jpg", title: "Technical Portrait" },
+    { id: 9, cat: "Portraits", src: "Categories/Portraits/Gnocha_Ginger_Su_Moto.jpg", title: "Zaim" },
+    { id: 10, cat: "Portraits", src: "Categories/Portraits/Gnocha_bionda_Su_Moto.jpg", title: "Zaim2" },
+    { id: 10, cat: "Portraits", src: "Categories/Portraits/Moto_cicco.jpg", title: "Siebäsiech" },
 
     // Wildlife Category
-    { id: 9, cat: "Wildlife", src: "Categories/Wildlife/Alpine_Nature.jpg", title: "Alpine Life" }
+    { id: 11, cat: "Wildlife", src: "Categories/Wildlife/Gatto_Nero.jpg", title: "Feline Eyes" }
+    { id: 11, cat: "Wildlife", src: "Categories/Wildlife/Uccelin.jpg", title: "The Biggest Bird" }
 ];
 
 function selectDevice(mode, el) {
