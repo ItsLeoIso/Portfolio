@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photography Portfolio - Leo.ISO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg-color: #0c0c0c;
+            --text-color: #444444;
+            --highlight-bg: #d34a24;
+            --highlight-text: #ffffff;
+            --finder-bg: #161616;
+            --finder-accent: #007aff;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            background-image: radial-gradient(#1a1a1a 1px, transparent 1px);
+            background-size: 30px 30px;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        /* --- DEVICE CHOOSER --- */
+        #device-chooser {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-color);
+            z-index: 5000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-image: radial-gradient(#1a1a1a 1px, transparent 1px);
+            background-size: 30px 30px;
+            transition: opacity 0.8s ease;
+        }
+
+        .chooser-card {
+            width: 260px;
+            height: 160px;
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .chooser-card:hover {
+            border-color: var(--highlight-bg);
+            background: #151515;
+            transform: scale(1.05);
+        }
+
+        .card-selected {
+            z-index: 100;
+            border-color: var(--highlight-bg) !important;
+            box-shadow: 0 0 60px rgba(211, 74, 36, 0.2);
+        }
+
+        .card-discarded {
+            opacity: 0;
+            transform: translateY(100px) scale(0.8) !important;
+            pointer-events: none;
+        }
+
+        /* --- ORGANIC NAVIGATION --- */
+        .list-container {
+            padding-left: 60px;
+            width: 450px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .nav-item {
+            display: block;
+            width: fit-content;
+            font-size: 2.2rem;
+            font-weight: 800;
+            padding: 0.2rem 1.2rem;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: 
+                font-size 0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6),
+                color 0.3s ease,
+                background-color 0.3s ease,
+                transform 0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6),
+                box-shadow 0.4s ease;
+            border-radius: 4px;
+            transform-origin: left center;
+        }
+
+        .nav-item:hover:not(.active-tab) {
+            color: #777;
+            transform: scale(1.1) rotate(-1deg) translateX(5px);
+        }
+
+        .nav-item.active-tab {
+            font-size: 4rem;
+            background-color: var(--highlight-bg);
+            color: var(--highlight-text);
+            transform: scale(1.05) translateX(20px) rotate(1deg);
+            box-shadow: 0 15px 35px rgba(211, 74, 36, 0.3);
+            z-index: 20;
+            animation: organic-float 4s infinite ease-in-out;
+        }
+
+        @keyframes organic-float {
+            0% { transform: scale(1.05) translateX(20px) rotate(1.5deg); }
+            50% { transform: scale(1.08) translateX(25px) rotate(-1deg); }
+            100% { transform: scale(1.05) translateX(20px) rotate(1.5deg); }
+        }
+
+        /* --- ABOUT LAYOUT --- */
+        .about-layout { display: flex; gap: 20px; height: 500px; }
+        
+        .about-text-col {
+            width: 320px;
+            background: var(--highlight-bg);
+            color: black;
+            padding: 30px;
+            border-radius: 4px;
+            animation: spring-in 0.7s cubic-bezier(0.68, -0.6, 0.32, 1.6) forwards;
+        }
+
+        .about-square {
+            flex: 1;
+            background: var(--highlight-bg);
+            color: black;
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            animation: spring-in 0.7s cubic-bezier(0.68, -0.6, 0.32, 1.6) forwards;
+        }
+
+        @keyframes spring-in {
+            0% { opacity: 0; transform: scale(0.8) translateY(40px) rotate(-5deg); }
+            100% { opacity: 1; transform: scale(1) translateY(0) rotate(0deg); }
+        }
+
+        /* --- PROJECTS VIEW --- */
+        .app-viewport { position: relative; width: 100%; height: 100%; display: flex; align-items: center; }
+        .view-layer { position: absolute; width: 100%; height: 100%; transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease; display: flex; align-items: center; }
+        .main-view { transform: translateX(0); opacity: 1; z-index: 10; }
+        .projects-view { transform: translateX(100%); opacity: 0; z-index: 5; }
+        .is-projects-active .main-view { transform: translateX(-100%); opacity: 0; }
+        .is-projects-active .projects-view { transform: translateX(0); opacity: 1; z-index: 10; }
+
+        .finder-window { margin-left: 60px; width: 80%; height: 70vh; background: var(--finder-bg); border: 1px solid #333; border-radius: 12px; display: flex; overflow: hidden; box-shadow: 0 40px 100px rgba(0,0,0,0.7); }
+        .finder-col { flex: 1; border-right: 1px solid #222; padding: 10px 0; overflow-y: auto; }
+        .finder-item { padding: 10px 20px; cursor: pointer; display: flex; align-items: center; gap: 10px; font-size: 14px; color: #bbb; }
+        .finder-item.active { background: var(--finder-accent); color: white; }
+
+        /* --- MOBILE --- */
+        #mobile-layout { display: none; height: 100vh; overflow-y: auto; padding: 20px; background: var(--bg-color); }
+        .mobile-nav-btn { background: #111; border: 1px solid #222; padding: 15px; border-radius: 8px; font-size: 10px; font-weight: 800; color: white; text-transform: uppercase; }
+
+        /* --- OVERLAY --- */
+        #image-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(15px); z-index: 6000; display: none; opacity: 0; transition: opacity 0.3s ease; cursor: zoom-out; justify-content: center; align-items: center; }
+        #image-overlay.active { display: flex; opacity: 1; }
+        .overlay-img { max-width: 90vw; max-height: 85vh; object-fit: contain; }
+
+        .fade-in { animation: fadeIn 0.8s ease forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <div id="device-chooser">
+        <div class="flex flex-col md:flex-row gap-6">
+            <div class="chooser-card" onclick="selectDevice('desktop', this)">
+                <i data-lucide="monitor" class="w-8 h-8 text-white/20"></i>
+                <span class="text-[10px] uppercase tracking-widest mt-4">Desktop</span>
+            </div>
+            <div class="chooser-card" onclick="selectDevice('mobile', this)">
+                <i data-lucide="smartphone" class="w-8 h-8 text-white/20"></i>
+                <span class="text-[10px] uppercase tracking-widest mt-4">Mobile</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="desktop-layout" style="display:none;">
+        <div class="app-viewport" id="viewport">
+            <div class="view-layer main-view">
+                <div class="list-container">
+                    <div class="nav-item active-tab" id="nav-home" onclick="switchMainTab('home')">#Home</div>
+                    <div class="nav-item" id="nav-about" onclick="switchMainTab('about')">#About</div>
+                    <div class="nav-item" id="nav-projects" onclick="openProjects()">#Projects</div>
+                    <div class="nav-item" id="nav-contact" onclick="switchMainTab('contact')">#Contact</div>
+                </div>
+                <div id="content-area" class="flex-grow flex justify-center items-center">
+                    <div class="text-center fade-in">
+                        <div class="text-[12rem] font-black opacity-10">Hi!</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="view-layer projects-view">
+                <div class="absolute top-10 left-10 text-xl font-black cursor-pointer text-white" onclick="closeProjects()"># <=</div>
+                <div class="finder-window">
+                    <div class="finder-col" id="folder-list">
+                        <div class="finder-item active" onclick="loadProjectDir('Landscape', this)">Landscape</div>
+                    </div>
+                    <div class="finder-col bg-black/10" id="file-list"></div>
+                    <div class="finder-col bg-black/20 flex flex-col items-center justify-center p-8 text-center" id="file-preview">
+                        <p class="text-xs opacity-30 uppercase tracking-widest">Select a file</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="mobile-layout">
+        <div class="grid grid-cols-2 gap-3 mb-10">
+            <button onclick="mobileSwitchTab('home')" class="mobile-nav-btn">Home</button>
+            <button onclick="mobileSwitchTab('about')" class="mobile-nav-btn">About</button>
+            <button onclick="mobileSwitchTab('projects')" class="mobile-nav-btn">Projects</button>
+            <button onclick="mobileSwitchTab('contact')" class="mobile-nav-btn">Contact</button>
+        </div>
+        <div id="mobile-content-area" class="fade-in"></div>
+    </div>
+
+    <div id="image-overlay" onclick="closeOverlay()">
+        <img src="" id="overlay-img" class="overlay-img">
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // PATHS UPDATED TO MATCH YOUR REPOSITORY SCREENSHOT
+        const gallery = [
+            { id: 1, cat: "Landscape", src: "Categories/Landscape/Gatto_Nero.JPG", title: "Gatto Nero", intent: "Feline in the Swiss sun." },
+            { id: 2, cat: "Landscape", src: "Categories/Landscape/Blessed_ahh.jpg", title: "Blessed", intent: "Light rays in Zurich." },
+            { id: 3, cat: "Landscape", src: "Categories/Landscape/Acqua_nuvola.jpg", title: "Mist", intent: "Cloud and water study." },
+            { id: 4, cat: "Landscape", src: "Categories/Landscape/Fiume.jpg", title: "River", intent: "Motion of the Swiss Aare." },
+            { id: 5, cat: "Landscape", src: "Categories/Landscape/Casa.jpg", title: "Structure", intent: "Isolation in Swiss architecture." },
+            { id: 6, cat: "Landscape", src: "Categories/Landscape/Aura_Portrait.jpg", title: "Aura", intent: "Portrait light study." }
+        ];
+
+        function selectDevice(mode, el) {
+            const chooser = document.getElementById('device-chooser');
+            el.classList.add('card-selected');
+            document.querySelectorAll('.chooser-card').forEach(c => c !== el && c.classList.add('card-discarded'));
+            setTimeout(() => {
+                chooser.style.opacity = '0';
+                setTimeout(() => {
+                    chooser.style.display = 'none';
+                    if(mode === 'desktop') {
+                        document.getElementById('desktop-layout').style.display = 'block';
+                        switchMainTab('home');
+                    } else {
+                        document.getElementById('mobile-layout').style.display = 'block';
+                        mobileSwitchTab('home');
+                    }
+                }, 800);
+            }, 600);
+        }
+
+        function switchMainTab(tab) {
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active-tab'));
+            document.getElementById('nav-' + tab)?.classList.add('active-tab');
+            const area = document.getElementById('content-area');
+            
+            if(tab === 'about') {
+                area.innerHTML = `
+                <div class="about-layout">
+                    <div class="about-text-col">
+                        <h2 class="text-4xl font-black italic mb-6">ABOUT</h2>
+                        <p class="text-sm font-bold leading-relaxed">16-year-old photographer from Switzerland. Focus on technical ISO precision and geometric Swiss soul.</p>
+                    </div>
+                    <div class="flex flex-col gap-5 w-[250px]">
+                        <div class="about-square" style="animation-delay: 0.1s">
+                            <i data-lucide="user" class="w-12 h-12 opacity-30"></i>
+                            <span class="text-[10px] font-black uppercase tracking-widest mt-2">Leo</span>
+                        </div>
+                        <div class="about-square" style="animation-delay: 0.2s">
+                            <i data-lucide="camera" class="w-12 h-12 opacity-30"></i>
+                            <span class="text-[10px] font-black uppercase tracking-widest mt-2">Leo.ISO</span>
+                        </div>
+                    </div>
+                </div>`;
+                lucide.createIcons();
+            } else if (tab === 'home') {
+                area.innerHTML = '<div class="text-center fade-in"><div class="text-[12rem] font-black opacity-10">Hi!</div></div>';
+            } else if (tab === 'contact') {
+                area.innerHTML = '<div class="text-center fade-in"><div class="text-4xl font-black italic">ItsLeo.ISO</div><p class="mt-4 opacity-40">Instagram / Mail</p></div>';
+            }
+        }
+
+        function openProjects() {
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active-tab'));
+            document.getElementById('nav-projects').classList.add('active-tab');
+            document.getElementById('viewport').classList.add('is-projects-active');
+            loadProjectDir('Landscape', document.querySelector('#folder-list .finder-item'));
+        }
+
+        function closeProjects() {
+            document.getElementById('viewport').classList.remove('is-projects-active');
+            switchMainTab('home');
+        }
+
+        function loadProjectDir(cat, el) {
+            document.querySelectorAll('#folder-list .finder-item').forEach(i => i.classList.remove('active'));
+            el.classList.add('active');
+            const filtered = gallery.filter(i => i.cat === cat);
+            document.getElementById('file-list').innerHTML = filtered.map(i => `<div class="finder-item" onclick="previewFile(${i.id})">${i.src.split('/').pop()}</div>`).join('');
+        }
+
+        function previewFile(id) {
+            const item = gallery.find(g => g.id === id);
+            document.getElementById('file-preview').innerHTML = `
+                <div class="w-full h-48 bg-white/5 rounded-lg mb-4 flex items-center justify-center overflow-hidden"><img src="${item.src}" class="max-h-full object-contain opacity-70"></div>
+                <h4 class="text-white text-sm font-bold">${item.title}</h4>
+                <button onclick="openOverlay('${item.src}')" class="mt-4 px-4 py-2 border border-white/20 text-[10px] font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all">View Full</button>
+            `;
+        }
+
+        function openOverlay(src) {
+            const over = document.getElementById('image-overlay');
+            document.getElementById('overlay-img').src = src;
+            over.classList.add('active');
+        }
+
+        function closeOverlay() {
+            document.getElementById('image-overlay').classList.remove('active');
+        }
+
+        function mobileSwitchTab(tab) {
+            const area = document.getElementById('mobile-content-area');
+            if(tab === 'projects') {
+                area.innerHTML = gallery.map(i => `<div class="bg-white/5 p-4 rounded mb-4" onclick="openOverlay('${i.src}')"><img src="${i.src}" class="w-full h-32 object-cover opacity-50 mb-2"><div>${i.title}</div></div>`).join('');
+            } else {
+                area.innerHTML = `<div class="text-center py-20 font-black uppercase opacity-20">${tab}</div>`;
+            }
+        }
+    </script>
+</body>
+</html>
