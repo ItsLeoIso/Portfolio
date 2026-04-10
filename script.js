@@ -1,8 +1,7 @@
 lucide.createIcons();
 
 // 1. GALLERY DATA - EXACT GITHUB STRUCTURE
-// Note: If your site is hosted at username.github.io/repo/, 
-// sometimes paths need to be relative to the root.
+// Double-check: Are folders named "Categories" (Capital C) and "Landscape" (Capital L)?
 const gallery = [
     { id: 1, cat: "Landscape", src: "Categories/Landscape/Acqua_nuvola.jpg", title: "Cloudy Ocean" },
     { id: 2, cat: "Landscape", src: "Categories/Landscape/Blessed_ahh.jpg", title: "Blessed" },
@@ -52,7 +51,7 @@ function switchMainTab(tab) {
         area.innerHTML = `
         <div class="about-layout flex gap-5 h-[500px] items-stretch fade-in">
             <div class="about-text-col w-[320px] bg-[#d34a24] text-black p-8 rounded-sm flex flex-col justify-start shadow-2xl">
-                <h2 class="text-4xl font-black italic mb-6">ABOUT</h2>
+                <h2 class="text-4xl font-black italic mb-6 uppercase">About</h2>
                 <p class="text-sm font-bold leading-relaxed mb-4">
                     My name is Leo, a 16-year-old photographer living in Switzerland.
                 </p>
@@ -152,9 +151,12 @@ function previewFile(id, el) {
     const previewArea = document.getElementById('file-preview');
     
     if (previewArea) {
+        // We use relative pathing. If your index.html is in the root, this is correct.
         previewArea.innerHTML = `
             <div class="w-full h-48 bg-white/5 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
-                <img src="${item.src}" class="max-h-full object-contain">
+                <img src="${item.src}" 
+                     class="max-h-full object-contain" 
+                     onerror="this.style.display='none'; console.error('Failed to load image: ' + this.src);">
             </div>
             <h4 class="text-white text-sm font-bold mb-1">${item.title}</h4>
             <p class="text-[10px] opacity-40 italic mb-4">${item.cat} Study</p>
@@ -179,7 +181,11 @@ function mobileSwitchTab(tab) {
     const area = document.getElementById('mobile-content-area');
     if (!area) return;
     if(tab === 'projects') {
-        area.innerHTML = gallery.map(i => `<div class="bg-[#111] border border-[#222] p-4 rounded mb-4" onclick="openOverlay('${i.src}')"><img src="${i.src}" class="w-full h-32 object-cover opacity-50 mb-2"><div>${i.title}</div></div>`).join('');
+        area.innerHTML = gallery.map(i => `
+            <div class="bg-[#111] border border-[#222] p-4 rounded mb-4" onclick="openOverlay('${i.src}')">
+                <img src="${i.src}" class="w-full h-32 object-cover opacity-50 mb-2">
+                <div>${i.title}</div>
+            </div>`).join('');
     } else if (tab === 'about') {
         area.innerHTML = `
         <div class="flex flex-col gap-4">
