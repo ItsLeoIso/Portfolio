@@ -34,13 +34,13 @@ function switchMainTab(tab) {
     document.getElementById('nav-' + tab)?.classList.add('active-tab');
     const area = document.getElementById('content-area');
     
-    // Ensure area is visible and centered
-    area.className = "flex-grow flex justify-center items-center p-10";
+    // Using h-full and flex-col to ensure it stretches and centers vertically
+    area.className = "flex-grow flex flex-col justify-center items-center h-full p-10";
 
     if(tab === 'about') {
         area.innerHTML = `
-        <div class="about-layout flex gap-5 h-[500px] items-stretch">
-            <div class="about-text-col w-[320px] bg-[#d34a24] text-black p-8 rounded-sm flex flex-col justify-start">
+        <div class="about-layout flex gap-5 h-[500px] items-stretch fade-in">
+            <div class="about-text-col w-[320px] bg-[#d34a24] text-black p-8 rounded-sm flex flex-col justify-start shadow-2xl">
                 <h2 class="text-4xl font-black italic mb-6">ABOUT</h2>
                 <p class="text-sm font-bold leading-relaxed mb-4">
                     My name is Leo, a 16-year-old photographer living in Switzerland.
@@ -51,11 +51,11 @@ function switchMainTab(tab) {
                 <div class="mt-auto text-[10px] font-black uppercase tracking-[0.3em] opacity-40">Swiss Engineering x Art</div>
             </div>
             <div class="flex flex-col gap-5 w-[250px]">
-                <div class="about-square flex-1 bg-[#d34a24] text-black rounded-sm flex flex-col items-center justify-center p-5 text-center overflow-hidden relative" style="animation-delay: 0.1s">
+                <div class="about-square flex-1 bg-[#d34a24] text-black rounded-sm flex flex-col items-center justify-center p-5 text-center overflow-hidden relative shadow-2xl" style="animation-delay: 0.1s">
                     <i data-lucide="user" class="w-12 h-12 opacity-30 mb-2"></i>
                     <span class="text-[10px] font-black uppercase tracking-widest">Picture of me</span>
                 </div>
-                <div class="about-square flex-1 bg-[#d34a24] text-black rounded-sm flex flex-col items-center justify-center p-5 text-center overflow-hidden relative" style="animation-delay: 0.2s">
+                <div class="about-square flex-1 bg-[#d34a24] text-black rounded-sm flex flex-col items-center justify-center p-5 text-center overflow-hidden relative shadow-2xl" style="animation-delay: 0.2s">
                     <i data-lucide="camera" class="w-16 h-16 opacity-30 mb-2"></i>
                     <span class="text-[10px] font-black uppercase tracking-widest">Leo.ISO</span>
                 </div>
@@ -63,10 +63,14 @@ function switchMainTab(tab) {
         </div>`;
         lucide.createIcons();
     } else if (tab === 'home') {
-        area.innerHTML = '<div class="text-center fade-in"><div class="text-[12rem] font-black opacity-10 select-none">Hi!</div><div class="text-2xl font-light tracking-widest opacity-30 mt-4 uppercase italic">Welcome to my portfolio</div></div>';
+        area.innerHTML = `
+        <div class="text-center fade-in flex flex-col items-center justify-center">
+            <div class="text-[12rem] font-black opacity-10 select-none leading-none">Hi!</div>
+            <div class="text-2xl font-light tracking-[0.5em] opacity-30 mt-4 uppercase italic">Welcome to my portfolio</div>
+        </div>`;
     } else if (tab === 'contact') {
         area.innerHTML = `
-        <div class="text-center fade-in">
+        <div class="text-center fade-in flex flex-col items-center justify-center">
             <div class="text-[8rem] font-black opacity-10 leading-none">Contact</div>
             <div class="flex flex-col items-center gap-6 mt-12">
                 <a href="https://instagram.com/leo.iso" target="_blank" class="flex items-center gap-4 text-white hover:text-[#d34a24] transition-colors group">
