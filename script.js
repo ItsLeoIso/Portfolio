@@ -1,7 +1,6 @@
 lucide.createIcons();
 
-// 1. GALLERY DATA
-// Add your new photos here. Ensure the 'cat' matches the folder names below.
+// 1. GALLERY DATA - UPDATED TO MATCH YOUR EXACT GITHUB FILENAMES
 const gallery = [
     { id: 1, cat: "Landscape", src: "Categories/Landscape/Gatto_Nero.JPG", title: "Gatto Nero" },
     { id: 2, cat: "Landscape", src: "Categories/Landscape/Blessed_ahh.jpg", title: "Blessed" },
@@ -100,7 +99,6 @@ function openProjects() {
     document.getElementById('nav-projects').classList.add('active-tab');
     document.getElementById('viewport').classList.add('is-projects-active');
     
-    // Updated folder list with Portraits and Wildlife
     document.getElementById('folder-list').innerHTML = `
         <div class="finder-item px-6 py-3 cursor-pointer text-sm hover:bg-white/5 active" onclick="loadProjectDir('Landscape', this)">Landscape</div>
         <div class="finder-item px-6 py-3 cursor-pointer text-sm hover:bg-white/5" onclick="loadProjectDir('Portraits', this)">Portraits</div>
@@ -124,7 +122,7 @@ function loadProjectDir(cat, el) {
         document.getElementById('file-list').innerHTML = `<div class="p-6 text-[10px] opacity-20 uppercase tracking-widest">No captures yet</div>`;
     } else {
         document.getElementById('file-list').innerHTML = filtered.map(i => `
-            <div class="finder-item px-6 py-3 flex items-center gap-3 cursor-pointer text-sm hover:bg-white/5" onclick="previewFile(${i.id})">
+            <div class="file-item px-6 py-3 flex items-center gap-3 cursor-pointer text-sm hover:bg-white/10" onclick="previewFile(${i.id}, this)">
                 <i data-lucide="image" class="w-4 h-4 opacity-40"></i>
                 ${i.src.split('/').pop()}
             </div>
@@ -133,11 +131,19 @@ function loadProjectDir(cat, el) {
     lucide.createIcons();
 }
 
-function previewFile(id) {
+function previewFile(id, el) {
+    // Highlighting Logic: Remove from others, add to this one
+    document.querySelectorAll('.file-item').forEach(item => {
+        item.classList.remove('bg-white/20', 'text-white');
+        item.classList.add('text-white/60');
+    });
+    el.classList.add('bg-white/20', 'text-white');
+    el.classList.remove('text-white/60');
+
     const item = gallery.find(g => g.id === id);
     document.getElementById('file-preview').innerHTML = `
         <div class="w-full h-48 bg-white/5 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
-            <img src="${item.src}" class="max-h-full object-contain opacity-70" onerror="this.src='https://via.placeholder.com/300x200?text=Image+Not+Found'">
+            <img src="${item.src}" class="max-h-full object-contain" onerror="this.src='https://via.placeholder.com/300x200?text=Check+File+Extension'">
         </div>
         <h4 class="text-white text-sm font-bold mb-1">${item.title}</h4>
         <p class="text-[10px] opacity-40 italic mb-4">${item.cat} Study</p>
