@@ -66,11 +66,6 @@ function switchMainTab(tab) {
                 <div class="about-square flex-1 bg-[#d34a24] text-black rounded-sm flex flex-col items-center justify-center p-0 text-center overflow-hidden relative shadow-2xl" style="animation-delay: 0.1s">
                     <img src="Categories/Portraits/Aura_Portrait.jpg" class="w-full h-full object-cover">
                 </div>
-
-                <div class="about-square flex-1 bg-[#d34a24] text-black rounded-sm flex flex-col items-center justify-center p-5 text-center overflow-hidden relative shadow-2xl" style="animation-delay: 0.2s">
-                    <i data-lucide="camera" class="w-16 h-16 opacity-30 mb-2"></i>
-                    <span class="text-[10px] font-black uppercase tracking-widest">Leo.ISO</span>
-                </div>
             </div>
         </div>`;
         lucide.createIcons();
