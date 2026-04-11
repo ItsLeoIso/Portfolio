@@ -1,4 +1,4 @@
-lucide.createIcons();
+
 
 // 1. GALLERY DATA - EXACT GITHUB STRUCTURE
 // Double-check: Are folders named "Categories" (Capital C) and "Landscape" (Capital L)?
