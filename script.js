@@ -16,7 +16,7 @@ const gallery = [
     { id: 10, cat: "Portraits", src: "Categories/Portraits/Gnocha_bionda_Su_Moto.jpg", title: "Zaim2" },
     { id: 11, cat: "Portraits", src: "Categories/Portraits/Moto_cicco.jpg", title: "Siebäsiech" },
 
-    { id: 12, cat: "Wildlife", src: "Categories/Wildlife/Gatto_Nero.JPG", title: "Feline Eyes" },
+    { id: 12, cat: "Wildlife", src: "Gatto_Nero.JPG", title: "Feline Eyes" },
     { id: 13, cat: "Wildlife", src: "Categories/Wildlife/Uccelin.JPG", title: "The Biggest Bird" }
 ];
 
