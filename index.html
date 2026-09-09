@@ -29,6 +29,7 @@
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
     position: relative;
+    overflow-x: hidden;
   }
 
   /* ---------- GRAIN / TEXTURE OVERLAY ---------- */
@@ -51,6 +52,11 @@
     text-decoration: none;
   }
 
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
   .grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
@@ -64,6 +70,10 @@
     padding-top: calc(var(--unit) * 4);
     padding-bottom: calc(var(--unit) * 4);
     border-bottom: 1px solid var(--black);
+    position: sticky;
+    top: 0;
+    background-color: var(--white);
+    z-index: 100;
   }
 
   .site-header .name {
@@ -199,12 +209,12 @@
   }
 
   .work-item {
-    background-color: var(--pink); /* Keeps the pink color while the image loads */
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Forces the image to crop perfectly instead of squishing */
-  display: block;
-}    
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Forces the image to crop perfectly instead of squishing */
+    display: block;
+    background-color: #f0f0f0; /* Placeholder while loading */
+  }
 
   .work-caption {
     margin-top: calc(var(--unit) * 2);
@@ -245,6 +255,9 @@
   .item-08 { grid-column: 7 / 10; margin-top: calc(var(--unit) * 32); }
   .item-08 .work-item { aspect-ratio: auto; }
 
+  .item-09 { grid-column: 1 / 8; margin-top: calc(var(--unit) * 10); }
+  .item-09 .work-item { aspect-ratio: auto; }
+
   /* ---------- VERBINDUNGSLINIE (ARBEITEN) ---------- */
   .portfolio-grid {
     position: relative;
@@ -281,7 +294,7 @@
   padding-top: calc(var(--unit) * 8);
   padding-bottom: calc(var(--unit) * 14);
 }
- 
+
   section.about .grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -340,7 +353,9 @@
     justify-content: space-between;
   }
 
-  /* ---------- RESPONSIVE ---------- */
+  /* =====================================================
+     RESPONSIVE — TABLET (≤ 860px)
+     ===================================================== */
 
   @media (max-width: 860px) {
     .grid {
@@ -353,31 +368,132 @@
       grid-column: 1 / 5;
       margin-top: calc(var(--unit) * 3);
       gap: calc(var(--unit) * 4);
+      flex-wrap: wrap;
     }
 
+    .hero { padding-top: calc(var(--unit) * 6); padding-bottom: calc(var(--unit) * 8); }
     .hero h1 { grid-column: 1 / 5; font-size: clamp(48px, 16vw, 96px); }
-    .hero-meta { grid-column: 1 / 5; }
-    .hero-statement { grid-column: 1 / 5; max-width: none; }
+    .hero-meta { grid-column: 1 / 5; margin-top: calc(var(--unit) * 4); }
+    .hero-statement { grid-column: 1 / 5; max-width: none; margin-top: calc(var(--unit) * 3); }
 
     .item-01, .item-02, .item-03, .item-04,
-    .item-05, .item-06, .item-07, .item-08 {
+    .item-05, .item-06, .item-07, .item-08, .item-09 {
       grid-column: 1 / 5 !important;
       margin-top: calc(var(--unit) * 6) !important;
     }
 
-    .about-portrait, .about-text, .about-facts { grid-column: 1 / 5; }
+    .about-portrait, .about-text { grid-column: 1 / 5; }
+    .about-portrait { max-width: 200px; }
     .about-text { margin-top: calc(var(--unit) * 4); }
-    .about-facts { margin-top: calc(var(--unit) * 4); }
 
     .footer-col-1, .footer-col-2, .footer-col-3, .footer-col-4 {
       grid-column: 1 / 5;
       margin-top: calc(var(--unit) * 4);
     }
     .footer-bottom { flex-direction: column; gap: calc(var(--unit)); }
-    
+
     /* Mobile Linie anzeigen, Desktop verstecken */
     .line-desktop { display: none; }
     .line-mobile { display: block; }
+  }
+
+  /* =====================================================
+     RESPONSIVE — SMARTPHONE (≤ 600px)
+     ===================================================== */
+
+  @media (max-width: 600px) {
+    .grid {
+      padding: 0 calc(var(--unit) * 2.5);
+    }
+
+    header.site-header {
+      padding-top: calc(var(--unit) * 3);
+      padding-bottom: calc(var(--unit) * 3);
+    }
+
+    .site-header .name {
+      font-size: 12px;
+    }
+
+    nav.site-nav {
+      gap: calc(var(--unit) * 3);
+      margin-top: calc(var(--unit) * 2.5);
+    }
+
+    nav.site-nav a,
+    nav.site-nav label {
+      font-size: 14px;
+      /* larger tap target without changing visual size much */
+      padding: calc(var(--unit) * 0.5) 0;
+    }
+
+    .dropdown {
+      left: auto;
+      right: 0;
+      min-width: 200px;
+      max-width: calc(100vw - calc(var(--unit) * 5));
+    }
+
+    .hero {
+      padding-top: calc(var(--unit) * 5);
+      padding-bottom: calc(var(--unit) * 6);
+    }
+
+    .hero h1 {
+      font-size: clamp(40px, 15vw, 64px);
+      line-height: 0.92;
+    }
+
+    .hero-meta,
+    .hero-statement {
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .section-label {
+      padding-top: calc(var(--unit) * 5);
+      padding-bottom: calc(var(--unit) * 3);
+    }
+
+    .item-01, .item-02, .item-03, .item-04,
+    .item-05, .item-06, .item-07, .item-08, .item-09 {
+      margin-top: calc(var(--unit) * 4) !important;
+    }
+
+    section.portfolio {
+      padding-bottom: calc(var(--unit) * 8);
+    }
+
+    .work-caption {
+      font-size: 11px;
+    }
+
+    section.about {
+      padding-top: calc(var(--unit) * 5);
+      padding-bottom: calc(var(--unit) * 8);
+    }
+
+    .about-portrait {
+      max-width: 140px;
+    }
+
+    .about-text {
+      font-size: 14px;
+    }
+
+    footer.site-footer {
+      padding-top: calc(var(--unit) * 4);
+      padding-bottom: calc(var(--unit) * 4);
+    }
+
+    .footer-col-1, .footer-col-2, .footer-col-3, .footer-col-4 {
+      margin-top: calc(var(--unit) * 3);
+    }
+
+    .footer-bottom {
+      margin-top: calc(var(--unit) * 5);
+      font-size: 10px;
+    }
   }
 
   /* ---------- ACCESSIBILITY ---------- */
@@ -433,7 +549,7 @@
   </div>
 
   <div class="grid portfolio-grid">
-    
+
     <!-- Desktop Linie (Zickzack quer durch die Spalten) -->
     <svg class="connecting-line line-desktop" viewBox="0 0 100 100" preserveAspectRatio="none">
       <!-- points="x,y x,y..." in Prozent (0 bis 100) -->
@@ -483,11 +599,11 @@
     <div class="item-08">
       <img src="Arbeiten/BnWmoos.jpg" alt="A Cow's love" class="work-item">
       <div class="work-caption"><span class="idx">08</span>A Cow's love - Creux de vain</div>
-      </div>
+    </div>
 
-      <div class="item-08">
+    <div class="item-09">
       <img src="Arbeiten/Smokeonthewater.jpg" alt="Smoke on the Water" class="work-item">
-      <div class="work-caption"><span class="idx">08</span>Smoke on the Water - Vallorbe</div>
+      <div class="work-caption"><span class="idx">09</span>Smoke on the Water - Vallorbe</div>
     </div>
   </div>
 </section>
@@ -504,8 +620,6 @@
     <div class="about-text">
       Leandro Sinatra arbeitet an der Schnittstelle von Architektur- und Landschaftsfotografie. Seine Bilder entstehen aus langsamer Beobachtung und konsequenter Reduktion: keine Inszenierung, keine Nachbearbeitung über das Notwendige hinaus. Ausstellungen in Zürich, Basel und Rotterdam. Arbeiten in privaten und institutionellen Sammlungen.
     </div>
-  
-    </dl>
   </div>
 </section>
 
@@ -513,13 +627,12 @@
   <div class="grid">
     <div class="footer-col footer-col-1">
       <h2>Kontakt</h2>
-      itsleo.iso.contact@gmail.com <br>     
+      itsleo.iso.contact@gmail.com <br>
     </div>
 
     <div class="footer-col footer-col-3">
       <h2>Social</h2>
       Instagram<br>
-    
     </div>
 
     <div class="footer-bottom">
@@ -531,4 +644,3 @@
 
 </body>
 </html>
- <!-- TEST -->
