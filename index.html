@@ -275,10 +275,17 @@
 
   /* ---------- ABOUT ---------- */
 
-  section.about .grid {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-  }
+ section.about .grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  max-width: 1200px;   /* passe an deinen gewünschten Rahmen an */
+  margin: 0 auto;
+}
+
+  section.about {
+  padding-left: calc(var(--unit) * 4);
+  padding-right: calc(var(--unit) * 4);
+}
 
   .about-portrait {
     grid-column: 1 / 3;
