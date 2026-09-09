@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leandro Sinatra — Fotografie</title>
+<style>
+  :root {
+    --black: #000000;
+    --white: #FFFFFF;
+    --pink: #FF00FF;
+    --unit: 8px;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--white);
+    color: var(--black);
+    font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+  }
+
+  /* ---------- GRAIN / TEXTURE OVERLAY ---------- */
+  /* Pure CSS, generated via inline SVG feTurbulence — no external images. */
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-repeat: repeat;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: calc(var(--unit) * 2);
+    padding: 0 calc(var(--unit) * 4);
+  }
+
+  /* ---------- HEADER ---------- */
+
+  header.site-header {
+    padding-top: calc(var(--unit) * 4);
+    padding-bottom: calc(var(--unit) * 4);
+    border-bottom: 1px solid var(--black);
+  }
+
+  .site-header .name {
+    grid-column: 1 / 5;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  nav.site-nav {
+    grid-column: 6 / 13;
+    display: flex;
+    gap: calc(var(--unit) * 5);
+    justify-content: flex-start;
+    align-items: baseline;
+  }
+
+  nav.site-nav a,
+  nav.site-nav label {
+    font-size: 13px;
+    font-weight: 400;
+  }
+
+  nav.site-nav a:hover {
+    font-weight: 700;
+  }
+
+  /* ---------- DROPDOWN: PROJEKTE ---------- */
+
+  .nav-item {
+    position: relative;
+  }
+
+  .dropdown-checkbox {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    pointer-events: none;
+  }
+
+  .nav-item .dropdown-toggle {
+    cursor: pointer;
+    display: inline-block;
+  }
+
+  .dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: calc(var(--unit) * 3);
+    min-width: 220px;
+    background-color: var(--white);
+    border: 1px solid var(--black);
+    padding: calc(var(--unit) * 2) 0;
+    display: none;
+    z-index: 10;
+  }
+
+  .dropdown-checkbox:checked ~ .dropdown {
+    display: block;
+  }
+
+  .dropdown a {
+    display: block;
+    padding: calc(var(--unit) * 1.25) calc(var(--unit) * 3);
+    font-size: 12px;
+    font-weight: 400;
+  }
+
+  .dropdown a:hover,
+  .dropdown a:focus-visible {
+    background-color: var(--black);
+    color: var(--white);
+    font-weight: 400;
+  }
+
+  .dropdown-divider {
+    height: 1px;
+    background-color: var(--black);
+    margin: calc(var(--unit) * 2) calc(var(--unit) * 3);
+  }
+
+  .dropdown .dropdown-more {
+    font-weight: 700;
+  }
+
+  /* ---------- HERO ---------- */
+
+  section.hero {
+    padding-top: calc(var(--unit) * 10);
+    padding-bottom: calc(var(--unit) * 12);
+  }
+
+  .hero h1 {
+    grid-column: 1 / 13;
+    font-size: clamp(64px, 12vw, 190px);
+    line-height: 0.88;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    text-align: left;
+  }
+
+  .hero-meta {
+    grid-column: 1 / 5;
+    margin-top: calc(var(--unit) * 5);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .hero-statement {
+    grid-column: 7 / 12;
+    margin-top: calc(var(--unit) * 5);
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 44ch;
+  }
+
+  /* ---------- SECTION LABELS ---------- */
+
+  .section-label {
+    grid-column: 1 / 13;
+    font-size: 12px;
+    padding-top: calc(var(--unit) * 8);
+    padding-bottom: calc(var(--unit) * 5);
+    border-top: 1px solid var(--black);
+  }
+
+  /* ---------- PORTFOLIO GRID ---------- */
+
+  section.portfolio {
+    padding-bottom: calc(var(--unit) * 14);
+  }
+
+  .work-item {
+    background-color: var(--pink);
+  }
+
+  .work-caption {
+    margin-top: calc(var(--unit) * 2);
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .work-caption .idx {
+    font-weight: 700;
+    margin-right: calc(var(--unit) * 1);
+  }
+
+  /* Row 1 */
+  .item-01 { grid-column: 1 / 6; margin-top: calc(var(--unit) * 2); }
+  .item-01 .work-item { aspect-ratio: 3 / 4; }
+
+  .item-02 { grid-column: 8 / 13; margin-top: calc(var(--unit) * 22); }
+  .item-02 .work-item { aspect-ratio: 16 / 9; }
+
+  /* Row 2 */
+  .item-03 { grid-column: 2 / 7; margin-top: calc(var(--unit) * 14); }
+  .item-03 .work-item { aspect-ratio: 1 / 1; }
+
+  .item-04 { grid-column: 9 / 13; margin-top: calc(var(--unit) * 4); }
+  .item-04 .work-item { aspect-ratio: 3 / 4; }
+
+  /* Row 3 */
+  .item-05 { grid-column: 1 / 4; margin-top: calc(var(--unit) * 20); }
+  .item-05 .work-item { aspect-ratio: 1 / 1; }
+
+  .item-06 { grid-column: 5 / 13; margin-top: calc(var(--unit) * 20); }
+  .item-06 .work-item { aspect-ratio: 21 / 9; }
+
+  /* Row 4 */
+  .item-07 { grid-column: 2 / 6; margin-top: calc(var(--unit) * 18); }
+  .item-07 .work-item { aspect-ratio: 4 / 5; }
+
+  .item-08 { grid-column: 7 / 10; margin-top: calc(var(--unit) * 32); }
+  .item-08 .work-item { aspect-ratio: 1 / 1; }
+
+  /* ---------- VERBINDUNGSLINIE (ARBEITEN) ---------- */
+  .portfolio-grid {
+    position: relative;
+    z-index: 1; /* Schafft einen eigenen Stacking Context */
+  }
+
+  .connecting-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Verhindert, dass die Linie Klicks blockiert */
+    z-index: -1; /* Legt die Linie HINTER die rosa Bildflächen */
+  }
+
+  .connecting-line polyline {
+    fill: none;
+    stroke: var(--black);
+    stroke-width: 1.5px;
+    /* vector-effect sorgt dafür, dass die Linie beim Skalieren nicht verzerrt oder dicker wird */
+    vector-effect: non-scaling-stroke;
+  }
+
+  .line-mobile {
+    display: none;
+  }
+
+  /* ---------- ABOUT ---------- */
+
+  section.about {
+    padding-bottom: calc(var(--unit) * 14);
+  }
+
+  .about-portrait {
+    grid-column: 1 / 3;
+  }
+
+  .about-portrait .work-item {
+    aspect-ratio: 3 / 4;
+  }
+
+  .about-portrait .work-caption {
+    margin-top: calc(var(--unit) * 2);
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .about-text {
+    grid-column: 4 / 9;
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 60ch;
+  }
+
+  .about-facts {
+    grid-column: 9 / 13;
+    font-size: 12px;
+    line-height: 2;
+  }
+
+  .about-facts dt {
+    font-weight: 700;
+  }
+
+  .about-facts dd {
+    margin: 0 0 calc(var(--unit) * 2) 0;
+  }
+
+  /* ---------- FOOTER ---------- */
+
+  footer.site-footer {
+    border-top: 1px solid var(--black);
+    padding-top: calc(var(--unit) * 6);
+    padding-bottom: calc(var(--unit) * 6);
+  }
+
+  .footer-col {
+    font-size: 12px;
+    line-height: 1.8;
+  }
+
+  .footer-col-1 { grid-column: 1 / 4; }
+  .footer-col-2 { grid-column: 4 / 7; }
+  .footer-col-3 { grid-column: 7 / 10; }
+  .footer-col-4 { grid-column: 10 / 13; }
+
+  .footer-col h2 {
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: calc(var(--unit) * 2);
+  }
+
+  .footer-bottom {
+    grid-column: 1 / 13;
+    margin-top: calc(var(--unit) * 8);
+    font-size: 11px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+
+  @media (max-width: 860px) {
+    .grid {
+      grid-template-columns: repeat(4, 1fr);
+      padding: 0 calc(var(--unit) * 3);
+    }
+
+    .site-header .name { grid-column: 1 / 5; }
+    nav.site-nav {
+      grid-column: 1 / 5;
+      margin-top: calc(var(--unit) * 3);
+      gap: calc(var(--unit) * 4);
+    }
+
+    .hero h1 { grid-column: 1 / 5; font-size: clamp(48px, 16vw, 96px); }
+    .hero-meta { grid-column: 1 / 5; }
+    .hero-statement { grid-column: 1 / 5; max-width: none; }
+
+    .item-01, .item-02, .item-03, .item-04,
+    .item-05, .item-06, .item-07, .item-08 {
+      grid-column: 1 / 5 !important;
+      margin-top: calc(var(--unit) * 6) !important;
+    }
+
+    .about-portrait, .about-text, .about-facts { grid-column: 1 / 5; }
+    .about-text { margin-top: calc(var(--unit) * 4); }
+    .about-facts { margin-top: calc(var(--unit) * 4); }
+
+    .footer-col-1, .footer-col-2, .footer-col-3, .footer-col-4 {
+      grid-column: 1 / 5;
+      margin-top: calc(var(--unit) * 4);
+    }
+    .footer-bottom { flex-direction: column; gap: calc(var(--unit)); }
+    
+    /* Mobile Linie anzeigen, Desktop verstecken */
+    .line-desktop { display: none; }
+    .line-mobile { display: block; }
+  }
+
+  /* ---------- ACCESSIBILITY ---------- */
+
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--black);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header grid">
+  <div class="name">LEANDRO SINATRA — FOTOGRAFIE</div>
+  <nav class="site-nav">
+    <a href="#arbeiten">Arbeiten</a>
+    <div class="nav-item">
+      <input type="checkbox" id="projekte-toggle" class="dropdown-checkbox">
+      <label for="projekte-toggle" class="dropdown-toggle">Projekte</label>
+      <div class="dropdown">
+        <a href="#arbeiten">01 Betonstruktur</a>
+        <a href="#arbeiten">02 Küstenlinie</a>
+        <a href="#arbeiten">03 Fassade</a>
+        <div class="dropdown-divider"></div>
+        <a href="#arbeiten" class="dropdown-more">Mehr ansehen →</a>
+      </div>
+    </div>
+    <a href="#ueber">Über</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+</header>
+
+<section class="hero grid">
+  <h1>LEANDRO<br>SINATRA</h1>
+  <div class="hero-meta">
+    Fotograf, Lyss<br>
+    Seit 2025 tätig<br>
+    Architektur — Landschaft — Wildlife
+  </div>
+  <div class="hero-statement">
+    Die Kamera hält fest, was das Auge übersieht. Klarheit statt Dekoration, Struktur statt Zufall.
+  </div>
+</section>
+
+<section class="portfolio" id="arbeiten">
+  <div class="grid">
+    <div class="section-label">ARBEITEN — AUSWAHL 2025–2026</div>
+  </div>
+
+  <div class="grid portfolio-grid">
+    
+    <!-- Desktop Linie (Zickzack quer durch die Spalten) -->
+    <svg class="connecting-line line-desktop" viewBox="0 0 100 100" preserveAspectRatio="none">
+      <!-- points="x,y x,y..." in Prozent (0 bis 100) -->
+      <polyline points="20,8 85,22 45,35 90,48 20,62 80,72 40,86 75,96" />
+    </svg>
+
+    <!-- Mobile Linie (Zickzack für die einspaltige Ansicht) -->
+    <svg class="connecting-line line-mobile" viewBox="0 0 100 100" preserveAspectRatio="none">
+      <polyline points="50,5 20,18 80,30 30,45 70,58 25,72 75,85 50,96" />
+    </svg>
+
+    <div class="item-01">
+      <div class="work-item"></div>
+      <div class="work-caption"><span class="idx">01</span>Betonstruktur, Basel — 2024</div>
+    </div>
+
+    <div class="item-02">
+      <div class="work-item"></div>
+      <div class="work-caption"><span class="idx">02</span>Küstenlinie, Bretagne — 2023</div>
+    </div>
+
+    <div class="item-03">
+      <div class="work-item"></div>
+      <div class="work-caption"><span class="idx">03</span>Ohne Titel — 2022</div>
+    </div>
+
+    <div class="item-04">
+      <div class="work-item"></div>
+      <div class="work-caption"><span class="idx">04</span>Fassade, Rotterdam — 2024</div>
+    </div>
+
+    <div class="item-05">
+      <div class="work-item"></div>
+      <div class="work-caption"><span class="idx">05</span>Porträt M. — 2021</div>
+    </div>
+
+    <div class="item-06">
+      <div class="work-item"></div>
+      <div class="work-caption"><span class="idx">06</span>Industriegebiet, Ruhrgebiet — 2020</div>
+    </div>
+
+    <div class="item-07">
+      <div class="work-item"></div>
+      <div class="work-caption"><span class="idx">07</span>Treppenhaus, Mailand — 2023</div>
+    </div>
+
+    <div class="item-08">
+      <div class="work-item"></div>
+      <div class="work-caption"><span class="idx">08</span>Ohne Titel — 2019</div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="ueber">
+  <div class="grid">
+    <div class="section-label">ÜBER</div>
+  </div>
+  <div class="grid">
+    <div class="about-portrait">
+      <div class="work-item"></div>
+      <div class="work-caption">Leandro Sinatra</div>
+    </div>
+    <div class="about-text">
+      Leandro Sinatra arbeitet an der Schnittstelle von Architektur- und Landschaftsfotografie. Seine Bilder entstehen aus langsamer Beobachtung und konsequenter Reduktion: keine Inszenierung, keine Nachbearbeitung über das Notwendige hinaus. Ausstellungen in Zürich, Basel und Rotterdam. Arbeiten in privaten und institutionellen Sammlungen.
+    </div>
+    <dl class="about-facts">
+      <dt>Ausbildung</dt>
+      <dd>ZHdK, Zürich</dd>
+      <dt>Ausstellungen</dt>
+      <dd>Kunsthaus Zürich, 2023</dd>
+      <dt>Vertretung</dt>
+      <dd>Galerie Nord, Basel</dd>
+    </dl>
+  </div>
+</section>
+
+<footer class="site-footer" id="kontakt">
+  <div class="grid">
+    <div class="footer-col footer-col-1">
+      <h2>Kontakt</h2>
+      itsleo.iso.contact@gmail.com <br>
+      +41 44 000 00 00
+    </div>
+
+    <div class="footer-col footer-col-3">
+      <h2>Social</h2>
+      Instagram<br>
+    
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Leandro Sinatra</span>
+      <span>Alle Rechte vorbehalten</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
