@@ -353,6 +353,33 @@
     justify-content: space-between;
   }
 
+
+  /* ---------- FOOTER LINKS ---------- */
+  .footer-col a {
+    display: inline-block;
+    position: relative;
+    transition: color 0.25s ease, text-shadow 0.25s ease, transform 0.25s ease;
+  }
+
+  .footer-col a:hover,
+  .footer-col a:focus-visible {
+    transform: translateY(-1px);
+  }
+
+  .footer-col-1 a:hover,
+  .footer-col-1 a:focus-visible {
+    color: var(--black);
+  }
+
+  .footer-col-3 a:hover,
+  .footer-col-3 a:focus-visible {
+    background: linear-gradient(90deg, #feda75 0%, #fa7e1e 25%, #d62976 50%, #962fbf 75%, #4f5bd5 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 10px rgba(214, 36, 159, 0.35);
+  }
+
   /* =====================================================
      RESPONSIVE — TABLET (≤ 860px)
      ===================================================== */
@@ -627,12 +654,12 @@
   <div class="grid">
     <div class="footer-col footer-col-1">
       <h2>Kontakt</h2>
-      itsleo.iso.contact@gmail.com <br>
+      <a href="mailto:itsleo.iso.contact@gmail.com">itsleo.iso.contact@gmail.com</a><br>
     </div>
 
     <div class="footer-col footer-col-3">
       <h2>Social</h2>
-      <a href="https://www.instagram.com/itsleo.iso/">Instagram</a>
+      <a href="https://www.instagram.com/itsleo.iso/" target="_blank" rel="noopener noreferrer" aria-label="Instagram von Leandro Sinatra">Instagram</a>
     </div>
 
     <div class="footer-bottom">
