@@ -1,1 +1,660 @@
-<H6>Hey its me its vertity</H6>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>100 — Leandro Sinatra Fotografie</title>
+<style>
+  :root {
+    --black: #000000;
+    --white: #FFFFFF;
+    --grey: #a1a1a1;
+    --unit: 8px;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--white);
+    color: var(--black);
+    font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* ---------- GRAIN / TEXTURE OVERLAY (identisch zu index.html) ---------- */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-repeat: repeat;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: calc(var(--unit) * 2);
+    padding: 0 calc(var(--unit) * 4);
+  }
+
+  /* ---------- HEADER (1:1 aus index.html) ---------- */
+
+  header.site-header {
+    padding-top: calc(var(--unit) * 4);
+    padding-bottom: calc(var(--unit) * 4);
+    border-bottom: 1px solid var(--black);
+    position: sticky;
+    top: 0;
+    background-color: var(--white);
+    z-index: 100;
+  }
+
+  .site-header .name {
+    grid-column: 1 / 5;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  nav.site-nav {
+    grid-column: 6 / 13;
+    display: flex;
+    gap: calc(var(--unit) * 5);
+    justify-content: flex-start;
+    align-items: baseline;
+  }
+
+  nav.site-nav a,
+  nav.site-nav label {
+    font-size: 13px;
+    font-weight: 400;
+  }
+
+  nav.site-nav a:hover {
+    font-weight: 700;
+  }
+
+  .nav-item {
+    position: relative;
+  }
+
+  .dropdown-checkbox {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    pointer-events: none;
+  }
+
+  .nav-item .dropdown-toggle {
+    cursor: pointer;
+    display: inline-block;
+  }
+
+  .dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: calc(var(--unit) * 3);
+    min-width: 220px;
+    background-color: var(--white);
+    border: 1px solid var(--black);
+    padding: calc(var(--unit) * 2) 0;
+    display: none;
+    z-index: 10;
+  }
+
+  .dropdown-checkbox:checked ~ .dropdown {
+    display: block;
+  }
+
+  .dropdown a {
+    display: block;
+    padding: calc(var(--unit) * 1.25) calc(var(--unit) * 3);
+    font-size: 12px;
+    font-weight: 400;
+  }
+
+  .dropdown a:hover,
+  .dropdown a:focus-visible {
+    background-color: var(--black);
+    color: var(--white);
+    font-weight: 400;
+  }
+
+  .dropdown-divider {
+    height: 1px;
+    background-color: var(--black);
+    margin: calc(var(--unit) * 2) calc(var(--unit) * 3);
+  }
+
+  .dropdown .dropdown-more {
+    font-weight: 700;
+  }
+
+  /* ---------- INTRO — WAS IST "100" ---------- */
+
+  section.weekly-intro {
+    padding-top: calc(var(--unit) * 8);
+    padding-bottom: calc(var(--unit) * 2);
+  }
+
+  .weekly-intro h1 {
+    grid-column: 1 / 6;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: 1.05;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+
+  .weekly-intro-text {
+    grid-column: 7 / 13;
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 52ch;
+  }
+
+  /* ---------- SECTION LABEL (gleiche Optik wie "ARBEITEN", "ÜBER") ---------- */
+
+  .section-label {
+    grid-column: 1 / 13;
+    font-size: 12px;
+    padding-top: calc(var(--unit) * 8);
+    padding-bottom: calc(var(--unit) * 5);
+    border-top: 1px solid var(--black);
+  }
+
+  /* ---------- 100 — FOTO DER WOCHE ---------- */
+
+  section.weekly {
+    padding-bottom: calc(var(--unit) * 14);
+  }
+
+  .weekly-viewer {
+    grid-column: 1 / 13;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: calc(var(--unit) * 4);
+    margin-top: calc(var(--unit) * 4);
+  }
+
+  .photo-frame {
+    position: relative;
+    width: min(680px, 62vw);
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background-color: #f0f0f0;
+  }
+
+  .photo-frame img.work-item {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+
+  .photo-frame img.loaded {
+    opacity: 1;
+  }
+
+  /* ---------- RETRO-PFEILE ---------- */
+  /* Bewusst der einzige "spielerische" Bruch im sonst strengen Raster —
+     eckig, hart, ohne Rundung, passend zum Schwarz/Weiß-Rest der Seite. */
+
+  .nav-arrow {
+    flex: 0 0 auto;
+    width: 48px;
+    height: 48px;
+    border: 1.5px solid var(--black);
+    background: var(--white);
+    color: var(--black);
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
+  }
+
+  .nav-arrow:hover:not(:disabled) {
+    background: var(--black);
+    color: var(--white);
+  }
+
+  .nav-arrow:active:not(:disabled) {
+    transform: scale(0.92);
+  }
+
+  .nav-arrow:disabled {
+    opacity: 0.25;
+    cursor: default;
+  }
+
+  .nav-arrow svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+  }
+
+  .nav-arrow::before,
+  .nav-arrow::after {
+    content: "";
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: var(--black);
+  }
+  .nav-arrow::before { top: -1.5px; left: -1.5px; }
+  .nav-arrow::after { bottom: -1.5px; right: -1.5px; }
+  .nav-arrow:hover:not(:disabled)::before,
+  .nav-arrow:hover:not(:disabled)::after {
+    background: var(--white);
+  }
+
+  /* ---------- DATUM / ORT ---------- */
+
+  .weekly-meta {
+    grid-column: 1 / 13;
+    display: flex;
+    justify-content: center;
+    gap: calc(var(--unit) * 6);
+    margin-top: calc(var(--unit) * 4);
+    font-size: 12px;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  .weekly-meta .label {
+    color: var(--grey);
+  }
+
+  .weekly-meta .value {
+    color: var(--black);
+    font-weight: 700;
+    margin-left: calc(var(--unit) * 0.5);
+  }
+
+  .weekly-counter {
+    grid-column: 1 / 13;
+    margin-top: calc(var(--unit) * 2);
+    text-align: center;
+    font-size: 11px;
+    color: var(--grey);
+  }
+
+  /* ---------- FOOTER (1:1 aus index.html) ---------- */
+
+  footer.site-footer {
+    border-top: 1px solid var(--black);
+    padding-top: calc(var(--unit) * 6);
+    padding-bottom: calc(var(--unit) * 6);
+  }
+
+  .footer-col {
+    font-size: 12px;
+    line-height: 1.8;
+  }
+
+  .footer-col-1 { grid-column: 1 / 4; }
+  .footer-col-2 { grid-column: 4 / 7; }
+  .footer-col-3 { grid-column: 7 / 10; }
+  .footer-col-4 { grid-column: 10 / 13; }
+
+  .footer-col h2 {
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: calc(var(--unit) * 2);
+  }
+
+  .footer-bottom {
+    grid-column: 1 / 13;
+    margin-top: calc(var(--unit) * 8);
+    font-size: 11px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .footer-col a {
+    display: inline-block;
+    position: relative;
+    transition: color 0.25s ease, text-shadow 0.25s ease, transform 0.25s ease;
+  }
+
+  .footer-col a:hover,
+  .footer-col a:focus-visible {
+    transform: translateY(-1px);
+  }
+
+  .footer-col-1 a:hover,
+  .footer-col-1 a:focus-visible {
+    color: var(--black);
+  }
+
+  .footer-col-3 a:hover,
+  .footer-col-3 a:focus-visible {
+    background: linear-gradient(90deg, #feda75 0%, #fa7e1e 25%, #d62976 50%, #962fbf 75%, #4f5bd5 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 10px rgba(214, 36, 159, 0.35);
+  }
+
+  /* ---------- ACCESSIBILITY ---------- */
+
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--black);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+
+  /* =====================================================
+     RESPONSIVE — TABLET (≤ 860px)
+     ===================================================== */
+
+  @media (max-width: 860px) {
+    .grid {
+      grid-template-columns: repeat(4, 1fr);
+      padding: 0 calc(var(--unit) * 3);
+    }
+
+    .site-header .name { grid-column: 1 / 5; }
+    nav.site-nav {
+      grid-column: 1 / 5;
+      margin-top: calc(var(--unit) * 3);
+      gap: calc(var(--unit) * 4);
+      flex-wrap: wrap;
+    }
+
+    .weekly-viewer { gap: calc(var(--unit) * 2); }
+    .photo-frame { width: min(480px, 68vw); }
+
+    .weekly-intro h1 { grid-column: 1 / 5; }
+    .weekly-intro-text { grid-column: 1 / 5; max-width: none; margin-top: calc(var(--unit) * 3); }
+
+    .footer-col-1, .footer-col-2, .footer-col-3, .footer-col-4 {
+      grid-column: 1 / 5;
+      margin-top: calc(var(--unit) * 4);
+    }
+    .footer-bottom { flex-direction: column; gap: calc(var(--unit)); }
+  }
+
+  /* =====================================================
+     RESPONSIVE — SMARTPHONE (≤ 600px)
+     ===================================================== */
+
+  @media (max-width: 600px) {
+    .grid {
+      padding: 0 calc(var(--unit) * 2.5);
+    }
+
+    header.site-header {
+      padding-top: calc(var(--unit) * 3);
+      padding-bottom: calc(var(--unit) * 3);
+    }
+
+    .site-header .name {
+      font-size: 12px;
+    }
+
+    nav.site-nav {
+      gap: calc(var(--unit) * 3);
+      margin-top: calc(var(--unit) * 2.5);
+    }
+
+    nav.site-nav a,
+    nav.site-nav label {
+      font-size: 14px;
+      padding: calc(var(--unit) * 0.5) 0;
+    }
+
+    .dropdown {
+      left: auto;
+      right: 0;
+      min-width: 200px;
+      max-width: calc(100vw - calc(var(--unit) * 5));
+    }
+
+    .section-label {
+      padding-top: calc(var(--unit) * 5);
+      padding-bottom: calc(var(--unit) * 3);
+    }
+
+    .weekly-viewer { gap: calc(var(--unit) * 1.5); }
+    .nav-arrow { width: 38px; height: 38px; }
+    .nav-arrow svg { width: 14px; height: 14px; }
+    .weekly-meta { gap: calc(var(--unit) * 3); font-size: 11px; }
+
+    section.weekly {
+      padding-bottom: calc(var(--unit) * 8);
+    }
+
+    section.weekly-intro {
+      padding-top: calc(var(--unit) * 5);
+    }
+
+    footer.site-footer {
+      padding-top: calc(var(--unit) * 4);
+      padding-bottom: calc(var(--unit) * 4);
+    }
+
+    .footer-col-1, .footer-col-2, .footer-col-3, .footer-col-4 {
+      margin-top: calc(var(--unit) * 3);
+    }
+
+    .footer-bottom {
+      margin-top: calc(var(--unit) * 5);
+      font-size: 10px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header grid">
+  <div class="name">LEANDRO SINATRA — FOTOGRAFIE</div>
+  <nav class="site-nav">
+    <a href="index.html#arbeiten">Arbeiten</a>
+    <div class="nav-item">
+      <input type="checkbox" id="projekte-toggle" class="dropdown-checkbox">
+      <label for="projekte-toggle" class="dropdown-toggle">Projekte</label>
+      <div class="dropdown">
+        <a href="Projekte.html#projekt-01">01 Valle dei Templi</a>
+        <a href="Projekte.html#projekt-02">02 Höhlen von Vallorbe</a>
+        <a href="Projekte.html#projekt-03">03 Creux du Van</a>
+        <div class="dropdown-divider"></div>
+        <a href="Projekte.html" class="dropdown-more">Mehr ansehen →</a>
+      </div>
+    </div>
+    <a href="index.html#ueber">Über</a>
+    <a href="index.html#kontakt">Kontakt</a>
+    <a href="100.html">100</a>
+  </nav>
+</header>
+
+<section class="weekly-intro grid">
+  <h1>100</h1>
+  <div class="weekly-intro-text">
+    Ein Foto pro Woche, immer Samstag oder Sonntag neu. Kein Archiv, keine Auswahl im Nachhinein — nur der eine Moment, der diese Woche geblieben ist.
+  </div>
+</section>
+
+<section class="weekly" id="foto-der-woche">
+  <div class="grid">
+    <div class="section-label">100 — FOTO DER WOCHE</div>
+  </div>
+
+  <div class="grid">
+    <div class="weekly-viewer">
+      <button class="nav-arrow" id="prevBtn" aria-label="Älteres Foto">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M15 4 L7 12 L15 20" stroke-linecap="square" stroke-linejoin="miter"/>
+        </svg>
+      </button>
+
+      <div class="photo-frame">
+        <img id="mainPhoto" class="work-item" src="" alt="">
+      </div>
+
+      <button class="nav-arrow" id="nextBtn" aria-label="Neueres Foto">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 4 L17 12 L9 20" stroke-linecap="square" stroke-linejoin="miter"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="weekly-meta">
+      <div><span class="label">Datum</span><span class="value" id="metaDatum"></span></div>
+      <div><span class="label">Ort</span><span class="value" id="metaOrt"></span></div>
+    </div>
+
+    <div class="weekly-counter" id="metaCounter"></div>
+  </div>
+</section>
+
+<footer class="site-footer" id="kontakt">
+  <div class="grid">
+    <div class="footer-col footer-col-1">
+      <h2>Kontakt</h2>
+      <a href="mailto:itsleo.iso.contact@gmail.com">itsleo.iso.contact@gmail.com</a><br>
+    </div>
+
+    <div class="footer-col footer-col-3">
+      <h2>Social</h2>
+      <a href="https://www.instagram.com/itsleo.iso/" target="_blank" rel="noopener noreferrer" aria-label="Instagram von Leandro Sinatra">Instagram</a>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Leandro Sinatra</span>
+      <span>Alle Rechte vorbehalten</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   DATENSTRUKTUR
+   Neuestes Bild steht an INDEX 0. Jeden Samstag/Sonntag einfach
+   ein neues Objekt OBEN in das Array einfügen — Standardanzeige
+   und Pfeil-Logik passen sich automatisch an.
+   Bildpfade wie im Rest der Seite relativ zu 100.html, z.B.
+   "Arbeiten/DeinBild.jpg".
+   ============================================================ */
+const fotos = [
+  {
+    bildUrl: "Arbeiten/Foto100_04.jpg",
+    datum: "07.09.2026",
+    ort: "Lyss, Bern"
+  },
+  {
+    bildUrl: "Arbeiten/Foto100_03.jpg",
+    datum: "31.08.2026",
+    ort: "Creux du Van"
+  },
+  {
+    bildUrl: "Arbeiten/Foto100_02.jpg",
+    datum: "24.08.2026",
+    ort: "Vallorbe"
+  },
+  {
+    bildUrl: "Arbeiten/Foto100_01.jpg",
+    datum: "17.08.2026",
+    ort: "Sizilien"
+  }
+];
+
+/* ============================================================
+   STEUERUNG
+   currentIndex = 0  →  neuestes Foto (Standardansicht)
+   Höherer Index     →  älteres Foto
+   ============================================================ */
+let currentIndex = 0;
+
+const imgEl = document.getElementById("mainPhoto");
+const datumEl = document.getElementById("metaDatum");
+const ortEl = document.getElementById("metaOrt");
+const counterEl = document.getElementById("metaCounter");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+
+function renderFoto(index) {
+  const foto = fotos[index];
+  if (!foto) return;
+
+  imgEl.classList.remove("loaded");
+
+  // Bild austauschen, ohne die Seite neu zu laden
+  const preload = new Image();
+  preload.src = foto.bildUrl;
+  preload.onload = () => {
+    imgEl.src = foto.bildUrl;
+    imgEl.alt = `Foto vom ${foto.datum} — ${foto.ort}`;
+    requestAnimationFrame(() => imgEl.classList.add("loaded"));
+  };
+
+  datumEl.textContent = foto.datum;
+  ortEl.textContent = foto.ort;
+  counterEl.textContent = `${fotos.length - index} / ${fotos.length}`;
+
+  prevBtn.disabled = index >= fotos.length - 1; // kein älteres Foto mehr
+  nextBtn.disabled = index <= 0;                // schon beim neuesten Foto
+}
+
+function showPrevious() {
+  if (currentIndex < fotos.length - 1) {
+    currentIndex++;
+    renderFoto(currentIndex);
+  }
+}
+
+function showNext() {
+  if (currentIndex > 0) {
+    currentIndex--;
+    renderFoto(currentIndex);
+  }
+}
+
+prevBtn.addEventListener("click", showPrevious);
+nextBtn.addEventListener("click", showNext);
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "ArrowLeft") showPrevious();
+  if (e.key === "ArrowRight") showNext();
+});
+
+renderFoto(currentIndex);
+</script>
+
+</body>
+</html>
