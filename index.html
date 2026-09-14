@@ -55,6 +55,11 @@
   img {
     max-width: 100%;
     height: auto;
+
+    /* Bildschutz: Ziehen/Markieren erschweren */
+    -webkit-user-drag: none;
+    user-select: none;
+    -webkit-touch-callout: none; /* verhindert "Halten"-Menü auf iOS */
   }
 
   .grid {
@@ -669,6 +674,34 @@
     </div>
   </div>
 </footer>
+
+<script>
+  /*
+   * ----------------------------------
+   * BILDSCHUTZ
+   * ----------------------------------
+   * Hinweis: Dies verhindert das Speichern nicht zu 100%
+   * (Entwicklertools, Screenshots etc. umgehen es weiterhin),
+   * erschwert es aber für die meisten Besucher deutlich.
+   */
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll("img").forEach((img) => {
+
+      // Rechtsklick-Menü ("Bild speichern unter…") auf Bildern deaktivieren
+      img.addEventListener("contextmenu", (event) => {
+        event.preventDefault();
+      });
+
+      // Ziehen des Bildes (Drag & Drop auf den Desktop) verhindern
+      img.addEventListener("dragstart", (event) => {
+        event.preventDefault();
+      });
+
+      img.setAttribute("draggable", "false");
+
+    });
+  });
+</script>
 
 </body>
 </html>
