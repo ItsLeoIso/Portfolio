@@ -210,9 +210,14 @@
 
   .work-item {
     width: 100%;
-    height: auto; /* Forces the image to crop perfectly instead of squishing */
+    height: auto;
     display: block;
-    background-color: #f0f0f0; /* Placeholder while loading */
+    background-color: #f0f0f0;
+  }
+
+  section.portfolio .work-item {
+    height: 100%;
+    object-fit: cover;
   }
 
   .work-caption {
@@ -226,63 +231,70 @@
     margin-right: calc(var(--unit) * 1);
   }
 
-  /* Row 1 */
-  .item-01 { grid-column: 1 / 6; margin-top: calc(var(--unit) * 2); }
-  .item-01 .work-item { aspect-ratio: auto; }
+  /* ---------- ARBEITEN: 3-BILD-MUSTER ---------- */
 
-  .item-02 { grid-column: 8 / 13; margin-top: calc(var(--unit) * 22); }
-  .item-02 .work-item { aspect-ratio: auto; }
+  /*
+     Jede Gruppe besteht aus 3 Arbeiten:
+     - links: zwei Bilder untereinander
+     - rechts: ein grosses Bild über beide Reihen
+     Die Gruppe sitzt bewusst innerhalb des bestehenden 12-Spalten-Rasters.
+  */
+  .work-group {
+    grid-column: 3 / 11;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    gap: calc(var(--unit) * 2);
+    margin-top: calc(var(--unit) * 12);
+    align-items: start;
+  }
 
-  /* Row 2 */
-  .item-03 { grid-column: 1 / 8; margin-top: calc(var(--unit) * 14); }
-  .item-03 .work-item { aspect-ratio: auto; }
+  .work-group:first-of-type {
+    margin-top: calc(var(--unit) * 2);
+  }
 
-  .item-04 { grid-column: 9 / 13; margin-top: calc(var(--unit) * 4); }
-  .item-04 .work-item { aspect-ratio: auto; }
+  .work-group .work-card {
+    min-width: 0;
+  }
 
-  /* Row 3 */
-  .item-05 { grid-column: 1 / 4; margin-top: calc(var(--unit) * 20); }
-  .item-05 .work-item { aspect-ratio: auto; }
+  /* Das grosse Bild ist immer rechts. */
+  .work-group .work-card.large {
+    grid-column: 2;
+    grid-row: 1 / 3;
+  }
 
-  .item-06 { grid-column: 5 / 13; margin-top: calc(var(--unit) * 20); }
-  .item-06 .work-item { aspect-ratio: auto; }
+  /* Die beiden kleineren Bilder stehen links untereinander. */
+  .work-group .work-card.small:nth-child(2),
+  .work-group .work-card.small:nth-child(3) {
+    grid-column: 1;
+  }
 
-  /* Row 4 */
-  .item-07 { grid-column: 2 / 6; margin-top: calc(var(--unit) * 18); }
-  .item-07 .work-item { aspect-ratio: auto; }
+  .work-group .work-card.small:nth-child(2) {
+    grid-row: 1;
+  }
 
-  .item-08 { grid-column: 6 / 10; margin-top: calc(var(--unit) * 32); }
-  .item-08 .work-item { aspect-ratio: auto; }
+  .work-group .work-card.small:nth-child(3) {
+    grid-row: 2;
+  }
 
-  .item-09 { grid-column: 1 / 8; margin-top: calc(var(--unit) * 10); }
-  .item-09 .work-item { aspect-ratio: auto; }
+  /* Das Seitenverhältnis entspricht dem Referenz-Layout. */
+  .work-group .work-card.large .work-item {
+    aspect-ratio: 3 / 4;
+  }
 
-  /* ---------- VERBINDUNGSLINIE (ARBEITEN) ---------- */
+  .work-group .work-card.small .work-item {
+    aspect-ratio: 3 / 2;
+  }
+
+  .work-group .work-item {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
   .portfolio-grid {
     position: relative;
-    z-index: 1; /* Schafft einen eigenen Stacking Context */
-  }
-
-  .connecting-line {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none; /* Verhindert, dass die Linie Klicks blockiert */
-    z-index: -1; /* Legt die Linie HINTER die rosa Bildflächen */
-  }
-
-  .connecting-line polyline {
-    fill: none;
-    stroke: var(--black);
-    stroke-width: 1.5px;
-    /* vector-effect sorgt dafür, dass die Linie beim Skalieren nicht verzerrt oder dicker wird */
-    vector-effect: non-scaling-stroke;
-  }
-
-  .line-mobile {
-    display: none;
+    z-index: 1;
   }
 
   /* ---------- ABOUT ---------- */
@@ -402,10 +414,13 @@
     .hero-meta { grid-column: 1 / 5; margin-top: calc(var(--unit) * 4); }
     .hero-statement { grid-column: 1 / 5; max-width: none; margin-top: calc(var(--unit) * 3); }
 
-    .item-01, .item-02, .item-03, .item-04,
-    .item-05, .item-06, .item-07, .item-08, .item-09 {
-      grid-column: 1 / 5 !important;
-      margin-top: calc(var(--unit) * 6) !important;
+    .work-group {
+      grid-column: 1 / 5;
+      margin-top: calc(var(--unit) * 8);
+    }
+
+    .work-group:first-of-type {
+      margin-top: calc(var(--unit) * 2);
     }
 
     .about-portrait, .about-text { grid-column: 1 / 5; }
@@ -481,9 +496,12 @@
       padding-bottom: calc(var(--unit) * 3);
     }
 
-    .item-01, .item-02, .item-03, .item-04,
-    .item-05, .item-06, .item-07, .item-08, .item-09 {
-      margin-top: calc(var(--unit) * 4) !important;
+    .work-group {
+      margin-top: calc(var(--unit) * 4);
+    }
+
+    .work-group:first-of-type {
+      margin-top: calc(var(--unit) * 2);
     }
 
     section.portfolio {
@@ -576,63 +594,105 @@
   </div>
 
   <div class="grid portfolio-grid">
-
-    <!-- Desktop Linie (Zickzack quer durch die Spalten) -->
-    <svg class="connecting-line line-desktop" viewBox="0 0 100 100" preserveAspectRatio="none">
-      <!-- points="x,y x,y..." in Prozent (0 bis 100) -->
-      <polyline points="20,8 85,22 45,35 90,48 20,62 80,72 40,86 75,96" />
-    </svg>
-
-    <!-- Mobile Linie (Zickzack für die einspaltige Ansicht) -->
-    <svg class="connecting-line line-mobile" viewBox="0 0 100 100" preserveAspectRatio="none">
-      <polyline points="50,5 20,18 80,30 30,45 70,58 25,72 75,85 50,96" />
-    </svg>
-
-    <div class="item-01">
-      <img src="Arbeiten/Etna.jpg" alt="Etna" class="work-item">
-      <div class="work-caption"><span class="idx">01</span>Etna</div>
+    <div class="work-group" data-work-group="1">
+      <div class="work-card" data-work-index="1">
+        <div class="item-01">
+      <img src="Arbeiten/Miao.jpg" alt="Gattino" class="work-item">
+      <div class="work-caption"><span class="idx">01</span>Feline Eyes - Sizilien</div>
     </div>
-
-    <div class="item-02">
+      </div>
+      <div class="work-card" data-work-index="2">
+        <div class="item-02">
       <img src="Arbeiten/Templio.jpg" alt="Tempel der Eintracht" class="work-item">
       <div class="work-caption"><span class="idx">02</span>Tempel der Eintracht - Sizilien</div>
     </div>
-
-    <div class="item-03">
+      </div>
+      <div class="work-card" data-work-index="3">
+        <div class="item-03">
       <img src="Arbeiten/Statua.jpg" alt="L'icaro caduto" class="work-item">
       <div class="work-caption"><span class="idx">03</span>l'icaro caduto - Sizilien</div>
     </div>
-
-    <div class="item-04">
-      <img src="Arbeiten/Sengale.jpg" alt="Signal auf den Creux de vain" class="work-item">
-      <div class="work-caption"><span class="idx">04</span>Signal - Creux de vain</div>
+      </div>
     </div>
-
-    <div class="item-05">
-      <img src="Arbeiten/Moo.jpg" alt="Kuh" class="work-item">
-      <div class="work-caption"><span class="idx">05</span>Kuh - Creux de vain</div>
+    <div class="work-group" data-work-group="2">
+      <div class="work-card" data-work-index="4">
+        <div class="item-04">
+      <img src="Arbeiten/tit.jpg" alt="Tit on post" class="work-item">
+      <div class="work-caption"><span class="idx">04</span>Birdy - La Sauge</div>
     </div>
-
-    <div class="item-06">
-      <img src="Arbeiten/Naruto_the_Uchia_hidden_leaf_Hokage_The_3rd_Secret_Wepon.jpg" alt="Naruto" class="work-item">
-      <div class="work-caption"><span class="idx">06</span>Kuh-kun - Creux de vain</div>
+      </div>
+      <div class="work-card" data-work-index="5">
+        <div class="item-05">
+      <img src="Arbeiten/flyport.jpg" alt="Bird's Hunter eyes" class="work-item">
+      <div class="work-caption"><span class="idx">05</span>Graureiher - La Sauge</div>
     </div>
-
-    <div class="item-07">
+      </div>
+      <div class="work-card" data-work-index="6">
+        <div class="item-06">
+      <img src="Arbeiten/frogclose.jpg" alt="Naruto" class="work-item">
+      <div class="work-caption"><span class="idx">06</span>Frosch - La Sauge</div>
+    </div>
+      </div>
+    </div>
+    <div class="work-group" data-work-group="3">
+      <div class="work-card" data-work-index="7">
+        <div class="item-07">
       <img src="Arbeiten/WhiteMoo.jpg" alt="Weiße Kuh" class="work-item">
-      <div class="work-caption"><span class="idx">07</span>Weiße Kuh - Creux de vain</div>
+      <div class="work-caption"><span class="idx">07</span>Weiße Kuh - Creux du Van</div>
     </div>
-
-    <div class="item-08">
+      </div>
+      <div class="work-card" data-work-index="8">
+        <div class="item-08">
       <img src="Arbeiten/BnWmoos.jpg" alt="A Cow's love" class="work-item">
-      <div class="work-caption"><span class="idx">08</span>A Cow's love - Creux de vain</div>
+      <div class="work-caption"><span class="idx">08</span>A Cow's love - Creux du Van</div>
     </div>
-
-    <div class="item-09">
-      <img src="Arbeiten/Smokeonthewater.jpg" alt="Smoke on the Water" class="work-item">
-      <div class="work-caption"><span class="idx">09</span>Smoke on the Water - Vallorbe</div>
+      </div>
+      <div class="work-card" data-work-index="9">
+        <div class="item-09">
+      <img src="Arbeiten/Naruto_the_Uchia_hidden_leaf_Hokage_The_3rd_Secret_Wepon.jpg" alt="Kuh-kun" class="work-item">
+      <div class="work-caption"><span class="idx">09</span>Big bertha - Creux du Van</div>
+    </div>
+      </div>
     </div>
   </div>
+
+  <script>
+    (() => {
+      const groups = document.querySelectorAll('#arbeiten .work-group');
+
+      groups.forEach((group) => {
+        const cards = [...group.querySelectorAll('.work-card')];
+
+        const arrange = () => {
+          // Wenn ein Hochformat vorhanden ist, bekommt es den grossen Platz rechts.
+          // Gibt es keines, übernimmt ein Querformat diesen Platz.
+          const vertical = cards.find(card => card.dataset.orientation === 'vertical');
+          const large = vertical || cards[0];
+
+          cards.forEach(card => card.classList.remove('large', 'small'));
+          large.classList.add('large');
+          cards.filter(card => card !== large).forEach(card => card.classList.add('small'));
+        };
+
+        cards.forEach((card) => {
+          const img = card.querySelector('img');
+          if (!img) return;
+
+          const classify = () => {
+            card.dataset.orientation =
+              img.naturalHeight > img.naturalWidth ? 'vertical' : 'horizontal';
+            arrange();
+          };
+
+          if (img.complete && img.naturalWidth) {
+            classify();
+          } else {
+            img.addEventListener('load', classify, { once: true });
+          }
+        });
+      });
+    })();
+  </script>
 </section>
 
 <section class="about" id="ueber">
