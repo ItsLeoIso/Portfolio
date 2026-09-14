@@ -53,11 +53,6 @@
   img {
     max-width: 100%;
     height: auto;
-
-    /* Bildschutz: Ziehen/Markieren erschweren */
-    -webkit-user-drag: none;
-    user-select: none;
-    -webkit-touch-callout: none; /* verhindert "Halten"-Menü auf iOS */
   }
 
   .grid {
@@ -645,22 +640,6 @@ document.addEventListener("keydown", (e) => {
 });
 
 renderFoto(currentIndex);
-
-/* ============================================================
-   BILDSCHUTZ
-   Hinweis: Dies verhindert das Speichern nicht zu 100%
-   (Entwicklertools, Screenshots etc. umgehen es weiterhin),
-   erschwert es aber für die meisten Besucher deutlich.
-   ============================================================ */
-imgEl.addEventListener("contextmenu", (event) => {
-  event.preventDefault();
-});
-
-imgEl.addEventListener("dragstart", (event) => {
-  event.preventDefault();
-});
-
-imgEl.setAttribute("draggable", "false");
 </script>
 
 </body>

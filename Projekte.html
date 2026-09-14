@@ -70,11 +70,6 @@
       display: block;
       width: 100%;
       height: auto;
-
-      /* Bildschutz: Ziehen/Markieren erschweren */
-      -webkit-user-drag: none;
-      user-select: none;
-      -webkit-touch-callout: none; /* verhindert "Halten"-Menü auf iOS */
     }
 
     /* ----------------------------------
@@ -613,6 +608,9 @@
             >
           </div>
 
+            >
+          </div>
+
         </div>
 
       </article>
@@ -671,7 +669,7 @@
               alt="Kuh – Creux de Vain"
               loading="lazy"
             >
-          </div>
+
 
         </div>
 
@@ -812,32 +810,6 @@
 
       const projects =
         document.querySelectorAll(".project-section");
-
-
-      /*
-       * ----------------------------------
-       * BILDSCHUTZ
-       * ----------------------------------
-       * Hinweis: Dies verhindert das Speichern nicht zu 100%
-       * (Entwicklertools, Screenshots etc. umgehen es weiterhin),
-       * erschwert es aber für die meisten Besucher deutlich.
-       */
-
-      document.querySelectorAll("img").forEach((img) => {
-
-        // Rechtsklick-Menü ("Bild speichern unter…") auf Bildern deaktivieren
-        img.addEventListener("contextmenu", (event) => {
-          event.preventDefault();
-        });
-
-        // Ziehen des Bildes (Drag & Drop auf den Desktop) verhindern
-        img.addEventListener("dragstart", (event) => {
-          event.preventDefault();
-        });
-
-        img.setAttribute("draggable", "false");
-
-      });
 
 
       /*
