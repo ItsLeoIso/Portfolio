@@ -210,8 +210,7 @@
 
   .work-item {
     width: 100%;
-    height: 100%;
-    object-fit: cover; /* Forces the image to crop perfectly instead of squishing */
+    height: auto; /* Forces the image to crop perfectly instead of squishing */
     display: block;
     background-color: #f0f0f0; /* Placeholder while loading */
   }
@@ -235,7 +234,7 @@
   .item-02 .work-item { aspect-ratio: auto; }
 
   /* Row 2 */
-  .item-03 { grid-column: 2 / 7; margin-top: calc(var(--unit) * 14); }
+  .item-03 { grid-column: 1 / 8; margin-top: calc(var(--unit) * 14); }
   .item-03 .work-item { aspect-ratio: auto; }
 
   .item-04 { grid-column: 9 / 13; margin-top: calc(var(--unit) * 4); }
@@ -252,7 +251,7 @@
   .item-07 { grid-column: 2 / 6; margin-top: calc(var(--unit) * 18); }
   .item-07 .work-item { aspect-ratio: auto; }
 
-  .item-08 { grid-column: 7 / 10; margin-top: calc(var(--unit) * 32); }
+  .item-08 { grid-column: 6 / 10; margin-top: calc(var(--unit) * 32); }
   .item-08 .work-item { aspect-ratio: auto; }
 
   .item-09 { grid-column: 1 / 8; margin-top: calc(var(--unit) * 10); }
