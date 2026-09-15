@@ -255,9 +255,18 @@
     ---------------------------------- */
 
     .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: calc(var(--unit) * 2);
+      align-items: start;
+    }
+
+    /* Vier unabhängige Bildspalten wie im Referenz-Screenshot. */
+    .photo-column {
       display: flex;
       flex-direction: column;
-      gap: calc(var(--unit) * 4);
+      gap: calc(var(--unit) * 2);
+      min-width: 0;
     }
 
     .photo-wrapper {
@@ -274,6 +283,80 @@
 
     .photo-wrapper:hover img {
       transform: scale(1.01);
+    }
+
+
+    /* ----------------------------------
+       IMAGE LIGHTBOX / FULLSCREEN
+    ---------------------------------- */
+
+    .photo-wrapper {
+      cursor: zoom-in;
+    }
+
+    .image-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      padding: 32px;
+      background: rgba(0, 0, 0, 0.96);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
+
+    .image-lightbox.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .image-lightbox img {
+      width: auto;
+      max-width: min(92vw, 1600px);
+      max-height: calc(100vh - 110px);
+      object-fit: contain;
+    }
+
+    .image-lightbox-close {
+      appearance: none;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      background: transparent;
+      color: #fff;
+      padding: 8px 18px;
+      font: inherit;
+      font-size: 12px;
+      line-height: 1;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .image-lightbox-close:hover,
+    .image-lightbox-close:focus-visible {
+      background: #fff;
+      color: #000;
+      outline: none;
+    }
+
+    body.lightbox-open {
+      overflow: hidden;
+    }
+
+    @media (max-width: 600px) {
+      .image-lightbox {
+        padding: 20px;
+      }
+
+      .image-lightbox img {
+        max-width: 94vw;
+        max-height: calc(100vh - 90px);
+      }
     }
 
     /* ----------------------------------
@@ -441,6 +524,22 @@
         min-height: 260px;
       }
     }
+
+    @media (max-width: 860px) {
+      .photo-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .photo-column {
+        display: contents;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .photo-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 
@@ -547,24 +646,26 @@ x
         </p>
 
         <div class="photo-grid">
-
-          <div class="photo-wrapper">
+          <div class="photo-column">
+<div class="photo-wrapper">
             <img
               src="Arbeiten/Etna.webp"
               alt="Etna – Sizilien"
               loading="lazy"
             >
           </div>
-
-          <div class="photo-wrapper">
+          </div>
+          <div class="photo-column">
+<div class="photo-wrapper">
             <img
               src="Arbeiten/Templio.webp"
               alt="Tempel der Eintracht – Sizilien"
               loading="lazy"
             >
           </div>
-
-          <div class="photo-wrapper">
+          </div>
+          <div class="photo-column">
+<div class="photo-wrapper">
             <img
               src="Arbeiten/Statua.webp"
               alt="L'Icaro cadudo – Valle dei Templi"
@@ -572,7 +673,9 @@ x
             >
 
           </div>
-          <div class="photo-wrapper">
+          </div>
+          <div class="photo-column">
+<div class="photo-wrapper">
             <img
               src="Arbeiten/Miao.webp"
               alt="Miaoo – Valle dei Templi"
@@ -580,6 +683,7 @@ x
             >
         
         </div>
+          </div>
         </div>
 
       </article>
@@ -599,18 +703,15 @@ x
         </p>
 
         <div class="photo-grid">
-
-          <div class="photo-wrapper">
+          <div class="photo-column">
+<div class="photo-wrapper">
             <img
               src="Arbeiten/Smokeonthewater.webp"
               alt="Smoke on the Water – Vallorbe"
               loading="lazy"
             >
           </div>
-
-            >
           </div>
-
         </div>
 
       </article>
@@ -630,47 +731,49 @@ x
         </p>
 
         <div class="photo-grid">
-
-        <div class="photo-wrapper">
+          <div class="photo-column">
+<div class="photo-wrapper">
             <img
               src="Arbeiten/Sengale.webp"
               alt="Signal – Creux de Vain"
               loading="lazy"
             >
           </div>
-
-          <div class="photo-wrapper">
+<div class="photo-wrapper">
+            <img
+              src="Arbeiten/BnWmoos.webp"
+              alt="Kuh – Creux de Vain"
+              loading="lazy"
+            >
+          </div>
+          </div>
+          <div class="photo-column">
+<div class="photo-wrapper">
             <img
               src="Arbeiten/Naruto_the_Uchia_hidden_leaf_Hokage_The_3rd_Secret_Wepon.webp"
               alt="Kuh-kun – Creux de Vain"
               loading="lazy"
             >
           </div>
-
-          <div class="photo-wrapper">
+          </div>
+          <div class="photo-column">
+<div class="photo-wrapper">
             <img
               src="Arbeiten/WhiteMoo.webp"
               alt="Weiße Kuh – Creux de Vain"
               loading="lazy"
             >
           </div>
-
-          <div class="photo-wrapper">
+          </div>
+          <div class="photo-column">
+<div class="photo-wrapper">
             <img
               src="Arbeiten/Moo.webp"
               alt="Kuh – Creux de Vain"
               loading="lazy"
             >
           </div>
-
-           <div class="photo-wrapper">
-            <img
-              src="Arbeiten/BnWmoos.webp"
-              alt="Kuh – Creux de Vain"
-              loading="lazy"
-            >
-
-
+          </div>
         </div>
 
       </article>
@@ -690,65 +793,64 @@ x
             </p>
 
             <div class="photo-grid">
-
-                <div class="photo-wrapper">
+          <div class="photo-column">
+<div class="photo-wrapper">
                     <img
                         src="Arbeiten/auratit.webp"
                         alt="Birdy"
                         loading="lazy"
                     >
                 </div>
-
-                <div class="photo-wrapper">
-                    <img
-                        src="Arbeiten/tit.webp"
-                        alt="Tit"
-                        loading="lazy"
-                    >
-                </div>
-
-                <div class="photo-wrapper">
-                    <img
-                        src="Arbeiten/flyport.webp"
-                        alt="Fly"
-                        loading="lazy"
-                    >
-                </div>
-
-                 <div class="photo-wrapper">
-                    <img
-                        src="Arbeiten/flystick.webp"
-                        alt="Bruh i aint no name ideas"
-                        loading="lazy"
-                    >
-                </div>
-
-                 <div class="photo-wrapper">
+<div class="photo-wrapper">
                     <img
                         src="Arbeiten/fly.webp"
                         alt="676767"
                         loading="lazy"
                     >
                 </div>
-
-                 <div class="photo-wrapper">
+          </div>
+          <div class="photo-column">
+<div class="photo-wrapper">
+                    <img
+                        src="Arbeiten/tit.webp"
+                        alt="Tit"
+                        loading="lazy"
+                    >
+                </div>
+<div class="photo-wrapper">
                     <img
                         src="Arbeiten/frogclose.webp"
                         alt="Hey its me its verity"
                         loading="lazy"
                     >
                 </div>
-
-                 <div class="photo-wrapper">
+          </div>
+          <div class="photo-column">
+<div class="photo-wrapper">
+                    <img
+                        src="Arbeiten/flyport.webp"
+                        alt="Fly"
+                        loading="lazy"
+                    >
+                </div>
+<div class="photo-wrapper">
                     <img
                         src="Arbeiten/froggy.webp"
                         alt="aura monster"
                         loading="lazy"
                     >
                 </div>
-
-
-            </div>
+          </div>
+          <div class="photo-column">
+<div class="photo-wrapper">
+                    <img
+                        src="Arbeiten/flystick.webp"
+                        alt="Bruh i aint no name ideas"
+                        loading="lazy"
+                    >
+                </div>
+          </div>
+        </div>
 
     </section>
 
@@ -800,6 +902,12 @@ x
   <!-- ==================================
        JAVASCRIPT
   =================================== -->
+
+  <!-- IMAGE FULLSCREEN -->
+  <div class="image-lightbox" id="imageLightbox" role="dialog" aria-modal="true" aria-label="Bildansicht" aria-hidden="true">
+    <img id="lightboxImage" src="" alt="">
+    <button class="image-lightbox-close" id="lightboxClose" type="button" aria-label="Bildansicht schließen">X</button>
+  </div>
 
   <script>
 
@@ -948,9 +1056,60 @@ x
 
       }
 
+
+
+      /*
+       * ----------------------------------
+       * BILDER IM FULLSCREEN ÖFFNEN
+       * ----------------------------------
+       */
+
+      const lightbox = document.getElementById("imageLightbox");
+      const lightboxImage = document.getElementById("lightboxImage");
+      const lightboxClose = document.getElementById("lightboxClose");
+      const galleryImages = document.querySelectorAll(".photo-wrapper img");
+
+      function openLightbox(image) {
+        lightboxImage.src = image.currentSrc || image.src;
+        lightboxImage.alt = image.alt || "";
+        lightbox.classList.add("is-open");
+        lightbox.setAttribute("aria-hidden", "false");
+        document.body.classList.add("lightbox-open");
+        lightboxClose.focus();
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove("is-open");
+        lightbox.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("lightbox-open");
+        lightboxImage.src = "";
+      }
+
+      galleryImages.forEach((image) => {
+        image.addEventListener("click", () => {
+          openLightbox(image);
+        });
+      });
+
+      lightboxClose.addEventListener("click", closeLightbox);
+
+      lightbox.addEventListener("click", (event) => {
+        if (event.target === lightbox) {
+          closeLightbox();
+        }
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && lightbox.classList.contains("is-open")) {
+          closeLightbox();
+        }
+      });
+
+
     });
 
   </script>
+
 
 </body>
 </html>
