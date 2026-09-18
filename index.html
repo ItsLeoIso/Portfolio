@@ -567,9 +567,9 @@
 <body>
 
 <header class="site-header grid">
-  <div class="name">LEANDRO SINATRA — FOTOGRAFIE</div>
+  <a href="index.html" class="name">LEANDRO SINATRA - FOTOGRAFIE</a>
   <nav class="site-nav">
-    <a href="#arbeiten">Arbeiten</a>
+    <a href="#home">Home</a>
     <div class="nav-item">
       <input type="checkbox" id="projekte-toggle" class="dropdown-checkbox">
       <label for="projekte-toggle" class="dropdown-toggle">Projekte</label>
@@ -599,7 +599,7 @@
   </div>
 </section>
 
-<section class="portfolio" id="arbeiten">
+<section class="portfolio" id="home">
   <div class="grid">
     <div class="section-label">ARBEITEN — AUSWAHL 2025–2026</div>
   </div>
@@ -669,7 +669,7 @@
 
   <script>
     (() => {
-      const groups = document.querySelectorAll('#arbeiten .work-group');
+      const groups = document.querySelectorAll('#home .work-group');
 
       groups.forEach((group) => {
         const cards = [...group.querySelectorAll('.work-card')];
