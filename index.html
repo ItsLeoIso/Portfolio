@@ -680,6 +680,39 @@
   #projekte-toggle:focus-visible + .dropdown-toggle { outline:2px solid var(--accent); outline-offset:4px; }
   .about-text h2 { font-size:clamp(28px,4vw,48px); letter-spacing:-.04em; font-weight:500; margin-bottom:12px; }
   .about-text p + p { margin-top:18px; }
+
+
+  /* ---------- HOMEPAGE PHOTO LAYOUT REFINEMENT ---------- */
+  /* Desktop-only refinement: leave the existing tablet and mobile layouts untouched. */
+  @media (min-width: 861px) {
+    .hero-photo {
+      width: 72%;
+      height: auto;
+      max-height: 68vh;
+      aspect-ratio: 3 / 2;
+      object-fit: contain;
+      margin-inline: auto;
+    }
+    .portfolio-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      column-gap: clamp(16px, 2.5vw, 36px);
+      row-gap: clamp(36px, 5vw, 72px);
+      align-items: start;
+    }
+    .portfolio-grid .work-card:nth-child(n) {
+      grid-column: auto;
+      margin-top: 0;
+      min-width: 0;
+    }
+    .portfolio-grid .work-item {
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      height: auto;
+      object-fit: contain;
+      background: transparent;
+    }
+  }
+
 </style>
 </head>
 <body>
