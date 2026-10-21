@@ -640,6 +640,7 @@
   .lightbox-close { position:absolute; top:20px; right:24px; color:#F2F0EC; background:transparent; border:1px solid rgba(255,255,255,.3); padding:10px 14px; cursor:pointer; }
   .lightbox-caption { position:absolute; bottom:20px; left:24px; right:24px; color:#F2F0EC; text-align:center; font:11px 'IBM Plex Mono',monospace; letter-spacing:.08em; }
   @media(max-width:860px) {
+    .hero h1 { font-size:clamp(48px,16vw,96px); }
     .hero-photo-wrap { grid-column:1 / 5; }
     .hero-photo { height:auto; max-height:none; object-fit:contain; }
     .portfolio-grid .work-card:nth-child(n) { grid-column:1 / 5; margin-top:0; }
@@ -649,6 +650,7 @@
   }
   @media(max-width:600px) {
     .hero { padding-top:48px; padding-bottom:56px; }
+    .hero h1 { font-size:clamp(40px,15vw,64px); line-height:.92; }
     .hero-photo-wrap { margin-top:32px; }
     .portfolio-grid { row-gap:48px; }
     .portfolio-grid .work-card:nth-child(n) { grid-column:1 / 5; }
