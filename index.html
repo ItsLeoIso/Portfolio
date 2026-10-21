@@ -599,6 +599,9 @@
   .hero-statement { font-size: clamp(16px, 1.45vw, 20px); max-width: 38ch; }
   .hero-photo-wrap { grid-column: 1 / 13; margin-top: clamp(40px, 6vw, 88px); }
   .hero-photo { display:block; width:100%; height:min(78vh, 920px); max-height:none; object-fit:cover; object-position:center; }
+  /* Keep the portrait untouched; scale down homepage landscape and gallery photos. */
+  .hero-photo { width:78%; margin-inline:auto; }
+  .portfolio-grid .work-item { width:78%; margin-inline:auto; }
   .hero-figure-caption { color: var(--grey); margin-top: 12px; }
   .section-label { border-top-color: rgba(255,255,255,.22); display:flex; justify-content:space-between; gap:24px; color: var(--black); letter-spacing:.08em; }
   .portfolio-grid { row-gap: clamp(36px, 6vw, 88px); align-items:start; }
