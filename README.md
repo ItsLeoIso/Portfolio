@@ -12,7 +12,7 @@ Portfolio für Architektur-, Landschafts- und Wildlife-Fotografie: [itsleoiso.ch
 
 - Statische HTML-, CSS- und JavaScript-Seiten; kein Build-Schritt und keine Framework-Abhängigkeiten.
 - Fotografien liegen im Ordner `Arbeiten/` und werden als WebP ausgeliefert.
-- Switzer wird über Fontshare geladen; IBM Plex Mono wird als Metadaten-Schrift mit lokalen System-Fallbacks verwendet.
+- Switzer wird über Fontshare geladen. Für Metadaten wird eine Monospace-Schrift mit lokalen System-Fallbacks verwendet.
 - Die Website wird über GitHub Pages mit der benutzerdefinierten Domain `itsleoiso.ch` veröffentlicht.
 
 ## Lokal prüfen
