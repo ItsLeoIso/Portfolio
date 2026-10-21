@@ -478,6 +478,20 @@
       font-size: 10px;
     }
   }
+
+:root { color-scheme:dark; --black:#F2F0EC; --white:#0C0C0C; --grey:#8E8D8A; --accent:#C8B29B; }
+body { background:#0C0C0C; color:#F2F0EC; }
+header.site-header { background:rgba(12,12,12,.94); border-bottom-color:rgba(255,255,255,.15); backdrop-filter:blur(14px); }
+.dropdown { background:#141414; border-color:rgba(255,255,255,.2); }
+.dropdown a:hover,.dropdown a:focus-visible { background:#F2F0EC; color:#0C0C0C; }
+.weekly-intro h1 { letter-spacing:-.06em; }
+.weekly-intro-text { color:#D8D5CF; }
+.section-label { border-color:rgba(255,255,255,.18); }
+.weekly-meta .label { color:#8E8D8A; }
+.weekly-meta .value { color:#F2F0EC; }
+.weekly-counter { color:#8E8D8A; }
+a:focus-visible,button:focus-visible,label:focus-visible { outline:2px solid #C8B29B; outline-offset:4px; }
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important;}}
 </style>
 </head>
 <body>
@@ -499,12 +513,12 @@
     </div>
     <a href="index.html#ueber">Über</a>
     <a href="index.html#kontakt">Kontakt</a>
-    <a href="100.html">100</a>
+    <a href="100.html">Archiv · 100</a>
   </nav>
 </header>
 
 <section class="weekly-intro grid">
-  <h1>100</h1>
+  <h1>Archiv · 100</h1>
   <div class="weekly-intro-text">
     Ein Foto pro Woche, immer Samstag oder Sonntag neu. Kein Archiv, keine Auswahl im Nachhinein — nur der eine Moment, der diese Woche geblieben ist.
   </div>
@@ -524,7 +538,7 @@
       </button>
 
       <div class="photo-frame">
-        <img id="mainPhoto" class="work-item" src="" alt="">
+        <img id="mainPhoto" class="work-item" src="" alt="" width="1200" height="900" decoding="async" fetchpriority="high">
       </div>
 
       <button class="nav-arrow" id="nextBtn" aria-label="Neueres Foto">
@@ -602,9 +616,11 @@ function renderFoto(index) {
 
   // Bild austauschen, ohne die Seite neu zu laden
   const preload = new Image();
+  preload.decoding = "async";
   preload.src = foto.bildUrl;
   preload.onload = () => {
     imgEl.src = foto.bildUrl;
+    imgEl.loading = index === 0 ? "eager" : "lazy";
     imgEl.alt = `Foto vom ${foto.datum} — ${foto.ort}`;
     requestAnimationFrame(() => imgEl.classList.add("loaded"));
   };
