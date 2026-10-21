@@ -622,7 +622,7 @@
   .project-list { grid-column: 1 / 13; }
   .project-row {
     display:grid;
-    grid-template-columns: 64px minmax(0,1fr) minmax(180px, 28%);
+    grid-template-columns: 64px minmax(0,1fr);
     gap:clamp(16px, 2.5vw, 32px);
     align-items:center;
     padding:clamp(20px, 2.5vw, 30px) 0;
@@ -633,17 +633,6 @@
   .project-row .project-kicker { color:var(--accent); }
   .project-row h3 { font-size:clamp(22px,3vw,40px); font-weight:500; letter-spacing:-.04em; transition:color .25s ease; }
   .project-row p { color:var(--grey); font-size:13px; line-height:1.5; margin-top:8px; }
-  .project-row img {
-    display:block;
-    width:100%;
-    aspect-ratio:3 / 2;
-    max-height:136px;
-    object-fit:cover;
-    object-position:center;
-    opacity:.82;
-    transition:opacity .3s ease, transform .5s cubic-bezier(.22,1,.36,1);
-  }
-  .project-row:hover img, .project-row:focus-visible img { opacity:1; transform:scale(1.015); }
   .project-row:hover h3, .project-row:focus-visible h3 { color:var(--accent); }
   .project-row:focus-visible { outline:2px solid var(--accent); outline-offset:5px; }
   .about { border-top:1px solid rgba(255,255,255,.16); }
@@ -667,7 +656,6 @@
     .portfolio-grid .work-card:nth-child(n) { grid-column:1 / 5; margin-top:0; }
     .portfolio-grid .work-card:nth-child(3) { grid-column:1 / 5; }
     .project-row { grid-template-columns:42px minmax(0,1fr); gap:16px; }
-    .project-row img { grid-column:2; max-height:220px; object-position:left center; }
   }
   @media(max-width:600px) {
     .hero { padding-top:48px; padding-bottom:56px; }
@@ -678,7 +666,6 @@
     .work-caption { gap:6px; }
     .work-location { width:100%; margin-left:28px; }
     .project-row { padding:20px 0; }
-    .project-row img { max-height:none; }
     .lightbox { padding:12px; }
     .lightbox img { max-width:96vw; max-height:78vh; }
   }
@@ -774,16 +761,16 @@
   <div class="grid"><div class="section-label"><span>PROJEKTE — SERIEN</span><span class="section-count">01—04</span></div>
     <div class="project-list">
       <a class="project-row" href="Projekte.html#projekt-01">
-        <span class="project-kicker">01 /</span><div><h3>Valle dei Templi</h3><p>Architektur &amp; Antike — Agrigento, Sizilien</p></div><img src="Arbeiten/temple-of-concordia-sicily.webp" alt="" loading="lazy" decoding="async">
+        <span class="project-kicker">01 /</span><div><h3>Valle dei Templi</h3><p>Architektur &amp; Antike — Agrigento, Sizilien</p></div>
       </a>
       <a class="project-row" href="Projekte.html#projekt-02">
-        <span class="project-kicker">02 /</span><div><h3>Höhlen von Vallorbe</h3><p>Geologie &amp; Licht — Waadt, Schweiz</p></div><img src="Arbeiten/vallorbe-caves.webp" alt="" loading="lazy" decoding="async">
+        <span class="project-kicker">02 /</span><div><h3>Höhlen von Vallorbe</h3><p>Geologie &amp; Licht — Waadt, Schweiz</p></div>
       </a>
       <a class="project-row" href="Projekte.html#projekt-03">
-        <span class="project-kicker">03 /</span><div><h3>Creux du Van</h3><p>Landschaft &amp; Fauna — Schweizer Jura</p></div><img src="Arbeiten/creux-du-van-landscape.webp" alt="" loading="lazy" decoding="async">
+        <span class="project-kicker">03 /</span><div><h3>Creux du Van</h3><p>Landschaft &amp; Fauna — Schweizer Jura</p></div>
       </a>
       <a class="project-row" href="Projekte.html#projekt-04">
-        <span class="project-kicker">04 /</span><div><h3>La Sauge</h3><p>Wildlife &amp; Beobachtungen — Drei-Seen-Land</p></div><img src="Arbeiten/grey-heron-la-sauge.webp" alt="" loading="lazy" decoding="async">
+        <span class="project-kicker">04 /</span><div><h3>La Sauge</h3><p>Wildlife &amp; Beobachtungen — Drei-Seen-Land</p></div>
       </a>
     </div>
   </div>
