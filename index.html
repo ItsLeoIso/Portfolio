@@ -682,62 +682,37 @@
   .about-text p + p { margin-top:18px; }
 
   /* ---------- HOMEPAGE PHOTO LAYOUT REFINEMENT ---------- */
-  /* Portrait excluded: smaller hero + orderly, evenly sized gallery. */
-  .hero-photo {
-    width: 72%;
-    height: auto;
-    max-height: 68vh;
-    aspect-ratio: 3 / 2;
-    object-fit: contain;
-    margin-inline: auto;
-  }
-  .portfolio-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    column-gap: clamp(16px, 2.5vw, 36px);
-    row-gap: clamp(36px, 5vw, 72px);
-    align-items: start;
-  }
-  .portfolio-grid .work-card:nth-child(n) {
-    grid-column: auto;
-    margin-top: 0;
-    min-width: 0;
-  }
-  .portfolio-grid .work-item {
-    width: 100%;
-    aspect-ratio: 3 / 2;
-    height: auto;
-    object-fit: contain;
-    background: transparent;
-  }
-  @media (max-width: 860px) {
-    .portfolio-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      column-gap: 20px;
-      row-gap: 40px;
-    }
+  /* Desktop-only refinement: leave the existing tablet and mobile layouts untouched. */
+  @media (min-width: 861px) {
     .hero-photo {
-      width: 82%;
-      max-height: none;
+      width: 72%;
+      height: auto;
+      max-height: 68vh;
+      aspect-ratio: 3 / 2;
+      object-fit: contain;
+      margin-inline: auto;
     }
-  }
-  @media (max-width: 600px) {
     .portfolio-grid {
-      grid-template-columns: minmax(0, 1fr);
-      row-gap: 36px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      column-gap: clamp(16px, 2.5vw, 36px);
+      row-gap: clamp(36px, 5vw, 72px);
+      align-items: start;
     }
     .portfolio-grid .work-card:nth-child(n) {
       grid-column: auto;
+      margin-top: 0;
+      min-width: 0;
     }
     .portfolio-grid .work-item {
-      width: 88%;
-      margin-inline: auto;
-    }
-    .hero-photo {
-      width: 90%;
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      height: auto;
+      object-fit: contain;
+      background: transparent;
     }
   }
 
-</style>
+  </style>
 </head>
 <body>
 
