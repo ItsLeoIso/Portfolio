@@ -491,10 +491,12 @@
     }
 
     .dropdown {
-      left: auto;
-      right: 0;
-      min-width: 200px;
-      max-width: calc(100vw - calc(var(--unit) * 5));
+      left: 50%;
+      right: auto;
+      transform: translateX(-50%);
+      width: max-content;
+      min-width: min(200px, calc(100vw - 24px));
+      max-width: calc(100vw - 24px);
     }
 
     .hero {
