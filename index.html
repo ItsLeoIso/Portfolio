@@ -539,6 +539,30 @@
       padding-bottom: calc(var(--unit) * 8);
     }
 
+    /* On phones, stack the portrait above a full-width text column. */
+    section.about .grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    section.about .about-portrait,
+    section.about .about-text {
+      grid-column: 1;
+      width: 100%;
+      max-width: none;
+      min-width: 0;
+    }
+
+    section.about .about-portrait {
+      max-width: 140px;
+      margin-inline: auto;
+    }
+
+    section.about .about-text {
+      margin-top: calc(var(--unit) * 4);
+      overflow-wrap: normal;
+      word-break: normal;
+    }
+
     .about-portrait {
       max-width: 140px;
     }
