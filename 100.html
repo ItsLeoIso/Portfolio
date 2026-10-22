@@ -496,6 +496,73 @@ header.site-header { background:rgba(12,12,12,.94); border-bottom-color:rgba(255
 .weekly-counter { color:#8E8D8A; }
 a:focus-visible,button:focus-visible,label:focus-visible { outline:2px solid #C8B29B; outline-offset:4px; }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important;}}
+
+/* ---------- AUTOMATIC LIGHT THEME ---------- */
+/* Match the homepage's system-preference theme on the weekly photo page. */
+@media (prefers-color-scheme: light) {
+  :root {
+    color-scheme: light;
+    --black: #171717;
+    --white: #FAF9F6;
+    --grey: #66645F;
+    --accent: #72583F;
+  }
+
+  body {
+    background: var(--white);
+    color: var(--black);
+  }
+
+  body::before {
+    opacity: .035;
+    mix-blend-mode: multiply;
+  }
+
+  header.site-header {
+    background: rgba(250, 249, 246, .94);
+    border-bottom-color: rgba(0, 0, 0, .14);
+  }
+
+  .dropdown {
+    background: #FAF9F6;
+    border-color: rgba(0, 0, 0, .18);
+  }
+
+  .dropdown-divider {
+    background: rgba(0, 0, 0, .18);
+  }
+
+  .dropdown a:hover,
+  .dropdown a:focus-visible {
+    background: #171717;
+    color: #FAF9F6;
+  }
+
+  .weekly-intro-text {
+    color: #34332F;
+  }
+
+  .section-label {
+    border-color: rgba(0, 0, 0, .18);
+  }
+
+  .weekly-meta .label,
+  .weekly-counter {
+    color: #66645F;
+  }
+
+  .weekly-meta .value {
+    color: #171717;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  label:focus-visible {
+    outline: 2px solid #72583F;
+    outline-offset: 4px;
+  }
+}
+
 </style>
 </head>
 <body>
