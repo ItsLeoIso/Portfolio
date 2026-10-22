@@ -581,7 +581,7 @@
   }
 
   :root {
-    color-scheme: dark;
+    color-scheme: light dark;
     --black: #F2F0EC;
     --white: #0C0C0C;
     --grey: #8E8D8A;
@@ -716,6 +716,83 @@
       height: auto;
       object-fit: contain;
       background: transparent;
+    }
+  }
+
+
+  /* ---------- AUTOMATIC LIGHT THEME ---------- */
+  /* Color-only overrides: preserve the existing desktop and mobile layouts. */
+  @media (prefers-color-scheme: light) {
+    :root {
+      color-scheme: light;
+      --black: #171717;
+      --white: #FAF9F6;
+      --grey: #66645F;
+      --panel: #F0EEE9;
+      --accent: #72583F;
+    }
+
+    body::before {
+      opacity: .035;
+      mix-blend-mode: multiply;
+    }
+
+    header.site-header {
+      background: rgba(250, 249, 246, .94);
+      border-bottom-color: rgba(0, 0, 0, .14);
+    }
+
+    .dropdown {
+      background: #FAF9F6;
+      border-color: rgba(0, 0, 0, .18);
+    }
+
+    .dropdown-divider {
+      background: rgba(0, 0, 0, .18);
+    }
+
+    .dropdown a:hover,
+    .dropdown a:focus-visible {
+      background: #171717;
+      color: #FAF9F6;
+    }
+
+    .section-label {
+      border-top-color: rgba(0, 0, 0, .22);
+    }
+
+    .project-row,
+    .project-row:first-child {
+      border-color: rgba(0, 0, 0, .15);
+    }
+
+    .about {
+      border-top-color: rgba(0, 0, 0, .16);
+    }
+
+    .about-text {
+      color: #34332F;
+    }
+
+    footer.site-footer {
+      border-top-color: rgba(0, 0, 0, .2);
+    }
+
+    .copy-email {
+      border-color: rgba(0, 0, 0, .25);
+    }
+
+    .lightbox {
+      background: rgba(250, 249, 246, .97);
+    }
+
+    .lightbox-close {
+      color: #171717;
+      border-color: rgba(0, 0, 0, .3);
+    }
+
+    .lightbox-caption {
+      color: #171717;
     }
   }
 
