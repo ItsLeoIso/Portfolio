@@ -554,7 +554,80 @@ header.site-header { background:rgba(12,12,12,.94); border-bottom-color:rgba(255
 .project-content img { object-fit:contain; }
 a:focus-visible,button:focus-visible,label:focus-visible { outline:2px solid var(--accent); outline-offset:4px; }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important;}}
-</style>
+
+    /* ---------- AUTOMATIC LIGHT THEME ---------- */
+    /* Keep the project archive in sync with the homepage's system theme. */
+    @media (prefers-color-scheme: light) {
+      :root {
+        color-scheme: light;
+        --black: #171717;
+        --white: #FAF9F6;
+        --grey: #66645F;
+        --light-grey: #F0EEE9;
+        --accent: #72583F;
+      }
+
+      body {
+        background: var(--white);
+        color: var(--black);
+      }
+
+      body::before {
+        opacity: .035;
+        mix-blend-mode: multiply;
+      }
+
+      .site-header {
+        background: rgba(250, 249, 246, .94);
+        border-bottom-color: rgba(0, 0, 0, .14);
+      }
+
+      .project-sidebar h1 {
+        border-bottom-color: rgba(0, 0, 0, .18);
+      }
+
+      .project-list a {
+        color: var(--grey);
+      }
+
+      .project-list a:hover,
+      .project-list a.active {
+        color: var(--black);
+      }
+
+      .photo-wrapper,
+      .photo-placeholder {
+        background: var(--light-grey);
+      }
+
+      .image-lightbox {
+        background: rgba(250, 249, 246, .97);
+      }
+
+      .image-lightbox-close {
+        border-color: rgba(0, 0, 0, .3);
+        color: var(--black);
+      }
+
+      .image-lightbox-close:hover,
+      .image-lightbox-close:focus-visible {
+        background: var(--black);
+        color: var(--white);
+      }
+
+      .site-footer {
+        border-top-color: rgba(0, 0, 0, .2);
+      }
+
+      a:focus-visible,
+      button:focus-visible,
+      label:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 4px;
+      }
+    }
+
+  </style>
 </head>
 
 <body>
