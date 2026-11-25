@@ -20,9 +20,9 @@
 <body>
 
 <header class="site-header grid">
-  <a href="index.html" class="name">LEANDRO SINATRA — FOTOGRAFIE</a>
+  <a href="index.html" class="site-header__name">LEANDRO SINATRA — FOTOGRAFIE</a>
   <nav class="site-nav" aria-label="Hauptnavigation">
-    <a href="index.html#home">Arbeiten</a>
+    <a href="index.html#arbeiten">Arbeiten</a>
     <div class="nav-item" data-dropdown>
       <button type="button" class="dropdown-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="projekte-dropdown">Projekte</button>
       <div class="dropdown" id="projekte-dropdown">
@@ -36,7 +36,7 @@
     </div>
     <a href="index.html#ueber">Über</a>
     <a href="index.html#kontakt">Kontakt</a>
-    <a href="100.html" aria-current="page">Archiv · 100</a>
+    <a href="100.html" aria-current="page" aria-label="Archiv 100 — Ein Foto pro Woche">Archiv · 100</a>
   </nav>
 </header>
 
@@ -50,22 +50,22 @@
 
   <section class="weekly" id="foto-der-woche">
     <div class="grid">
-      <div class="section-label">100 — FOTO DER WOCHE</div>
+      <h2 class="section-label">100 — FOTO DER WOCHE</h2>
     </div>
 
     <div class="grid">
       <div class="weekly-viewer">
-        <button class="nav-arrow" id="prevBtn" type="button" aria-label="Älteres Foto" disabled>
+        <button class="btn btn--icon btn--retro" id="prevBtn" type="button" aria-label="Älteres Foto" disabled>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M15 4 L7 12 L15 20" stroke-linecap="square" stroke-linejoin="miter"/>
           </svg>
         </button>
 
-        <div class="photo-frame">
-          <img id="mainPhoto" class="work-item" src="Arbeiten/murtensee-weekly-photo.webp" alt="Foto vom 13.09.2026 — Murtensee, Schweiz" width="2200" height="1467" loading="eager" decoding="async" fetchpriority="high">
+        <div class="media-frame media-frame--archive">
+          <img id="mainPhoto" class="photo" src="Arbeiten/murtensee-weekly-photo.webp" alt="Foto vom 13.09.2026 — Murtensee, Schweiz" width="2200" height="1467" loading="eager" decoding="async" fetchpriority="high">
         </div>
 
-        <button class="nav-arrow" id="nextBtn" type="button" aria-label="Neueres Foto" disabled>
+        <button class="btn btn--icon btn--retro" id="nextBtn" type="button" aria-label="Neueres Foto" disabled>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M9 4 L17 12 L9 20" stroke-linecap="square" stroke-linejoin="miter"/>
           </svg>
@@ -73,24 +73,27 @@
       </div>
 
       <div class="weekly-meta">
-        <div><span class="label">Datum</span><span class="value" id="metaDatum">13.09.2026</span></div>
-        <div><span class="label">Ort</span><span class="value" id="metaOrt">Murtensee, Schweiz</span></div>
+        <div><span class="weekly-meta__label">Datum</span><span class="weekly-meta__value" id="metaDatum">13.09.2026</span></div>
+        <div><span class="weekly-meta__label">Ort</span><span class="weekly-meta__value" id="metaOrt">Murtensee, Schweiz</span></div>
       </div>
 
-      <div class="weekly-counter" id="metaCounter">1 / 1</div>
+      <div class="weekly-counter mono-label" id="metaCounter">1 / 1</div>
     </div>
   </section>
 </main>
 
 <footer class="site-footer" id="kontakt">
   <div class="grid">
-    <div class="footer-col footer-col-1">
+    <div class="footer-col footer-col--contact">
       <h2>Kontakt</h2>
-      <a href="mailto:itsleo.iso.contact@gmail.com">itsleo.iso.contact@gmail.com</a><br>
-      <button class="copy-email" type="button" data-copy-email="itsleo.iso.contact@gmail.com">E-Mail kopieren</button><span class="copy-status" aria-live="polite"></span>
+      <a href="mailto:itsleo.iso.contact@gmail.com">itsleo.iso.contact@gmail.com</a>
+      <div class="footer-actions">
+        <button class="btn copy-email" type="button" data-copy-email="itsleo.iso.contact@gmail.com">E-Mail kopieren</button>
+        <span class="copy-status" aria-live="polite"></span>
+      </div>
     </div>
 
-    <div class="footer-col footer-col-3">
+    <div class="footer-col footer-col--social">
       <h2>Social</h2>
       <a href="https://www.instagram.com/itsleo.iso/" target="_blank" rel="noopener noreferrer" aria-label="Instagram von Leandro Sinatra">Instagram</a>
     </div>
