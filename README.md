@@ -2,17 +2,19 @@
 
 Portfolio für Architektur-, Landschafts- und Wildlife-Fotografie: [itsleoiso.ch](https://itsleoiso.ch).
 
-## Seiten
+## Seiten & Dateien
 
 - `index.html` — Startseite, ausgewählte Arbeiten, Projektübersicht, Über und Kontakt.
-- `projekte.html` — Projektserien und fotografische Geschichten. Die bisherige URL `Projekte.html` bleibt als kompatibler Einstieg erhalten.
+- `projekte.html` — Projektserien und fotografische Geschichten.
 - `100.html` — Wochenarchiv „Archiv · 100“.
+- `404.html` — Fehlerseite mit automatischer Weiterleitung von der früheren URL `Projekte.html` auf `projekte.html`.
+- `styles.css` & `site.js` — Gemeinsames Stylesheet (Dark/Light-Theme nach Systemeinstellung) sowie Navigation, Lightbox und E-Mail-Kopierfunktion.
 
 ## Technik
 
 - Statische HTML-, CSS- und JavaScript-Seiten; kein Build-Schritt und keine Framework-Abhängigkeiten.
-- Fotografien liegen im Ordner `Arbeiten/` und werden als WebP ausgeliefert.
-- Switzer wird über Fontshare geladen. Für Metadaten wird eine Monospace-Schrift mit lokalen System-Fallbacks verwendet.
+- Fotografien liegen im Ordner `Arbeiten/` und werden als optimiertes WebP (max. 2200 px lange Kante) ausgeliefert.
+- Switzer wird über Fontshare geladen. Für Metadaten wird eine lokale System-Monospace-Schrift verwendet.
 - Die Website wird über GitHub Pages mit der benutzerdefinierten Domain `itsleoiso.ch` veröffentlicht.
 
 ## Lokal prüfen
@@ -25,6 +27,7 @@ Portfolio für Architektur-, Landschafts- und Wildlife-Fotografie: [itsleoiso.ch
 
 - Bestehende Bilddateien nicht umbenennen, ohne alle HTML-Referenzen zu aktualisieren.
 - Dateinamen klein und beschreibend mit Bindestrichen schreiben, z. B. `grey-heron-la-sauge.webp`.
+- Bilder vor dem Commit für das Web skalieren (max. 2200 px lange Kante, WebP-Qualität ~80–85, idealerweise unter 800 KB) und die tatsächlichen `width`/`height`-Attribute im HTML eintragen.
 - Für jedes informative Foto einen sachlichen deutschen `alt`-Text verwenden; dekorative Bilder erhalten `alt=""`.
 - Bildtitel, Ort und Index in der Bildunterschrift konsistent halten.
 - Keine EXIF-Werte ergänzen, sofern sie nicht aus den Originaldateien verifiziert wurden.
@@ -33,5 +36,5 @@ Portfolio für Architektur-, Landschafts- und Wildlife-Fotografie: [itsleoiso.ch
 
 - Interne Links und Bildpfade auf fehlende Dateien kontrollieren.
 - Navigation, Lightbox (Maus, Tastatur und Touch), Fokusführung und reduzierte Bewegung testen.
-- Desktop und Mobilgeräte visuell prüfen; anschliessend Lighthouse bzw. Core Web Vitals messen.
+- Desktop und Mobilgeräte visuell prüfen (helles und dunkles System-Theme); anschliessend Lighthouse bzw. Core Web Vitals messen.
 - Die Kontaktadresse bleibt `itsleo.iso.contact@gmail.com`, bis eine Domain-Adresse eingerichtet und getestet wurde.

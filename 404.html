@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    (function () {
+      var path = window.location.pathname.toLowerCase();
+      if (path === '/projekte.html' || path === '/projekte' || path === '/projekte/') {
+        window.location.replace('/projekte.html' + window.location.search + window.location.hash);
+      }
+    })();
+  </script>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+  <link href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,700,800&display=swap" rel="stylesheet">
+  <meta name="robots" content="noindex">
+  <title>Seite nicht gefunden — Leandro Sinatra</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<header class="site-header grid">
+  <a href="/index.html" class="name">LEANDRO SINATRA — FOTOGRAFIE</a>
+  <nav class="site-nav" aria-label="Hauptnavigation">
+    <a href="/index.html#home">Arbeiten</a>
+    <a href="/projekte.html">Projekte</a>
+    <a href="/index.html#ueber">Über</a>
+    <a href="/index.html#kontakt">Kontakt</a>
+    <a href="/100.html">Archiv · 100</a>
+  </nav>
+</header>
+
+<main>
+  <section class="not-found grid">
+    <h1>404</h1>
+    <p>Diese Seite existiert nicht oder wurde verschoben. Über die Startseite oder die Projektübersicht gelangst du zurück zum Portfolio.</p>
+    <div class="not-found-actions">
+      <a href="/index.html">Zur Startseite</a>
+      <a href="/projekte.html">Zu den Projekten</a>
+      <a href="/100.html">Archiv · 100</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer" id="kontakt">
+  <div class="grid">
+    <div class="footer-col footer-col-1">
+      <h2>Kontakt</h2>
+      <a href="mailto:itsleo.iso.contact@gmail.com">itsleo.iso.contact@gmail.com</a><br>
+      <button class="copy-email" type="button" data-copy-email="itsleo.iso.contact@gmail.com">E-Mail kopieren</button><span class="copy-status" aria-live="polite"></span>
+    </div>
+
+    <div class="footer-col footer-col-3">
+      <h2>Social</h2>
+      <a href="https://www.instagram.com/itsleo.iso/" target="_blank" rel="noopener noreferrer" aria-label="Instagram von Leandro Sinatra">Instagram</a>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Leandro Sinatra · Lyss, Schweiz</span>
+      <span>Alle Rechte vorbehalten</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/site.js"></script>
+</body>
+</html>

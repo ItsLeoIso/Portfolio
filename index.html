@@ -1,842 +1,43 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<link rel="canonical" href="https://itsleoiso.ch/">
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Leandro Sinatra",
-  "url": "https://itsleoiso.ch/"
-}
-</script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
-<link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
-<link href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700,800&display=swap" rel="stylesheet">
-<meta name="description" content="Leandro Sinatra — Fotografie aus Lyss. Architektur, Landschaft und Wildlife, beobachtet mit Ruhe und Präzision.">
-<meta property="og:title" content="Leandro Sinatra — Fotografie">
-<meta property="og:description" content="Die Kamera hält fest, was das Auge übersieht. Architektur, Landschaft und Wildlife aus einer ruhigen, präzisen Perspektive.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://itsleoiso.ch/">
-<meta property="og:image" content="https://itsleoiso.ch/Arbeiten/mount-etna-sicily.webp">
-<title>Leandro Sinatra — Fotografie</title>
-<style>
-  :root {
-    --black: #000000;
-    --white: #FFFFFF;
-    --grey: #a1a1a1;
-    --unit: 8px;
-  }
-
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  html {
-    scroll-behavior: smooth;
-  }
-
-  body {
-    background-color: var(--white);
-    color: var(--black);
-    font-family: 'Switzer', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-weight: 400;
-    -webkit-font-smoothing: antialiased;
-    position: relative;
-    overflow-x: hidden;
-  }
-
-  /* ---------- GRAIN / TEXTURE OVERLAY ---------- */
-  /* Pure CSS, generated via inline SVG feTurbulence — no external images. */
-
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    pointer-events: none;
-    opacity: 0.05;
-    mix-blend-mode: multiply;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-    background-repeat: repeat;
-  }
-
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  img {
-    max-width: 100%;
-    height: auto;
-  }
-
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    column-gap: calc(var(--unit) * 2);
-    padding: 0 calc(var(--unit) * 4);
-  }
-
-  /* ---------- HEADER ---------- */
-
-  header.site-header {
-    padding-top: calc(var(--unit) * 4);
-    padding-bottom: calc(var(--unit) * 4);
-    border-bottom: 1px solid var(--black);
-    position: sticky;
-    top: 0;
-    background-color: var(--white);
-    z-index: 100;
-  }
-
-  .site-header .name {
-    grid-column: 1 / 5;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-  }
-
-  nav.site-nav {
-    grid-column: 6 / 13;
-    display: flex;
-    gap: calc(var(--unit) * 5);
-    justify-content: flex-start;
-    align-items: baseline;
-  }
-
-  nav.site-nav a,
-  nav.site-nav label {
-    font-size: 13px;
-    font-weight: 400;
-  }
-
-  nav.site-nav a:hover {
-    font-weight: 700;
-  }
-
-  /* ---------- DROPDOWN: PROJEKTE ---------- */
-
-  .nav-item {
-    position: relative;
-  }
-
-  .dropdown-checkbox {
-    position: absolute;
-    opacity: 0;
-    width: 1px;
-    height: 1px;
-    pointer-events: none;
-  }
-
-  .nav-item .dropdown-toggle {
-    cursor: pointer;
-    display: inline-block;
-  }
-
-  .dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    margin-top: calc(var(--unit) * 3);
-    min-width: 220px;
-    background-color: var(--white);
-    border: 1px solid var(--black);
-    padding: calc(var(--unit) * 2) 0;
-    display: none;
-    z-index: 10;
-  }
-
-  .dropdown-checkbox:checked ~ .dropdown {
-    display: block;
-  }
-
-  .dropdown a {
-    display: block;
-    padding: calc(var(--unit) * 1.25) calc(var(--unit) * 3);
-    font-size: 12px;
-    font-weight: 400;
-  }
-
-  .dropdown a:hover,
-  .dropdown a:focus-visible {
-    background-color: var(--black);
-    color: var(--white);
-    font-weight: 400;
-  }
-
-  .dropdown-divider {
-    height: 1px;
-    background-color: var(--black);
-    margin: calc(var(--unit) * 2) calc(var(--unit) * 3);
-  }
-
-  .dropdown .dropdown-more {
-    font-weight: 700;
-  }
-
-  /* ---------- HERO ---------- */
-
-  section.hero {
-    padding-top: calc(var(--unit) * 10);
-    padding-bottom: calc(var(--unit) * 12);
-  }
-
-  .hero h1 {
-    grid-column: 1 / 13;
-    font-size: clamp(64px, 12vw, 190px);
-    line-height: 0.88;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    text-align: left;
-  }
-
-  .hero-meta {
-    grid-column: 1 / 5;
-    margin-top: calc(var(--unit) * 5);
-    font-size: 13px;
-    line-height: 1.6;
-  }
-
-  .hero-statement {
-    grid-column: 7 / 12;
-    margin-top: calc(var(--unit) * 5);
-    font-size: 15px;
-    line-height: 1.6;
-    max-width: 44ch;
-  }
-
-  /* ---------- SECTION LABELS ---------- */
-
-  .section-label {
-    grid-column: 1 / 13;
-    font-size: 12px;
-    padding-top: calc(var(--unit) * 8);
-    padding-bottom: calc(var(--unit) * 5);
-    border-top: 1px solid var(--black);
-  }
-
-  /* ---------- PORTFOLIO GRID ---------- */
-
-  section.portfolio {
-    padding-bottom: calc(var(--unit) * 14);
-  }
-
-  .work-item {
-    width: 100%;
-    height: auto;
-    display: block;
-    background-color: #f0f0f0;
-  }
-
-  section.portfolio .work-item {
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .work-caption {
-    margin-top: calc(var(--unit) * 2);
-    font-size: 12px;
-    line-height: 1.5;
-  }
-
-  .work-caption .idx {
-    font-weight: 700;
-    margin-right: calc(var(--unit) * 1);
-  }
-
-  /* ---------- ARBEITEN: 3-BILD-MUSTER ---------- */
-
-  /*
-     Jede Gruppe besteht aus 3 Arbeiten:
-     - links: zwei Bilder untereinander
-     - rechts: ein grosses Bild über beide Reihen
-     Die Gruppe sitzt bewusst innerhalb des bestehenden 12-Spalten-Rasters.
-  */
-  .work-group {
-    grid-column: 3 / 11;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    grid-template-rows: auto auto;
-    gap: calc(var(--unit) * 2);
-    margin-top: calc(var(--unit) * 12);
-    align-items: start;
-  }
-
-  .work-group:first-of-type {
-    margin-top: calc(var(--unit) * 2);
-  }
-
-  .work-group .work-card {
-    min-width: 0;
-  }
-
-  /* Das grosse Bild ist immer rechts. */
-  .work-group .work-card.large {
-    grid-column: 2;
-    grid-row: 1 / 3;
-  }
-
-  /* Die beiden kleineren Bilder stehen links untereinander. */
-  .work-group .work-card.small:nth-child(2),
-  .work-group .work-card.small:nth-child(3) {
-    grid-column: 1;
-  }
-
-  .work-group .work-card.small:nth-child(2) {
-    grid-row: 1;
-  }
-
-  .work-group .work-card.small:nth-child(3) {
-    grid-row: 2;
-  }
-
-  /* Das Seitenverhältnis entspricht dem Referenz-Layout. */
-  .work-group .work-card.large .work-item {
-    aspect-ratio: 3 / 4;
-  }
-
-  .work-group .work-card.small .work-item {
-    aspect-ratio: 3 / 2;
-  }
-
-  .work-group .work-item {
-    width: 100%;
-    display: block;
-    object-fit: cover;
-  }
-
-  .portfolio-grid {
-    position: relative;
-    z-index: 1;
-  }
-
-  /* ---------- ABOUT ---------- */
-
- section.about {
-  padding-left: calc(var(--unit) * 4);
-  padding-right: calc(var(--unit) * 4);
-  padding-top: calc(var(--unit) * 8);
-  padding-bottom: calc(var(--unit) * 14);
-}
-
-  section.about .grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  max-width: 1200px;   /* passe an deinen gewünschten Rahmen an */
-  margin: 0 auto;
-}
-  .about-portrait {
-    grid-column: 1 / 5;
-    min-width:0;
-  }
-
-  .about-portrait .work-item {
-    width:100%;
-    aspect-ratio: 1 / 1;
-    object-fit:cover;
-  }
-
-  .about-portrait .work-caption {
-    margin-top: calc(var(--unit) * 2);
-    font-size: 12px;
-    line-height: 1.5;
-  }
-
-  .about-text {
-    grid-column: 5 / 13;
-    font-size: 15px;
-    line-height: 1.6;
-    max-width: 60ch;
-  }
-  /* ---------- FOOTER ---------- */
-
-  footer.site-footer {
-    border-top: 1px solid var(--black);
-    padding-top: calc(var(--unit) * 6);
-    padding-bottom: calc(var(--unit) * 6);
-  }
-
-  .footer-col {
-    font-size: 12px;
-    line-height: 1.8;
-  }
-
-  .footer-col-1 { grid-column: 1 / 4; }
-  .footer-col-2 { grid-column: 4 / 7; }
-  .footer-col-3 { grid-column: 7 / 10; }
-  .footer-col-4 { grid-column: 10 / 13; }
-
-  .footer-col h2 {
-    font-size: 12px;
-    font-weight: 700;
-    margin-bottom: calc(var(--unit) * 2);
-  }
-
-  .footer-bottom {
-    grid-column: 1 / 13;
-    margin-top: calc(var(--unit) * 8);
-    font-size: 11px;
-    display: flex;
-    justify-content: space-between;
-  }
-
-
-  /* ---------- FOOTER LINKS ---------- */
-  .footer-col a {
-    display: inline-block;
-    position: relative;
-    transition: color 0.25s ease, text-shadow 0.25s ease, transform 0.25s ease;
-  }
-
-  .footer-col a:hover,
-  .footer-col a:focus-visible {
-    transform: translateY(-1px);
-  }
-
-  .footer-col-1 a:hover,
-  .footer-col-1 a:focus-visible {
-    color: var(--black);
-  }
-
-  .footer-col-3 a:hover,
-  .footer-col-3 a:focus-visible {
-    background: linear-gradient(90deg, #feda75 0%, #fa7e1e 25%, #d62976 50%, #962fbf 75%, #4f5bd5 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 10px rgba(214, 36, 159, 0.35);
-  }
-
-  /* =====================================================
-     RESPONSIVE — TABLET (≤ 860px)
-     ===================================================== */
-
-  @media (max-width: 860px) {
-    .grid {
-      grid-template-columns: repeat(4, 1fr);
-      padding: 0 calc(var(--unit) * 3);
-    }
-
-    .site-header .name { grid-column: 1 / 5; }
-    nav.site-nav {
-      grid-column: 1 / 5;
-      margin-top: calc(var(--unit) * 3);
-      gap: calc(var(--unit) * 4);
-      flex-wrap: wrap;
-    }
-
-    .hero { padding-top: calc(var(--unit) * 6); padding-bottom: calc(var(--unit) * 8); }
-    .hero h1 { grid-column: 1 / 5; font-size: clamp(48px, 16vw, 96px); }
-    .hero-meta { grid-column: 1 / 5; margin-top: calc(var(--unit) * 4); }
-    .hero-statement { grid-column: 1 / 5; max-width: none; margin-top: calc(var(--unit) * 3); }
-
-    .work-group {
-      grid-column: 1 / 5;
-      margin-top: calc(var(--unit) * 8);
-    }
-
-    .work-group:first-of-type {
-      margin-top: calc(var(--unit) * 2);
-    }
-
-    .about-portrait, .about-text { grid-column: 1 / 5; }
-    .about-portrait { max-width: 200px; }
-    .about-text { margin-top: calc(var(--unit) * 4); }
-
-    .footer-col-1, .footer-col-2, .footer-col-3, .footer-col-4 {
-      grid-column: 1 / 5;
-      margin-top: calc(var(--unit) * 4);
-    }
-    .footer-bottom { flex-direction: column; gap: calc(var(--unit)); }
-
-    /* Mobile Linie anzeigen, Desktop verstecken */
-    .line-desktop { display: none; }
-    .line-mobile { display: block; }
-  }
-
-  /* =====================================================
-     RESPONSIVE — SMARTPHONE (≤ 600px)
-     ===================================================== */
-
-  @media (max-width: 600px) {
-    .grid {
-      padding: 0 calc(var(--unit) * 2.5);
-    }
-
-    header.site-header {
-      padding-top: calc(var(--unit) * 3);
-      padding-bottom: calc(var(--unit) * 3);
-    }
-
-    .site-header .name {
-      font-size: 12px;
-    }
-
-    nav.site-nav {
-      gap: calc(var(--unit) * 3);
-      margin-top: calc(var(--unit) * 2.5);
-    }
-
-    nav.site-nav a,
-    nav.site-nav label {
-      font-size: 14px;
-      /* larger tap target without changing visual size much */
-      padding: calc(var(--unit) * 0.5) 0;
-    }
-
-    .dropdown {
-      left: 50%;
-      right: auto;
-      transform: translateX(-50%);
-      width: max-content;
-      min-width: min(200px, calc(100vw - 24px));
-      max-width: calc(100vw - 24px);
-    }
-
-    .hero {
-      padding-top: calc(var(--unit) * 5);
-      padding-bottom: calc(var(--unit) * 6);
-    }
-
-    .hero h1 {
-      font-size: clamp(40px, 15vw, 64px);
-      line-height: 0.92;
-    }
-
-    .hero-meta,
-    .hero-statement {
-      font-size: 13px;
-      line-height: 1.55;
-    }
-
-    .section-label {
-      padding-top: calc(var(--unit) * 5);
-      padding-bottom: calc(var(--unit) * 3);
-    }
-
-    .work-group {
-      margin-top: calc(var(--unit) * 4);
-    }
-
-    .work-group:first-of-type {
-      margin-top: calc(var(--unit) * 2);
-    }
-
-    section.portfolio {
-      padding-bottom: calc(var(--unit) * 8);
-    }
-
-    .work-caption {
-      font-size: 11px;
-    }
-
-    section.about {
-      padding-top: calc(var(--unit) * 5);
-      padding-bottom: calc(var(--unit) * 8);
-    }
-
-    /* On phones, stack the portrait above a full-width text column. */
-    section.about .grid {
-      grid-template-columns: minmax(0, 1fr);
-    }
-
-    section.about .about-portrait,
-    section.about .about-text {
-      grid-column: 1;
-      width: 100%;
-      max-width: none;
-      min-width: 0;
-    }
-
-    section.about .about-portrait {
-      max-width: 140px;
-      margin-inline: auto;
-    }
-
-    section.about .about-text {
-      margin-top: calc(var(--unit) * 4);
-      overflow-wrap: normal;
-      word-break: normal;
-    }
-
-    .about-portrait {
-      max-width: 140px;
-    }
-
-    .about-portrait {
-      margin-inline: auto;
-    }
-
-    .about-text {
-      width: min(100%, 34ch);
-      margin-inline: auto;
-      font-size: 14px;
-    }
-
-    footer.site-footer {
-      padding-top: calc(var(--unit) * 4);
-      padding-bottom: calc(var(--unit) * 4);
-    }
-
-    .footer-col-1, .footer-col-2, .footer-col-3, .footer-col-4 {
-      margin-top: calc(var(--unit) * 3);
-    }
-
-    .footer-bottom {
-      margin-top: calc(var(--unit) * 5);
-      font-size: 10px;
-    }
-  }
-
-  /* ---------- ACCESSIBILITY ---------- */
-
-  a:focus-visible,
-  button:focus-visible {
-    outline: 2px solid var(--black);
-    outline-offset: 2px;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-  }
-
-  :root {
-    color-scheme: light dark;
-    --black: #F2F0EC;
-    --white: #0C0C0C;
-    --grey: #8E8D8A;
-    --unit: 8px;
-    --panel: #141414;
-    --accent: #C8B29B;
-  }
-  html { scroll-behavior: smooth; scroll-padding-top: 100px; }
-  body { background: var(--white); color: var(--black); }
-  body::before { opacity: .018; mix-blend-mode: screen; }
-  header.site-header { background: rgba(12,12,12,.94); backdrop-filter: blur(14px); border-bottom-color: rgba(255,255,255,.12); }
-  .site-header .name { letter-spacing: .08em; }
-  nav.site-nav a:hover, nav.site-nav label:hover { color: var(--accent); }
-  .dropdown { background: #141414; border-color: rgba(255,255,255,.18); }
-  .dropdown a:hover, .dropdown a:focus-visible { background: var(--black); color: var(--white); }
-  .dropdown-divider { background: rgba(255,255,255,.18); }
-  .hero { align-items: end; padding-top: clamp(72px, 10vw, 150px); padding-bottom: clamp(72px, 10vw, 150px); }
-  .hero h1 { font-size: clamp(72px, 14vw, 220px); letter-spacing: -.065em; }
-  .hero-meta, .work-index, .work-location, .section-count, .project-kicker, .hero-figure-caption { font-family: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace; text-transform: uppercase; letter-spacing: .08em; font-size: 11px; }
-  .hero-meta { color: var(--grey); }
-  .hero-statement { font-size: clamp(16px, 1.45vw, 20px); max-width: 38ch; }
-  .hero-photo-wrap { grid-column: 1 / 13; margin-top: clamp(40px, 6vw, 88px); }
-  .hero-photo { display:block; width:100%; height:min(78vh, 920px); max-height:none; object-fit:cover; object-position:center; }
-  /* Keep the portrait untouched; scale down homepage landscape and gallery photos. */
-  .hero-photo { width:78%; margin-inline:auto; }
-  .portfolio-grid .work-item { width:78%; margin-inline:auto; }
-  .hero-figure-caption { color: var(--grey); margin-top: 12px; }
-  .section-label { border-top-color: rgba(255,255,255,.22); display:flex; justify-content:space-between; gap:24px; color: var(--black); letter-spacing:.08em; }
-  .portfolio-grid { row-gap: clamp(36px, 6vw, 88px); align-items:start; }
-  .portfolio-grid .work-card { min-width:0; }
-  .portfolio-grid .work-card:nth-child(1) { grid-column: 1 / 8; }
-  .portfolio-grid .work-card:nth-child(2) { grid-column: 8 / 13; margin-top: 10vw; }
-  .portfolio-grid .work-card:nth-child(3) { grid-column: 2 / 11; }
-  .portfolio-grid .work-card:nth-child(4) { grid-column: 1 / 5; }
-  .portfolio-grid .work-card:nth-child(5) { grid-column: 5 / 9; margin-top: 5vw; }
-  .portfolio-grid .work-card:nth-child(6) { grid-column: 9 / 13; }
-  .portfolio-grid .work-card:nth-child(7) { grid-column: 1 / 5; }
-  .portfolio-grid .work-card:nth-child(8) { grid-column: 6 / 11; margin-top: 4vw; }
-  .portfolio-grid .work-card:nth-child(9) { grid-column: 1 / 7; }
-  .portfolio-grid .work-item { width:100%; height:auto; aspect-ratio:auto; object-fit:contain; background:transparent; cursor:zoom-in; transition:opacity .4s cubic-bezier(.22,1,.36,1); }
-  .portfolio-grid .work-item:hover { opacity:.88; }
-  .work-caption { display:flex; flex-wrap:wrap; align-items:baseline; gap:8px; color:var(--black); }
-  .work-caption .idx { font-family: 'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.08em; margin-right:4px; color:var(--accent); }
-  .work-title { font-size:13px; }
-  .work-location { margin-left:auto; color:var(--grey); font-size:10px; }
-  .projects-showcase { padding-bottom: clamp(64px, 10vw, 144px); }
-  .project-list { grid-column: 1 / 13; }
-  .project-row {
-    display:grid;
-    grid-template-columns: 64px minmax(0,1fr);
-    gap:clamp(16px, 2.5vw, 32px);
-    align-items:center;
-    padding:clamp(20px, 2.5vw, 30px) 0;
-    border-bottom:1px solid rgba(255,255,255,.15);
-    transition:border-color .25s ease;
-  }
-  .project-row:first-child { border-top:1px solid rgba(255,255,255,.15); }
-  .project-row .project-kicker { color:var(--accent); }
-  .project-row h3 { font-size:clamp(22px,3vw,40px); font-weight:500; letter-spacing:-.04em; transition:color .25s ease; }
-  .project-row p { color:var(--grey); font-size:13px; line-height:1.5; margin-top:8px; }
-  .project-row:hover h3, .project-row:focus-visible h3 { color:var(--accent); }
-  .project-row:focus-visible { outline:2px solid var(--accent); outline-offset:5px; }
-  .about { border-top:1px solid rgba(255,255,255,.16); }
-  .about-text { color:#D8D5CF; }
-  .about-portrait .work-caption { color:var(--grey); }
-  footer.site-footer { border-top-color:rgba(255,255,255,.2); }
-  .footer-col h2 { color:var(--grey); text-transform:uppercase; letter-spacing:.08em; }
-  .footer-col a:hover, .footer-col a:focus-visible { color:var(--accent); }
-  a:focus-visible, button:focus-visible, label:focus-visible { outline:2px solid var(--accent); outline-offset:4px; }
-  .copy-email { background:transparent; color:var(--black); border:1px solid rgba(255,255,255,.25); padding:6px 10px; font:inherit; cursor:pointer; margin-top:8px; }
-  .copy-email:hover { border-color:var(--accent); color:var(--accent); }
-  .lightbox { position:fixed; inset:0; z-index:10000; background:rgba(8,8,8,.97); display:none; align-items:center; justify-content:center; padding:24px; }
-  .lightbox.is-open { display:flex; }
-  .lightbox img { max-width:min(92vw,1800px); max-height:82vh; width:auto; height:auto; object-fit:contain; }
-  .lightbox-close { position:absolute; top:20px; right:24px; color:#F2F0EC; background:transparent; border:1px solid rgba(255,255,255,.3); padding:10px 14px; cursor:pointer; }
-  .lightbox-caption { position:absolute; bottom:20px; left:24px; right:24px; color:#F2F0EC; text-align:center; font:11px 'IBM Plex Mono',monospace; letter-spacing:.08em; }
-  @media(max-width:860px) {
-    .hero h1 { font-size:clamp(48px,16vw,96px); }
-    .hero-photo-wrap { grid-column:1 / 5; }
-    .hero-photo { height:auto; max-height:none; object-fit:contain; }
-    .portfolio-grid .work-card:nth-child(n) { grid-column:1 / 5; margin-top:0; }
-    .portfolio-grid .work-card:nth-child(3) { grid-column:1 / 5; }
-    .project-row { grid-template-columns:42px minmax(0,1fr); gap:16px; }
-  }
-  @media(max-width:600px) {
-    .hero { padding-top:48px; padding-bottom:56px; }
-    .hero h1 { font-size:clamp(40px,15vw,64px); line-height:.92; }
-    .hero-photo-wrap { margin-top:32px; }
-    .portfolio-grid { row-gap:48px; }
-    .portfolio-grid .work-card:nth-child(n) { grid-column:1 / 5; }
-    .work-caption { gap:6px; }
-    .work-location { width:100%; margin-left:28px; }
-    .project-row { padding:20px 0; }
-    .lightbox { padding:12px; }
-    .lightbox img { max-width:96vw; max-height:78vh; }
-  }
-  @media(prefers-reduced-motion:reduce) {
-    *, *::before, *::after { scroll-behavior:auto !important; animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
-  }
-
-
-  #projekte-toggle:focus-visible + .dropdown-toggle { outline:2px solid var(--accent); outline-offset:4px; }
-  .about-text h2 { font-size:clamp(28px,4vw,48px); letter-spacing:-.04em; font-weight:500; margin-bottom:12px; }
-  .about-text p + p { margin-top:18px; }
-
-
-  /* ---------- HOMEPAGE PHOTO LAYOUT REFINEMENT ---------- */
-  /* Desktop-only refinement: leave the existing tablet and mobile layouts untouched. */
-  @media (min-width: 861px) {
-    .hero-photo {
-      width: 72%;
-      height: auto;
-      max-height: 68vh;
-      aspect-ratio: 3 / 2;
-      object-fit: contain;
-      margin-inline: auto;
-    }
-    .portfolio-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      column-gap: clamp(16px, 2.5vw, 36px);
-      row-gap: clamp(36px, 5vw, 72px);
-      align-items: start;
-    }
-    .portfolio-grid .work-card:nth-child(n) {
-      grid-column: auto;
-      margin-top: 0;
-      min-width: 0;
-    }
-    .portfolio-grid .work-item {
-      width: 100%;
-      aspect-ratio: 3 / 2;
-      height: auto;
-      object-fit: contain;
-      background: transparent;
-    }
-  }
-
-
-  /* ---------- AUTOMATIC LIGHT THEME ---------- */
-  /* Color-only overrides: preserve the existing desktop and mobile layouts. */
-  @media (prefers-color-scheme: light) {
-    :root {
-      color-scheme: light;
-      --black: #171717;
-      --white: #FAF9F6;
-      --grey: #66645F;
-      --panel: #F0EEE9;
-      --accent: #72583F;
-    }
-
-    body::before {
-      opacity: .035;
-      mix-blend-mode: multiply;
-    }
-
-    header.site-header {
-      background: rgba(250, 249, 246, .94);
-      border-bottom-color: rgba(0, 0, 0, .14);
-    }
-
-    .dropdown {
-      background: #FAF9F6;
-      border-color: rgba(0, 0, 0, .18);
-    }
-
-    .dropdown-divider {
-      background: rgba(0, 0, 0, .18);
-    }
-
-    .dropdown a:hover,
-    .dropdown a:focus-visible {
-      background: #171717;
-      color: #FAF9F6;
-    }
-
-    .section-label {
-      border-top-color: rgba(0, 0, 0, .22);
-    }
-
-    .project-row,
-    .project-row:first-child {
-      border-color: rgba(0, 0, 0, .15);
-    }
-
-    .about {
-      border-top-color: rgba(0, 0, 0, .16);
-    }
-
-    .about-text {
-      color: #34332F;
-    }
-
-    footer.site-footer {
-      border-top-color: rgba(0, 0, 0, .2);
-    }
-
-    .copy-email {
-      border-color: rgba(0, 0, 0, .25);
-    }
-
-    .lightbox {
-      background: rgba(250, 249, 246, .97);
-    }
-
-    .lightbox-close {
-      color: #171717;
-      border-color: rgba(0, 0, 0, .3);
-    }
-
-    .lightbox-caption {
-      color: #171717;
-    }
-  }
-
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="canonical" href="https://itsleoiso.ch/">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+  <link href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700,800&display=swap" rel="stylesheet">
+  <meta name="description" content="Leandro Sinatra — Fotografie aus Lyss. Architektur, Landschaft und Wildlife, beobachtet mit Ruhe und Präzision.">
+  <meta property="og:title" content="Leandro Sinatra — Fotografie">
+  <meta property="og:description" content="Die Kamera hält fest, was das Auge übersieht. Architektur, Landschaft und Wildlife aus einer ruhigen, präzisen Perspektive.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://itsleoiso.ch/">
+  <meta property="og:image" content="https://itsleoiso.ch/Arbeiten/mount-etna-sicily.webp">
+  <title>Leandro Sinatra — Fotografie</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Leandro Sinatra",
+    "url": "https://itsleoiso.ch/"
+  }
+  </script>
 </head>
 <body>
 
 <header class="site-header grid">
-  <a href="index.html" class="name">LEANDRO SINATRA - FOTOGRAFIE</a>
-  <nav class="site-nav">
+  <a href="index.html" class="name">LEANDRO SINATRA — FOTOGRAFIE</a>
+  <nav class="site-nav" aria-label="Hauptnavigation">
     <a href="#home">Arbeiten</a>
-    <div class="nav-item">
-      <input type="checkbox" id="projekte-toggle" class="dropdown-checkbox">
-      <label for="projekte-toggle" class="dropdown-toggle" tabindex="0">Projekte</label>
-      <div class="dropdown">
+    <div class="nav-item" data-dropdown>
+      <button type="button" class="dropdown-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="projekte-dropdown">Projekte</button>
+      <div class="dropdown" id="projekte-dropdown">
         <a href="projekte.html#projekt-01">01 Valle dei Templi</a>
         <a href="projekte.html#projekt-02">02 Höhlen von Vallorbe</a>
         <a href="projekte.html#projekt-03">03 Creux du Van</a>
+        <a href="projekte.html#projekt-04">04 La Sauge</a>
         <div class="dropdown-divider"></div>
         <a href="projekte.html" class="dropdown-more">Mehr ansehen →</a>
       </div>
@@ -847,100 +48,105 @@
   </nav>
 </header>
 
-<section class="hero grid">
-  <h1>LEANDRO<br>SINATRA</h1>
-  <div class="hero-meta">FOTOGRAFIE — LYSS, SCHWEIZ<br>Architektur — Landschaft — Wildlife</div>
-  <div class="hero-statement">Die Kamera hält fest, was das Auge übersieht. Klarheit statt Dekoration, Struktur statt Zufall.</div>
-  <figure class="hero-photo-wrap">
-    <img class="hero-photo" src="Arbeiten/mount-etna-sicily.webp" alt="Vulkan Ätna über der Landschaft Siziliens" width="1200" height="800" fetchpriority="high" loading="eager" decoding="async">
-    <figcaption class="hero-figure-caption">FIG. 01 — ETNA, SIZILIEN</figcaption>
-  </figure>
-</section>
+<main>
+  <section class="hero grid">
+    <h1>LEANDRO<br>SINATRA</h1>
+    <div class="hero-meta">FOTOGRAFIE — LYSS, SCHWEIZ<br>Architektur — Landschaft — Wildlife</div>
+    <div class="hero-statement">Die Kamera hält fest, was das Auge übersieht. Klarheit statt Dekoration, Struktur statt Zufall.</div>
+    <figure class="hero-photo-wrap">
+      <img class="hero-photo" src="Arbeiten/mount-etna-sicily.webp" alt="Vulkan Ätna über der Landschaft Siziliens" width="2200" height="1467" fetchpriority="high" loading="eager" decoding="async">
+      <figcaption class="hero-figure-caption">FIG. 01 — ETNA, SIZILIEN</figcaption>
+    </figure>
+  </section>
 
-<section class="portfolio" id="home">
-  <div class="grid">
-    <div class="section-label"><span>ARBEITEN — AUSWAHL 2025–2026</span><span class="section-count">09 WERKE</span></div>
-  </div>
+  <section class="portfolio" id="home">
+    <div class="grid">
+      <div class="section-label"><span>ARBEITEN — AUSWAHL 2025–2026</span><span class="section-count">09 WERKE</span></div>
+    </div>
 
-  <div class="grid portfolio-grid">
-    <article class="work-card" data-work-index="1">
-      <img src="Arbeiten/temple-of-concordia-sicily.webp" alt="Dorischer Tempel der Eintracht im warmen Licht des Valle dei Templi bei Agrigento, Sizilien" class="work-item" width="1200" height="800" fetchpriority="high" loading="eager" decoding="async">
-      <div class="work-caption"><span class="idx">01</span><span class="work-title">Tempel der Eintracht</span><span class="work-location">Sizilien</span></div>
-    </article>
-    <article class="work-card" data-work-index="2">
-      <img src="Arbeiten/icaro-caduto-sicily.webp" alt="Skulptur des gefallenen Ikarus vor antiken Ruinen im Valle dei Templi, Sizilien" class="work-item" width="1200" height="800" loading="lazy" decoding="async">
-      <div class="work-caption"><span class="idx">02</span><span class="work-title">Icaro Caduto</span><span class="work-location">Sizilien</span></div>
-    </article>
-    <article class="work-card" data-work-index="3">
-      <img src="Arbeiten/creux-du-van-landscape.webp" alt="Weite Landschaft am Creux du Van mit rauer Jura-Felsformation und offenem Himmel" class="work-item" width="1200" height="800" loading="lazy" decoding="async">
-      <div class="work-caption"><span class="idx">03</span><span class="work-title">Kante des Jura</span><span class="work-location">Creux du Van</span></div>
-    </article>
-    <article class="work-card" data-work-index="4">
-      <img src="Arbeiten/grey-heron-la-sauge.webp" alt="Graureiher mit aufmerksamem Blick im Naturschutzgebiet La Sauge" class="work-item" width="1200" height="800" loading="lazy" decoding="async">
-      <div class="work-caption"><span class="idx">04</span><span class="work-title">Graureiher</span><span class="work-location">La Sauge</span></div>
-    </article>
-    <article class="work-card" data-work-index="5">
-      <img src="Arbeiten/monochrome-moss-study.webp" alt="Schwarzweisse Detailstudie von Moos und feinen natürlichen Strukturen" class="work-item" width="1200" height="800" loading="lazy" decoding="async">
-      <div class="work-caption"><span class="idx">05</span><span class="work-title">Studie im Moos</span><span class="work-location">Schwarzweiss</span></div>
-    </article>
-    <article class="work-card" data-work-index="6">
-      <img src="Arbeiten/blue-tit-la-sauge.webp" alt="Kleine Blaumeise auf einem Holzpfosten in weichem natürlichem Licht, La Sauge" class="work-item" width="1200" height="800" loading="lazy" decoding="async">
-      <div class="work-caption"><span class="idx">06</span><span class="work-title">Blaumeise</span><span class="work-location">La Sauge</span></div>
-    </article>
-    <article class="work-card" data-work-index="7">
-      <img src="Arbeiten/cat-sicily.webp" alt="Katze im Halbschatten auf warmem Stein in Sizilien" class="work-item" width="1200" height="800" loading="lazy" decoding="async">
-      <div class="work-caption"><span class="idx">07</span><span class="work-title">Wächterin am Fels</span><span class="work-location">Sizilien</span></div>
-    </article>
-    <article class="work-card" data-work-index="8">
-      <img src="Arbeiten/white-cow-creux-du-van.webp" alt="Weisse Kuh auf einer Weide am Creux du Van im Schweizer Jura" class="work-item" width="1200" height="800" loading="lazy" decoding="async">
-      <div class="work-caption"><span class="idx">08</span><span class="work-title">Weisse Kuh</span><span class="work-location">Creux du Van</span></div>
-    </article>
-    <article class="work-card" data-work-index="9">
-      <img src="Arbeiten/vallorbe-caves.webp" alt="Licht und feuchte Felsstrukturen in den Höhlen von Vallorbe" class="work-item" width="1200" height="800" loading="lazy" decoding="async">
-      <div class="work-caption"><span class="idx">09</span><span class="work-title">Licht im Fels</span><span class="work-location">Vallorbe</span></div>
-    </article>
-  </div>
-</section>
+    <div class="grid portfolio-grid">
+      <article class="work-card" data-work-index="1">
+        <img src="Arbeiten/temple-of-concordia-sicily.webp" alt="Dorischer Tempel der Eintracht im warmen Licht des Valle dei Templi bei Agrigento, Sizilien" class="work-item" width="2200" height="1467" loading="lazy" decoding="async">
+        <div class="work-caption"><span class="idx">01</span><span class="work-title">Tempel der Eintracht</span><span class="work-location">Sizilien</span></div>
+      </article>
+      <article class="work-card" data-work-index="2">
+        <img src="Arbeiten/icaro-caduto-sicily.webp" alt="Skulptur des gefallenen Ikarus vor antiken Ruinen im Valle dei Templi, Sizilien" class="work-item" width="2200" height="1467" loading="lazy" decoding="async">
+        <div class="work-caption"><span class="idx">02</span><span class="work-title">Icaro Caduto</span><span class="work-location">Sizilien</span></div>
+      </article>
+      <article class="work-card" data-work-index="3">
+        <img src="Arbeiten/creux-du-van-landscape.webp" alt="Weite Landschaft am Creux du Van mit rauer Jura-Felsformation und offenem Himmel" class="work-item" width="1467" height="2200" loading="lazy" decoding="async">
+        <div class="work-caption"><span class="idx">03</span><span class="work-title">Kante des Jura</span><span class="work-location">Creux du Van</span></div>
+      </article>
+      <article class="work-card" data-work-index="4">
+        <img src="Arbeiten/grey-heron-la-sauge.webp" alt="Graureiher mit aufmerksamem Blick im Naturschutzgebiet La Sauge" class="work-item" width="2200" height="1467" loading="lazy" decoding="async">
+        <div class="work-caption"><span class="idx">04</span><span class="work-title">Graureiher</span><span class="work-location">La Sauge</span></div>
+      </article>
+      <article class="work-card" data-work-index="5">
+        <img src="Arbeiten/monochrome-moss-study.webp" alt="Schwarzweisse Detailstudie von Moos und feinen natürlichen Strukturen" class="work-item" width="1467" height="2200" loading="lazy" decoding="async">
+        <div class="work-caption"><span class="idx">05</span><span class="work-title">Studie im Moos</span><span class="work-location">Schwarzweiss</span></div>
+      </article>
+      <article class="work-card" data-work-index="6">
+        <img src="Arbeiten/blue-tit-la-sauge.webp" alt="Kleine Blaumeise auf einem Holzpfosten in weichem natürlichem Licht, La Sauge" class="work-item" width="1466" height="2200" loading="lazy" decoding="async">
+        <div class="work-caption"><span class="idx">06</span><span class="work-title">Blaumeise</span><span class="work-location">La Sauge</span></div>
+      </article>
+      <article class="work-card" data-work-index="7">
+        <img src="Arbeiten/cat-sicily.webp" alt="Katze im Halbschatten auf warmem Stein in Sizilien" class="work-item" width="1467" height="2200" loading="lazy" decoding="async">
+        <div class="work-caption"><span class="idx">07</span><span class="work-title">Wächterin am Fels</span><span class="work-location">Sizilien</span></div>
+      </article>
+      <article class="work-card" data-work-index="8">
+        <img src="Arbeiten/white-cow-creux-du-van.webp" alt="Weisse Kuh auf einer Weide am Creux du Van im Schweizer Jura" class="work-item" width="1467" height="2200" loading="lazy" decoding="async">
+        <div class="work-caption"><span class="idx">08</span><span class="work-title">Weisse Kuh</span><span class="work-location">Creux du Van</span></div>
+      </article>
+      <article class="work-card" data-work-index="9">
+        <img src="Arbeiten/vallorbe-caves.webp" alt="Licht und feuchte Felsstrukturen in den Höhlen von Vallorbe" class="work-item" width="2200" height="1467" loading="lazy" decoding="async">
+        <div class="work-caption"><span class="idx">09</span><span class="work-title">Licht im Fels</span><span class="work-location">Vallorbe</span></div>
+      </article>
+    </div>
+  </section>
 
-<section class="projects-showcase" id="projekte">
-  <div class="grid"><div class="section-label"><span>PROJEKTE — SERIEN</span><span class="section-count">01—04</span></div>
-    <div class="project-list">
-      <a class="project-row" href="projekte.html#projekt-01">
-        <span class="project-kicker">01 /</span><div><h3>Valle dei Templi</h3><p>Architektur &amp; Antike — Agrigento, Sizilien</p></div>
-      </a>
-      <a class="project-row" href="projekte.html#projekt-02">
-        <span class="project-kicker">02 /</span><div><h3>Höhlen von Vallorbe</h3><p>Geologie &amp; Licht — Waadt, Schweiz</p></div>
-      </a>
-      <a class="project-row" href="projekte.html#projekt-03">
-        <span class="project-kicker">03 /</span><div><h3>Creux du Van</h3><p>Landschaft &amp; Fauna — Schweizer Jura</p></div>
-      </a>
-      <a class="project-row" href="projekte.html#projekt-04">
-        <span class="project-kicker">04 /</span><div><h3>La Sauge</h3><p>Wildlife &amp; Beobachtungen — Drei-Seen-Land</p></div>
-      </a>
+  <section class="projects-showcase" id="projekte">
+    <div class="grid">
+      <div class="section-label"><span>PROJEKTE — SERIEN</span><span class="section-count">01—04</span></div>
+      <div class="project-list-home">
+        <a class="project-row" href="projekte.html#projekt-01">
+          <span class="project-kicker">01 /</span><div><h3>Valle dei Templi</h3><p>Architektur &amp; Antike — Agrigento, Sizilien</p></div>
+        </a>
+        <a class="project-row" href="projekte.html#projekt-02">
+          <span class="project-kicker">02 /</span><div><h3>Höhlen von Vallorbe</h3><p>Geologie &amp; Licht — Waadt, Schweiz</p></div>
+        </a>
+        <a class="project-row" href="projekte.html#projekt-03">
+          <span class="project-kicker">03 /</span><div><h3>Creux du Van</h3><p>Landschaft &amp; Fauna — Schweizer Jura</p></div>
+        </a>
+        <a class="project-row" href="projekte.html#projekt-04">
+          <span class="project-kicker">04 /</span><div><h3>La Sauge</h3><p>Wildlife &amp; Beobachtungen — Drei-Seen-Land</p></div>
+        </a>
+      </div>
     </div>
-  </div>
-</section>
-<section class="about" id="ueber">
-  <div class="grid">
-    <div class="section-label">ÜBER</div>
-  </div>
-  <div class="grid">
-    <div class="about-portrait">
-      <img src="Arbeiten/leandro-sinatra-portrait.webp" alt="Porträt von Leandro Sinatra in einer Höhle" class="work-item" width="600" height="600" loading="lazy" decoding="async">
+  </section>
+
+  <section class="about" id="ueber">
+    <div class="grid">
+      <div class="section-label">ÜBER</div>
     </div>
-    <div class="about-text">
-      <h2>Leandro Sinatra</h2>
-      <p>Fotograf aus Lyss, Kanton Bern.</p>
-      <p>Mich fasziniert der stille Moment, bevor ein Motiv wieder verschwindet — das Zusammenspiel von Licht, Geometrie und Geduld. Ob antike Architektur, die Weite des Schweizer Juras oder flüchtige Begegnungen in der Natur: Meine Arbeit sucht nach Ruhe und klarer Form im Alltäglichen.</p>
+    <div class="grid">
+      <div class="about-portrait">
+        <img src="Arbeiten/leandro-sinatra-portrait.webp" alt="Porträt von Leandro Sinatra in einer Höhle" class="work-item" width="1000" height="1000" loading="lazy" decoding="async">
+      </div>
+      <div class="about-text">
+        <h2>Leandro Sinatra</h2>
+        <p>Fotograf aus Lyss, Kanton Bern.</p>
+        <p>Mich fasziniert der stille Moment, bevor ein Motiv wieder verschwindet — das Zusammenspiel von Licht, Geometrie und Geduld. Ob antike Architektur, die Weite des Schweizer Juras oder flüchtige Begegnungen in der Natur: Meine Arbeit sucht nach Ruhe und klarer Form im Alltäglichen.</p>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+</main>
 
 <footer class="site-footer" id="kontakt">
   <div class="grid">
     <div class="footer-col footer-col-1">
       <h2>Kontakt</h2>
-      <a href="mailto:itsleo.iso.contact@gmail.com">itsleo.iso.contact@gmail.com</a><br><button class="copy-email" type="button" data-copy-email="itsleo.iso.contact@gmail.com">E-Mail kopieren</button><span class="copy-status" aria-live="polite"></span>
+      <a href="mailto:itsleo.iso.contact@gmail.com">itsleo.iso.contact@gmail.com</a><br>
+      <button class="copy-email" type="button" data-copy-email="itsleo.iso.contact@gmail.com">E-Mail kopieren</button><span class="copy-status" aria-live="polite"></span>
     </div>
 
     <div class="footer-col footer-col-3">
@@ -955,76 +161,12 @@
   </div>
 </footer>
 
-<div class="lightbox" id="work-lightbox" role="dialog" aria-modal="true" aria-label="Fotografie im Vollbild" aria-hidden="true">
+<div class="lightbox" id="site-lightbox" role="dialog" aria-modal="true" aria-label="Fotografie im Vollbild" aria-hidden="true">
   <button class="lightbox-close" type="button" aria-label="Bildansicht schliessen">Schliessen ✕</button>
-  <img src="" alt="" id="work-lightbox-image">
-  <div class="lightbox-caption" id="work-lightbox-caption"></div>
+  <img class="lightbox-image" src="" alt="">
+  <div class="lightbox-caption"></div>
 </div>
-<script>
-(() => {
-  const box = document.getElementById('work-lightbox');
-  const image = document.getElementById('work-lightbox-image');
-  const caption = document.getElementById('work-lightbox-caption');
-  const close = box.querySelector('.lightbox-close');
-  let activeIndex = 0;
-  let previousFocus = null;
-  const items = [...document.querySelectorAll('.portfolio-grid .work-card')];
-  function openAt(index) {
-    activeIndex = (index + items.length) % items.length;
-    const card = items[activeIndex];
-    const source = card.querySelector('img');
-    previousFocus = document.activeElement;
-    image.src = source.currentSrc || source.src;
-    image.alt = source.alt;
-    caption.textContent = card.querySelector('.work-caption').innerText.replace(/\s+/g, ' ').trim() + '  ·  ' + String(activeIndex + 1).padStart(2, '0') + ' / ' + String(items.length).padStart(2, '0');
-    box.classList.add('is-open');
-    box.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-    close.focus();
-    const next = new Image();
-    next.src = items[(activeIndex + 1) % items.length].querySelector('img').src;
-  }
-  function closeBox() {
-    box.classList.remove('is-open');
-    box.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-    image.src = '';
-    if (previousFocus) previousFocus.focus();
-  }
-  items.forEach((card, i) => {
-    const img = card.querySelector('img');
-    img.tabIndex = 0;
-    img.setAttribute('role', 'button');
-    img.setAttribute('aria-label', 'Foto im Vollbild öffnen: ' + card.querySelector('.work-title').textContent);
-    img.addEventListener('click', () => openAt(i));
-    img.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openAt(i); } });
-  });
-  close.addEventListener('click', closeBox);
-  box.addEventListener('click', e => { if (e.target === box) closeBox(); });
-  document.addEventListener('keydown', e => {
-    if (!box.classList.contains('is-open')) return;
-    if (e.key === 'Escape') closeBox();
-    if (e.key === 'ArrowRight') openAt(activeIndex + 1);
-    if (e.key === 'ArrowLeft') openAt(activeIndex - 1);
-    if (e.key === 'Tab') { e.preventDefault(); close.focus(); }
-  });
-  let touchX = null;
-  box.addEventListener('touchstart', e => { touchX = e.changedTouches[0].screenX; }, {passive:true});
-  box.addEventListener('touchend', e => {
-    if (touchX === null) return;
-    const delta = e.changedTouches[0].screenX - touchX;
-    if (Math.abs(delta) > 45) openAt(activeIndex + (delta < 0 ? 1 : -1));
-    touchX = null;
-  }, {passive:true});
-  document.querySelectorAll('[data-copy-email]').forEach(button => button.addEventListener('click', async () => {
-    try {
-      await navigator.clipboard.writeText(button.dataset.copyEmail);
-      button.nextElementSibling.textContent = 'Kopiert';
-    } catch {
-      window.location.href = 'mailto:' + button.dataset.copyEmail;
-    }
-  }));
-})();
-</script>
+
+<script src="site.js"></script>
 </body>
 </html>
