@@ -1,0 +1,97 @@
+name: Site Checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check case-only filename collisions, asset links, image sizes, and HTML structure
+        run: |
+          python3 - <<'PY'
+          import os
+          import re
+          import sys
+          from html.parser import HTMLParser
+
+          errors = []
+
+          # 1. Check for case-only filename collisions
+          seen = {}
+          for root, dirs, files in os.walk('.'):
+              dirs[:] = [d for d in dirs if d != '.git']
+              for name in files:
+                  rel = os.path.normpath(os.path.join(root, name))
+                  low = rel.lower()
+                  if low in seen:
+                      errors.append(f'Case-only collision: {seen[low]} vs {rel}')
+                  seen[low] = rel
+
+          # 2. Check image size budget (max 1.5 MB per asset)
+          max_bytes = int(1.5 * 1024 * 1024)
+          if os.path.isdir('Arbeiten'):
+              for fname in sorted(os.listdir('Arbeiten')):
+                  path = os.path.join('Arbeiten', fname)
+                  if os.path.isfile(path):
+                      sz = os.path.getsize(path)
+                      if sz > max_bytes:
+                          errors.append(f'Image too large ({sz/1024/1024:.2f} MB > 1.5 MB): {path}')
+
+          # 3. Check HTML tag balance & local asset references
+          void_tags = {
+              'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input',
+              'link', 'meta', 'param', 'source', 'track', 'wbr', 'path'
+          }
+
+          class Checker(HTMLParser):
+              def __init__(self, filename):
+                  super().__init__()
+                  self.filename = filename
+                  self.stack = []
+
+              def handle_starttag(self, tag, attrs):
+                  attr_map = dict(attrs)
+                  if tag not in void_tags:
+                      self.stack.append((tag, self.getpos()[0]))
+                  for attr in ('src', 'href'):
+                      val = attr_map.get(attr, '')
+                      if not val or val.startswith(('http://', 'https://', 'mailto:', '#', 'data:')):
+                          continue
+                      target = val.split('#')[0].split('?')[0].lstrip('/')
+                      if target and not os.path.exists(target):
+                          errors.append(f'{self.filename}:{self.getpos()[0]}: Broken local reference "{val}"')
+
+              def handle_endtag(self, tag):
+                  if tag in void_tags:
+                      return
+                  if not self.stack:
+                      errors.append(f'{self.filename}:{self.getpos()[0]}: Unexpected closing </{tag}>')
+                      return
+                  top_tag, top_line = self.stack.pop()
+                  if top_tag != tag:
+                      errors.append(
+                          f'{self.filename}:{self.getpos()[0]}: Mismatched closing </{tag}> '
+                          f'(expected </{top_tag}> opened at line {top_line})'
+                      )
+
+          for html_file in sorted(f for f in os.listdir('.') if f.endswith('.html') and not f.startswith('google')):
+              with open(html_file, encoding='utf-8') as fp:
+                  content = fp.read()
+              parser = Checker(html_file)
+              parser.feed(content)
+              for tag, line in parser.stack:
+                  errors.append(f'{html_file}:{line}: Unclosed <{tag}>')
+
+          if errors:
+              print('Site checks failed:')
+              for e in errors:
+                  print(' -', e)
+              sys.exit(1)
+
+          print('All site checks passed!')
+          PY
