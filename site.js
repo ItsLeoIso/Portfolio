@@ -47,12 +47,31 @@
 
   /* ---------- COPY EMAIL BUTTON ---------- */
   document.querySelectorAll('[data-copy-email]').forEach((button) => {
+    let hideTimer = null;
+    let clearTimer = null;
+
     button.addEventListener('click', async () => {
       const email = button.dataset.copyEmail;
       const status = button.nextElementSibling;
       try {
         await navigator.clipboard.writeText(email);
-        if (status) status.textContent = 'Kopiert';
+        if (!status) return;
+        if (hideTimer !== null) clearTimeout(hideTimer);
+        if (clearTimer !== null) clearTimeout(clearTimer);
+
+        status.textContent = 'Kopiert';
+        status.classList.add('is-visible');
+
+        hideTimer = setTimeout(() => {
+          status.classList.remove('is-visible');
+          clearTimer = setTimeout(() => {
+            if (!status.classList.contains('is-visible')) {
+              status.textContent = '';
+            }
+            clearTimer = null;
+          }, 200);
+          hideTimer = null;
+        }, 2400);
       } catch {
         window.location.href = 'mailto:' + email;
       }
@@ -69,6 +88,7 @@
     let activeList = [];
     let activeIndex = 0;
     let previousFocus = null;
+    let closeTimer = null;
 
     function getCaption(img) {
       const card = img.closest('.work-card');
@@ -81,6 +101,10 @@
 
     function openAt(list, index) {
       if (!list.length) return;
+      if (closeTimer !== null) {
+        clearTimeout(closeTimer);
+        closeTimer = null;
+      }
       activeList = list;
       activeIndex = (index + activeList.length) % activeList.length;
       const source = activeList[activeIndex];
@@ -112,11 +136,18 @@
       lightbox.classList.remove('is-open');
       lightbox.setAttribute('aria-hidden', 'true');
       document.body.classList.remove('lightbox-open');
-      lightboxImage.src = '';
       if (previousFocus && typeof previousFocus.focus === 'function') {
         previousFocus.focus();
       }
       previousFocus = null;
+
+      if (closeTimer !== null) clearTimeout(closeTimer);
+      closeTimer = setTimeout(() => {
+        if (!lightbox.classList.contains('is-open')) {
+          lightboxImage.src = '';
+        }
+        closeTimer = null;
+      }, 220);
     }
 
     function bindGallery(selector, getScopeList) {
@@ -190,5 +221,32 @@
       },
       { passive: true }
     );
+  }
+
+  /* ---------- BELOW-THE-FOLD SCROLL REVEALS ---------- */
+  const revealTargets = [...document.querySelectorAll('[data-reveal]')];
+  if (revealTargets.length && 'IntersectionObserver' in window) {
+    document.documentElement.classList.add('js-reveal');
+
+    revealTargets.forEach((el) => {
+      const delay = el.dataset.revealDelay;
+      if (delay) el.style.setProperty('--reveal-delay', `${delay}ms`);
+    });
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-revealed');
+          observer.unobserve(entry.target);
+        });
+      },
+      {
+        rootMargin: '0px 0px -8% 0px',
+        threshold: 0.08,
+      }
+    );
+
+    revealTargets.forEach((el) => observer.observe(el));
   }
 })();
