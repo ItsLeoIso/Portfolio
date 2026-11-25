@@ -45,6 +45,55 @@
     }
   });
 
+  /* ---------- IN-PAGE NAV ACTIVE STATE ---------- */
+  const anchorNavLinks = [...document.querySelectorAll('nav.site-nav a[href^="#"]')];
+  if (anchorNavLinks.length && 'IntersectionObserver' in window) {
+    const sections = anchorNavLinks
+      .map((link) => {
+        const id = link.getAttribute('href').slice(1);
+        const section = id ? document.getElementById(id) : null;
+        return section ? { link, section } : null;
+      })
+      .filter(Boolean);
+
+    if (sections.length) {
+      const visibleSet = new Set();
+
+      const updateActiveLink = () => {
+        let active = null;
+        for (const item of sections) {
+          if (visibleSet.has(item.section)) {
+            active = item;
+            break;
+          }
+        }
+        sections.forEach(({ link }) => {
+          if (active && link === active.link) {
+            link.setAttribute('aria-current', 'location');
+          } else {
+            link.removeAttribute('aria-current');
+          }
+        });
+      };
+
+      const navObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              visibleSet.add(entry.target);
+            } else {
+              visibleSet.delete(entry.target);
+            }
+          });
+          updateActiveLink();
+        },
+        { rootMargin: '-20% 0px -55% 0px', threshold: 0 }
+      );
+
+      sections.forEach(({ section }) => navObserver.observe(section));
+    }
+  }
+
   /* ---------- COPY EMAIL BUTTON ---------- */
   document.querySelectorAll('[data-copy-email]').forEach((button) => {
     let hideTimer = null;
@@ -69,7 +118,7 @@
               status.textContent = '';
             }
             clearTimer = null;
-          }, 200);
+          }, 220);
           hideTimer = null;
         }, 2400);
       } catch {
@@ -84,6 +133,8 @@
     const lightboxImage = lightbox.querySelector('.lightbox-image');
     const lightboxCaption = lightbox.querySelector('.lightbox-caption');
     const lightboxClose = lightbox.querySelector('.lightbox-close');
+    const lightboxPrev = lightbox.querySelector('.lightbox-prev');
+    const lightboxNext = lightbox.querySelector('.lightbox-next');
 
     let activeList = [];
     let activeIndex = 0;
@@ -91,25 +142,33 @@
     let closeTimer = null;
 
     function getCaption(img) {
-      const card = img.closest('.work-card');
+      const card = img.closest('.media-card');
       if (card) {
-        const cap = card.querySelector('.work-caption');
+        const cap = card.querySelector('.media-caption');
         if (cap) return cap.innerText.replace(/\s+/g, ' ').trim();
       }
       return img.alt || '';
     }
 
-    function openAt(list, index) {
+    function getFocusableControls() {
+      return [lightboxClose, lightboxPrev, lightboxNext].filter(
+        (el) => el && !el.hidden
+      );
+    }
+
+    function openAt(list, index, moveFocus = false) {
       if (!list.length) return;
       if (closeTimer !== null) {
         clearTimeout(closeTimer);
         closeTimer = null;
       }
+
+      const wasOpen = lightbox.classList.contains('is-open');
       activeList = list;
       activeIndex = (index + activeList.length) % activeList.length;
       const source = activeList[activeIndex];
 
-      if (!lightbox.classList.contains('is-open')) {
+      if (!wasOpen) {
         previousFocus = document.activeElement;
       }
 
@@ -120,12 +179,18 @@
       const counter = `${String(activeIndex + 1).padStart(2, '0')} / ${String(activeList.length).padStart(2, '0')}`;
       lightboxCaption.textContent = baseCaption ? `${baseCaption}  ·  ${counter}` : counter;
 
+      const hasMultiple = activeList.length > 1;
+      if (lightboxPrev) lightboxPrev.hidden = !hasMultiple;
+      if (lightboxNext) lightboxNext.hidden = !hasMultiple;
+
       lightbox.classList.add('is-open');
       lightbox.setAttribute('aria-hidden', 'false');
       document.body.classList.add('lightbox-open');
-      lightboxClose.focus();
+      if (!wasOpen || moveFocus) {
+        lightboxClose.focus();
+      }
 
-      if (activeList.length > 1) {
+      if (hasMultiple) {
         const nextImg = activeList[(activeIndex + 1) % activeList.length];
         const preload = new Image();
         preload.src = nextImg.currentSrc || nextImg.src;
@@ -154,14 +219,17 @@
       document.querySelectorAll(selector).forEach((img) => {
         img.tabIndex = 0;
         img.setAttribute('role', 'button');
-        const card = img.closest('.work-card');
-        const labelText = card?.querySelector('.work-title')?.textContent || img.alt || 'Fotografie';
+        const card = img.closest('.media-card');
+        const labelText =
+          card?.querySelector('.media-caption__title')?.textContent ||
+          img.alt ||
+          'Fotografie';
         img.setAttribute('aria-label', `Foto im Vollbild öffnen: ${labelText}`);
 
         const trigger = () => {
           const scope = getScopeList(img);
           const idx = scope.indexOf(img);
-          openAt(scope, idx >= 0 ? idx : 0);
+          openAt(scope, idx >= 0 ? idx : 0, true);
         };
 
         img.addEventListener('click', trigger);
@@ -174,18 +242,28 @@
       });
     }
 
-    bindGallery('.portfolio-grid .work-item', () => [
-      ...document.querySelectorAll('.portfolio-grid .work-item'),
-    ]);
+    bindGallery('.gallery-masonry .photo--interactive', () =>
+      [...document.querySelectorAll('.gallery-masonry .photo--interactive')].sort(
+        (a, b) =>
+          Number(a.closest('.media-card')?.dataset.workIndex || 0) -
+          Number(b.closest('.media-card')?.dataset.workIndex || 0)
+      )
+    );
 
-    bindGallery('.photo-wrapper img', (img) => {
+    bindGallery('.project-section .photo--interactive', (img) => {
       const section = img.closest('.project-section');
       return section
-        ? [...section.querySelectorAll('.photo-wrapper img')]
+        ? [...section.querySelectorAll('.photo--interactive')]
         : [img];
     });
 
     lightboxClose.addEventListener('click', closeLightbox);
+    if (lightboxPrev) {
+      lightboxPrev.addEventListener('click', () => openAt(activeList, activeIndex - 1));
+    }
+    if (lightboxNext) {
+      lightboxNext.addEventListener('click', () => openAt(activeList, activeIndex + 1));
+    }
     lightbox.addEventListener('click', (event) => {
       if (event.target === lightbox) closeLightbox();
     });
@@ -193,11 +271,23 @@
     document.addEventListener('keydown', (event) => {
       if (!lightbox.classList.contains('is-open')) return;
       if (event.key === 'Escape') closeLightbox();
-      if (event.key === 'ArrowRight') openAt(activeList, activeIndex + 1);
-      if (event.key === 'ArrowLeft') openAt(activeList, activeIndex - 1);
+      if (event.key === 'ArrowRight' && activeList.length > 1) {
+        openAt(activeList, activeIndex + 1);
+      }
+      if (event.key === 'ArrowLeft' && activeList.length > 1) {
+        openAt(activeList, activeIndex - 1);
+      }
       if (event.key === 'Tab') {
+        const focusables = getFocusableControls();
+        if (!focusables.length) return;
         event.preventDefault();
-        lightboxClose.focus();
+        const currentIdx = focusables.indexOf(document.activeElement);
+        const delta = event.shiftKey ? -1 : 1;
+        const nextIdx =
+          currentIdx === -1
+            ? 0
+            : (currentIdx + delta + focusables.length) % focusables.length;
+        focusables[nextIdx].focus();
       }
     });
 
@@ -214,7 +304,7 @@
       (event) => {
         if (touchX === null) return;
         const delta = event.changedTouches[0].screenX - touchX;
-        if (Math.abs(delta) > 45) {
+        if (Math.abs(delta) > 45 && activeList.length > 1) {
           openAt(activeList, activeIndex + (delta < 0 ? 1 : -1));
         }
         touchX = null;

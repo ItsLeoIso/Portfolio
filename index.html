@@ -28,9 +28,9 @@
 <body>
 
 <header class="site-header grid">
-  <a href="index.html" class="name">LEANDRO SINATRA — FOTOGRAFIE</a>
+  <a href="index.html" class="site-header__name">LEANDRO SINATRA — FOTOGRAFIE</a>
   <nav class="site-nav" aria-label="Hauptnavigation">
-    <a href="#home">Arbeiten</a>
+    <a href="#arbeiten">Arbeiten</a>
     <div class="nav-item" data-dropdown>
       <button type="button" class="dropdown-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="projekte-dropdown">Projekte</button>
       <div class="dropdown" id="projekte-dropdown">
@@ -44,97 +44,130 @@
     </div>
     <a href="#ueber">Über</a>
     <a href="#kontakt">Kontakt</a>
-    <a href="100.html">Archiv · 100</a>
+    <a href="100.html" aria-label="Archiv 100 — Ein Foto pro Woche">Archiv · 100</a>
   </nav>
 </header>
 
 <main>
   <section class="hero grid">
-    <h1>LEANDRO<br>SINATRA</h1>
-    <div class="hero-meta">FOTOGRAFIE — LYSS, SCHWEIZ<br>Architektur — Landschaft — Wildlife</div>
+    <h1>LEANDRO SINATRA</h1>
+    <div class="hero-meta mono-label">FOTOGRAFIE — LYSS, SCHWEIZ<br>Architektur — Landschaft — Wildlife</div>
     <div class="hero-statement">Die Kamera hält fest, was das Auge übersieht. Klarheit statt Dekoration, Struktur statt Zufall.</div>
     <figure class="hero-photo-wrap">
       <img class="hero-photo" src="Arbeiten/mount-etna-sicily.webp" alt="Vulkan Ätna über der Landschaft Siziliens" width="2200" height="1467" fetchpriority="high" loading="eager" decoding="async">
-      <figcaption class="hero-figure-caption">FIG. 01 — ETNA, SIZILIEN</figcaption>
+      <figcaption class="hero-figure-caption mono-label">FIG. 01 — ETNA, SIZILIEN</figcaption>
     </figure>
   </section>
 
-  <section class="portfolio" id="home">
+  <section class="portfolio" id="arbeiten">
     <div class="grid">
-      <div class="section-label"><span>ARBEITEN — AUSWAHL 2025–2026</span><span class="section-count">09 WERKE</span></div>
+      <h2 class="section-label"><span>ARBEITEN — AUSWAHL 2025–2026</span><span class="section-count mono-label">09 WERKE</span></h2>
     </div>
 
-    <div class="grid portfolio-grid">
-      <article class="work-card" data-work-index="1" data-reveal>
-        <img src="Arbeiten/temple-of-concordia-sicily.webp" alt="Dorischer Tempel der Eintracht im warmen Licht des Valle dei Templi bei Agrigento, Sizilien" class="work-item" width="2200" height="1467" loading="lazy" decoding="async">
-        <div class="work-caption"><span class="idx">01</span><span class="work-title">Tempel der Eintracht</span><span class="work-location">Sizilien</span></div>
-      </article>
-      <article class="work-card" data-work-index="2" data-reveal data-reveal-delay="50">
-        <img src="Arbeiten/icaro-caduto-sicily.webp" alt="Skulptur des gefallenen Ikarus vor antiken Ruinen im Valle dei Templi, Sizilien" class="work-item" width="2200" height="1467" loading="lazy" decoding="async">
-        <div class="work-caption"><span class="idx">02</span><span class="work-title">Icaro Caduto</span><span class="work-location">Sizilien</span></div>
-      </article>
-      <article class="work-card" data-work-index="3" data-reveal data-reveal-delay="100">
-        <img src="Arbeiten/creux-du-van-landscape.webp" alt="Weite Landschaft am Creux du Van mit rauer Jura-Felsformation und offenem Himmel" class="work-item" width="1467" height="2200" loading="lazy" decoding="async">
-        <div class="work-caption"><span class="idx">03</span><span class="work-title">Kante des Jura</span><span class="work-location">Creux du Van</span></div>
-      </article>
-      <article class="work-card" data-work-index="4" data-reveal>
-        <img src="Arbeiten/grey-heron-la-sauge.webp" alt="Graureiher mit aufmerksamem Blick im Naturschutzgebiet La Sauge" class="work-item" width="2200" height="1467" loading="lazy" decoding="async">
-        <div class="work-caption"><span class="idx">04</span><span class="work-title">Graureiher</span><span class="work-location">La Sauge</span></div>
-      </article>
-      <article class="work-card" data-work-index="5" data-reveal data-reveal-delay="50">
-        <img src="Arbeiten/monochrome-moss-study.webp" alt="Schwarzweisse Detailstudie von Moos und feinen natürlichen Strukturen" class="work-item" width="1467" height="2200" loading="lazy" decoding="async">
-        <div class="work-caption"><span class="idx">05</span><span class="work-title">Studie im Moos</span><span class="work-location">Schwarzweiss</span></div>
-      </article>
-      <article class="work-card" data-work-index="6" data-reveal data-reveal-delay="100">
-        <img src="Arbeiten/blue-tit-la-sauge.webp" alt="Kleine Blaumeise auf einem Holzpfosten in weichem natürlichem Licht, La Sauge" class="work-item" width="1466" height="2200" loading="lazy" decoding="async">
-        <div class="work-caption"><span class="idx">06</span><span class="work-title">Blaumeise</span><span class="work-location">La Sauge</span></div>
-      </article>
-      <article class="work-card" data-work-index="7" data-reveal>
-        <img src="Arbeiten/cat-sicily.webp" alt="Katze im Halbschatten auf warmem Stein in Sizilien" class="work-item" width="1467" height="2200" loading="lazy" decoding="async">
-        <div class="work-caption"><span class="idx">07</span><span class="work-title">Wächterin am Fels</span><span class="work-location">Sizilien</span></div>
-      </article>
-      <article class="work-card" data-work-index="8" data-reveal data-reveal-delay="50">
-        <img src="Arbeiten/white-cow-creux-du-van.webp" alt="Weisse Kuh auf einer Weide am Creux du Van im Schweizer Jura" class="work-item" width="1467" height="2200" loading="lazy" decoding="async">
-        <div class="work-caption"><span class="idx">08</span><span class="work-title">Weisse Kuh</span><span class="work-location">Creux du Van</span></div>
-      </article>
-      <article class="work-card" data-work-index="9" data-reveal data-reveal-delay="100">
-        <img src="Arbeiten/vallorbe-caves.webp" alt="Licht und feuchte Felsstrukturen in den Höhlen von Vallorbe" class="work-item" width="2200" height="1467" loading="lazy" decoding="async">
-        <div class="work-caption"><span class="idx">09</span><span class="work-title">Licht im Fels</span><span class="work-location">Vallorbe</span></div>
-      </article>
+    <div class="grid">
+      <div class="gallery-masonry">
+        <div class="gallery-column">
+          <article class="media-card" data-work-index="1" data-reveal>
+            <div class="media-frame">
+              <img src="Arbeiten/temple-of-concordia-sicily.webp" alt="Dorischer Tempel der Eintracht im warmen Licht des Valle dei Templi bei Agrigento, Sizilien" class="photo photo--interactive" width="2200" height="1467" loading="lazy" decoding="async">
+            </div>
+            <div class="media-caption"><span class="media-caption__idx mono-label">01</span><span class="media-caption__title">Tempel der Eintracht</span><span class="media-caption__location mono-label">Sizilien</span></div>
+          </article>
+          <article class="media-card" data-work-index="4" data-reveal>
+            <div class="media-frame">
+              <img src="Arbeiten/grey-heron-la-sauge.webp" alt="Graureiher mit aufmerksamem Blick im Naturschutzgebiet La Sauge" class="photo photo--interactive" width="2200" height="1467" loading="lazy" decoding="async">
+            </div>
+            <div class="media-caption"><span class="media-caption__idx mono-label">04</span><span class="media-caption__title">Graureiher</span><span class="media-caption__location mono-label">La Sauge</span></div>
+          </article>
+          <article class="media-card" data-work-index="7" data-reveal>
+            <div class="media-frame">
+              <img src="Arbeiten/cat-sicily.webp" alt="Katze im Halbschatten auf warmem Stein in Sizilien" class="photo photo--interactive" width="1467" height="2200" loading="lazy" decoding="async">
+            </div>
+            <div class="media-caption"><span class="media-caption__idx mono-label">07</span><span class="media-caption__title">Wächterin am Fels</span><span class="media-caption__location mono-label">Sizilien</span></div>
+          </article>
+        </div>
+
+        <div class="gallery-column">
+          <article class="media-card" data-work-index="2" data-reveal data-reveal-delay="50">
+            <div class="media-frame">
+              <img src="Arbeiten/icaro-caduto-sicily.webp" alt="Skulptur des gefallenen Ikarus vor antiken Ruinen im Valle dei Templi, Sizilien" class="photo photo--interactive" width="2200" height="1467" loading="lazy" decoding="async">
+            </div>
+            <div class="media-caption"><span class="media-caption__idx mono-label">02</span><span class="media-caption__title">Icaro Caduto</span><span class="media-caption__location mono-label">Sizilien</span></div>
+          </article>
+          <article class="media-card" data-work-index="5" data-reveal data-reveal-delay="50">
+            <div class="media-frame">
+              <img src="Arbeiten/monochrome-moss-study.webp" alt="Schwarzweisse Detailstudie von Moos und feinen natürlichen Strukturen" class="photo photo--interactive" width="1467" height="2200" loading="lazy" decoding="async">
+            </div>
+            <div class="media-caption"><span class="media-caption__idx mono-label">05</span><span class="media-caption__title">Studie im Moos</span><span class="media-caption__location mono-label">Schwarzweiss</span></div>
+          </article>
+          <article class="media-card" data-work-index="8" data-reveal data-reveal-delay="50">
+            <div class="media-frame">
+              <img src="Arbeiten/white-cow-creux-du-van.webp" alt="Weisse Kuh auf einer Weide am Creux du Van im Schweizer Jura" class="photo photo--interactive" width="1467" height="2200" loading="lazy" decoding="async">
+            </div>
+            <div class="media-caption"><span class="media-caption__idx mono-label">08</span><span class="media-caption__title">Weisse Kuh</span><span class="media-caption__location mono-label">Creux du Van</span></div>
+          </article>
+        </div>
+
+        <div class="gallery-column">
+          <article class="media-card" data-work-index="3" data-reveal data-reveal-delay="100">
+            <div class="media-frame">
+              <img src="Arbeiten/creux-du-van-landscape.webp" alt="Weite Landschaft am Creux du Van mit rauer Jura-Felsformation und offenem Himmel" class="photo photo--interactive" width="1467" height="2200" loading="lazy" decoding="async">
+            </div>
+            <div class="media-caption"><span class="media-caption__idx mono-label">03</span><span class="media-caption__title">Kante des Jura</span><span class="media-caption__location mono-label">Creux du Van</span></div>
+          </article>
+          <article class="media-card" data-work-index="6" data-reveal data-reveal-delay="100">
+            <div class="media-frame">
+              <img src="Arbeiten/blue-tit-la-sauge.webp" alt="Kleine Blaumeise auf einem Holzpfosten in weichem natürlichem Licht, La Sauge" class="photo photo--interactive" width="1466" height="2200" loading="lazy" decoding="async">
+            </div>
+            <div class="media-caption"><span class="media-caption__idx mono-label">06</span><span class="media-caption__title">Blaumeise</span><span class="media-caption__location mono-label">La Sauge</span></div>
+          </article>
+          <article class="media-card" data-work-index="9" data-reveal data-reveal-delay="100">
+            <div class="media-frame">
+              <img src="Arbeiten/vallorbe-caves.webp" alt="Licht und feuchte Felsstrukturen in den Höhlen von Vallorbe" class="photo photo--interactive" width="2200" height="1467" loading="lazy" decoding="async">
+            </div>
+            <div class="media-caption"><span class="media-caption__idx mono-label">09</span><span class="media-caption__title">Licht im Fels</span><span class="media-caption__location mono-label">Vallorbe</span></div>
+          </article>
+        </div>
+      </div>
     </div>
   </section>
 
   <section class="projects-showcase" id="projekte">
     <div class="grid">
-      <div class="section-label"><span>PROJEKTE — SERIEN</span><span class="section-count">01—04</span></div>
-      <div class="project-list-home">
+      <h2 class="section-label"><span>PROJEKTE — SERIEN</span><span class="section-count mono-label">01—04</span></h2>
+      <div class="project-rows">
         <a class="project-row" href="projekte.html#projekt-01" data-reveal>
-          <span class="project-kicker">01 /</span><div><h3>Valle dei Templi</h3><p>Architektur &amp; Antike — Agrigento, Sizilien</p></div>
+          <span class="project-row__kicker mono-label">01 /</span><div><h3>Valle dei Templi</h3><p>Architektur &amp; Antike — Agrigento, Sizilien</p></div>
         </a>
         <a class="project-row" href="projekte.html#projekt-02" data-reveal data-reveal-delay="40">
-          <span class="project-kicker">02 /</span><div><h3>Höhlen von Vallorbe</h3><p>Geologie &amp; Licht — Waadt, Schweiz</p></div>
+          <span class="project-row__kicker mono-label">02 /</span><div><h3>Höhlen von Vallorbe</h3><p>Geologie &amp; Licht — Waadt, Schweiz</p></div>
         </a>
         <a class="project-row" href="projekte.html#projekt-03" data-reveal data-reveal-delay="80">
-          <span class="project-kicker">03 /</span><div><h3>Creux du Van</h3><p>Landschaft &amp; Fauna — Schweizer Jura</p></div>
+          <span class="project-row__kicker mono-label">03 /</span><div><h3>Creux du Van</h3><p>Landschaft &amp; Fauna — Schweizer Jura</p></div>
         </a>
         <a class="project-row" href="projekte.html#projekt-04" data-reveal data-reveal-delay="120">
-          <span class="project-kicker">04 /</span><div><h3>La Sauge</h3><p>Wildlife &amp; Beobachtungen — Drei-Seen-Land</p></div>
+          <span class="project-row__kicker mono-label">04 /</span><div><h3>La Sauge</h3><p>Wildlife &amp; Beobachtungen — Drei-Seen-Land</p></div>
         </a>
+      </div>
+      <div class="archive-callout" data-reveal>
+        <span>Archiv · 100 — Ein Foto pro Woche, jeden Samstag oder Sonntag neu.</span>
+        <a href="100.html">Zum Wochenarchiv →</a>
       </div>
     </div>
   </section>
 
   <section class="about" id="ueber">
     <div class="grid">
-      <div class="section-label">ÜBER</div>
+      <h2 class="section-label">ÜBER</h2>
     </div>
     <div class="grid">
       <div class="about-portrait" data-reveal>
-        <img src="Arbeiten/leandro-sinatra-portrait.webp" alt="Porträt von Leandro Sinatra in einer Höhle" class="work-item" width="1000" height="1000" loading="lazy" decoding="async">
+        <div class="media-frame media-frame--square">
+          <img src="Arbeiten/leandro-sinatra-portrait.webp" alt="Porträt von Leandro Sinatra in einer Höhle" class="photo" width="1000" height="1000" loading="lazy" decoding="async">
+        </div>
       </div>
       <div class="about-text" data-reveal data-reveal-delay="60">
-        <h2>Leandro Sinatra</h2>
-        <p>Fotograf aus Lyss, Kanton Bern.</p>
+        <p class="about-lead">Fotograf aus Lyss, Kanton Bern.</p>
         <p>Mich fasziniert der stille Moment, bevor ein Motiv wieder verschwindet — das Zusammenspiel von Licht, Geometrie und Geduld. Ob antike Architektur, die Weite des Schweizer Juras oder flüchtige Begegnungen in der Natur: Meine Arbeit sucht nach Ruhe und klarer Form im Alltäglichen.</p>
       </div>
     </div>
@@ -143,13 +176,16 @@
 
 <footer class="site-footer" id="kontakt">
   <div class="grid">
-    <div class="footer-col footer-col-1">
+    <div class="footer-col footer-col--contact">
       <h2>Kontakt</h2>
-      <a href="mailto:itsleo.iso.contact@gmail.com">itsleo.iso.contact@gmail.com</a><br>
-      <button class="copy-email" type="button" data-copy-email="itsleo.iso.contact@gmail.com">E-Mail kopieren</button><span class="copy-status" aria-live="polite"></span>
+      <a href="mailto:itsleo.iso.contact@gmail.com">itsleo.iso.contact@gmail.com</a>
+      <div class="footer-actions">
+        <button class="btn copy-email" type="button" data-copy-email="itsleo.iso.contact@gmail.com">E-Mail kopieren</button>
+        <span class="copy-status" aria-live="polite"></span>
+      </div>
     </div>
 
-    <div class="footer-col footer-col-3">
+    <div class="footer-col footer-col--social">
       <h2>Social</h2>
       <a href="https://www.instagram.com/itsleo.iso/" target="_blank" rel="noopener noreferrer" aria-label="Instagram von Leandro Sinatra">Instagram</a>
     </div>
@@ -162,9 +198,19 @@
 </footer>
 
 <div class="lightbox" id="site-lightbox" role="dialog" aria-modal="true" aria-label="Fotografie im Vollbild" aria-hidden="true">
-  <button class="lightbox-close" type="button" aria-label="Bildansicht schliessen">Schliessen ✕</button>
+  <button class="btn lightbox-close" type="button" aria-label="Bildansicht schliessen">Schliessen ✕</button>
+  <button class="btn btn--icon lightbox-nav lightbox-prev" type="button" aria-label="Vorheriges Foto">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M15 4 L7 12 L15 20" stroke-linecap="square" stroke-linejoin="miter"/>
+    </svg>
+  </button>
   <img class="lightbox-image" src="" alt="">
-  <div class="lightbox-caption"></div>
+  <button class="btn btn--icon lightbox-nav lightbox-next" type="button" aria-label="Nächstes Foto">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M9 4 L17 12 L9 20" stroke-linecap="square" stroke-linejoin="miter"/>
+    </svg>
+  </button>
+  <div class="lightbox-caption mono-label"></div>
 </div>
 
 <script src="site.js"></script>
